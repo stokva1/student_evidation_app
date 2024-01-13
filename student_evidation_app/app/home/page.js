@@ -2,6 +2,8 @@
 import UserInfo from "@/components/userInfo";
 import {useSession} from 'next-auth/react';
 import {useRouter} from 'next/navigation';
+import Drawer from "@/components/drawer";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
     const router = useRouter();
@@ -10,9 +12,14 @@ export default function Home() {
     if (session === undefined || session === null) {
         router.push('/');
         return '';
-    }else{
+    } else {
         return (
-            <UserInfo/>
-        );
+            <main>
+                <Navbar/>
+
+                    {/*<Drawer/>*/}
+                    {/*<UserInfo/>*/}
+            </main>
+    );
     }
-}
+    }
