@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/providers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/components/userInfo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/images/login_screen_background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/schemas/loginScheme.js" afterDir="false" />
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Late inital commit (login form, login page, prisma, started next auth)">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/lib/prisma.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/userInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/userInfo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +49,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\app" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app" />
+      <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\app" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\public" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\.docker" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\images" />
@@ -93,10 +87,24 @@
       <workItem from="1704626943148" duration="24525000" />
       <workItem from="1704835001621" duration="6369000" />
       <workItem from="1704886646922" duration="4839000" />
+      <workItem from="1704905109060" duration="15891000" />
+      <workItem from="1704975931485" duration="2817000" />
     </task>
+    <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
+      <created>1704905366160</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704905366160</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Late inital commit (login form, login page, prisma, started next auth)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Late inital commit (login form, login page, prisma, started next auth)" />
   </component>
 </project>

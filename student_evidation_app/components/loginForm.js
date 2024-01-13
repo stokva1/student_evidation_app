@@ -4,6 +4,7 @@ import {useState} from "react";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 
+
 export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,8 +13,7 @@ export default function LoginForm() {
     const router = useRouter();
 
     const handleSubmit = async (e) => {
-        //zabránění aktuaizace stránky
-        e.preventDefault();
+        e.preventDefault(); //zabránění aktuaizace stránky
 
         try {
             const res = await signIn('credentials', {
@@ -21,18 +21,17 @@ export default function LoginForm() {
                 password,
                 redirect: false,
             });
-
             if (res.error) {
                 setError("Invalid Credentials");
                 return;
             }
-            router.replace("/home");
+            if (res.ok && !res.error) {
+                router.replace("/home");
+            }
         } catch (error) {
             console.log(error)
         }
     };
-
-
 
 
     return (
@@ -57,7 +56,10 @@ export default function LoginForm() {
                                 autoComplete="email"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                    setError("");
+                                }}
                             />
                         </div>
                     </div>
@@ -76,7 +78,10 @@ export default function LoginForm() {
                                 autoComplete="current-password"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setError("");
+                                }}
                             />
                         </div>
                     </div>
