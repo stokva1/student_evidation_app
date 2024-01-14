@@ -14,7 +14,7 @@ export default function Home() {
         return '';
     } else {
         return (
-            <main>
+            <main className="h-screen">
                 <Navbar/>
 
                     {/*<Drawer/>*/}
