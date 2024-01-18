@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Start designing home page">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/middleware.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/drawer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/navbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/schemas/loginScheme.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/schemas/loginSchema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,18 +54,18 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.updates&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\app\home\components" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\app" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\public" />
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\.docker" />
-      <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\images" />
     </key>
   </component>
   <component name="RunManager">
@@ -88,7 +104,15 @@
       <workItem from="1705143233619" duration="531000" />
       <workItem from="1705154840794" duration="6118000" />
       <workItem from="1705165819549" duration="3065000" />
-      <workItem from="1705258347903" duration="3893000" />
+      <workItem from="1705258347903" duration="3961000" />
+      <workItem from="1705324459798" duration="15746000" />
+      <workItem from="1705356669767" duration="2027000" />
+      <workItem from="1705401664051" duration="18499000" />
+      <workItem from="1705489519775" duration="7306000" />
+      <workItem from="1705504322282" duration="17003000" />
+      <workItem from="1705578320898" duration="1893000" />
+      <workItem from="1705581544739" duration="12551000" />
+      <workItem from="1705613982446" duration="2319000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -118,16 +142,40 @@
       <option name="project" value="LOCAL" />
       <updated>1705161409056</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added nav bar">
+      <created>1705262336271</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705262336271</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Late inital commit (login form, login page, prisma, started next auth)" />
     <MESSAGE value="Late inital commit (login form, login page, prisma, next auth etc.)" />
     <MESSAGE value="Start designing home page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start designing home page" />
+    <MESSAGE value="Added nav bar" />
+    <MESSAGE value="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

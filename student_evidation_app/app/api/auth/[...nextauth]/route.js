@@ -1,9 +1,7 @@
 import NextAuth, {AuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 import prisma from "@/lib/prisma";
 import bcrypt, {compare} from "bcrypt";
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
 
 export const authOptions = {
     providers: [

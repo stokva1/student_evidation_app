@@ -1,9 +1,16 @@
 "use client"
 
-import {useState} from "react";
-import {signIn} from "next-auth/react";
+import {useEffect, useState} from "react";
+import {signIn, useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
+import {LoginSchema} from "../schemas/loginSchema";
+import {useFormik} from "formik";
 
+
+const initialValues = {
+    email: "",
+    password: ""
+};
 
 export default function LoginForm() {
     const [email, setEmail] = useState('');
@@ -11,28 +18,41 @@ export default function LoginForm() {
     const [error, setError] = useState('');
 
     const router = useRouter();
+    const session = useSession();
+
+
+    useEffect(() => {   //react hook, který se spustí, když se změní některá ze závislostí
+        if (session?.status === 'authenticated'){
+            router.push("/home");
+        }
+    }, [session?.status, router])
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); //zabránění aktuaizace stránky
-
+        // e.preventDefault();     //zabránění aktuaizace stránky
         try {
             const res = await signIn('credentials', {
-                email,
-                password,
+                email: e.email,
+                password: e.password,
                 redirect: false,
             });
+
             if (res.error) {
                 setError("Invalid Credentials");
                 return;
             }
             if (res.ok && !res.error) {
-                router.replace("/home");
+                router.push("/home");
             }
         } catch (error) {
             console.log(error)
         }
     };
 
+    const formik = useFormik({
+        initialValues,
+        validationSchema: LoginSchema,
+        onSubmit: handleSubmit,
+    });
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -43,7 +63,7 @@ export default function LoginForm() {
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
+                <form className="space-y-6" action="#" method="POST" onSubmit={formik.handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                             Email address
@@ -55,11 +75,12 @@ export default function LoginForm() {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                 onChange={(e) => {
                                     setEmail(e.target.value);
                                     setError("");
                                 }}
+                                {...formik.getFieldProps('email')}
                             />
                         </div>
                     </div>
@@ -77,11 +98,13 @@ export default function LoginForm() {
                                 type="password"
                                 autoComplete="current-password"
                                 required
-                                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                 onChange={(e) => {
                                     setPassword(e.target.value);
                                     setError("");
                                 }}
+                                {...formik.getFieldProps('password')}
+
                             />
                         </div>
                     </div>
@@ -89,7 +112,7 @@ export default function LoginForm() {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition ease-in-out delay-150 hover:scale-105"
+                            className="flex w-full justify-center rounded-md bg-fim px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-fim hover:bg-white hover:border-2 hover:border-fim focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition ease-in-out delay-100 hover:scale-105"
                         >
                             Sign in
                         </button>

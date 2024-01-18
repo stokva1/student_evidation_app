@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const LoginScheme = Yup.object().shape({
+export const LoginSchema = Yup.object().shape({
     email: Yup.string()
         .required('Email je povinný údaj')
         .email('Špatný formát emailu'),
