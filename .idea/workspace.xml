@@ -4,26 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js">
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/middleware.js" afterDir="false" />
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Repaired scheduleActionCard.js rendering and some other stuff.">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getSession.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/drawer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/navbar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/schemas/loginScheme.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/schemas/loginSchema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +104,9 @@
       <workItem from="1705578320898" duration="1893000" />
       <workItem from="1705581544739" duration="12551000" />
       <workItem from="1705613982446" duration="2319000" />
+      <workItem from="1705619137886" duration="680000" />
+      <workItem from="1705660730552" duration="14183000" />
+      <workItem from="1705744547129" duration="14711000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -149,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705262336271</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js">
+      <created>1705619217208</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1705619217208</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +173,8 @@
     <MESSAGE value="Start designing home page" />
     <MESSAGE value="Added nav bar" />
     <MESSAGE value="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js" />
+    <MESSAGE value="Repaired scheduleActionCard.js rendering and some other stuff." />
+    <option name="LAST_COMMIT_MESSAGE" value="Repaired scheduleActionCard.js rendering and some other stuff." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

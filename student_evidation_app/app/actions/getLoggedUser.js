@@ -1,30 +1,28 @@
-import {getSession} from "next-auth/react";
+import getSession from "../actions/getSession";
 import prisma from "../../lib/prisma"
+import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 
 const getLoggedUser = async () => {
-    try{
+    try {
         const session = await getSession();
-        console.log(session)
 
 
-        if(session?.user?.email){
+        if (!session.user?.email) {
             return null
         }
-
         const loggedUser = await prisma.tteacher.findUnique({
-            where:{
-                email: session.user.email
+            where: {
+                tTeacherID: session.user.id
             }
         })
 
-
-        if(!loggedUser){
+        if (!loggedUser) {
             return null
         }
 
         return loggedUser
 
-    } catch (error){
+    } catch (error) {
         return null
     }
 }

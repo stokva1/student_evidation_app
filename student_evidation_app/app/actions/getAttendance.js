@@ -1,18 +1,18 @@
+"use server"
 import prisma from "@/lib/prisma";
 
-const getAttendance = async ({scheduleActionID}) => {
-    try{
+const getAttendance = async (scheduleActionID) => {
+    try {
         const attendance = await prisma.absenceinfo.findMany({
-            orderBy:{
-                surname: "desc"
+            orderBy: {
+                surname: "asc"
             },
-            where:{
-                tScheduleActionID: scheduleActionID
-            }
+            where: {
+                scheduleActionID: scheduleActionID
+            },
         });
-
         return attendance
-    }catch (error){
+    } catch (error) {
         return [];
     }
 };

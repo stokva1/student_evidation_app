@@ -3,12 +3,11 @@ import prisma from "@/lib/prisma";
 
 
 const getScheduleActions = async () => {
-    // const loggedUser = await getLoggedUser()
-    // console.log(loggedUser)
-    //
-    // if (!loggedUser?.tTeacherID){
-    //     return[];
-    // }
+    const loggedUser = await getLoggedUser()
+
+    if (!loggedUser?.tTeacherID){
+        return[];
+    }
 
     try {
         const scheduleActions = await prisma.scheduleactioninfo.findMany({
@@ -16,9 +15,7 @@ const getScheduleActions = async () => {
                 date: "desc"
             },
             where:{
-                // tTeacherID: loggedUser.tTeacherID
-                tTeacherID: 1
-
+                tTeacherID: loggedUser.tTeacherID
             }
         });
 
