@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Repaired scheduleActionCard.js rendering and some other stuff.">
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getSession.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +35,9 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -106,7 +104,12 @@
       <workItem from="1705613982446" duration="2319000" />
       <workItem from="1705619137886" duration="680000" />
       <workItem from="1705660730552" duration="14183000" />
-      <workItem from="1705744547129" duration="14711000" />
+      <workItem from="1705744547129" duration="20051000" />
+      <workItem from="1705839396324" duration="24937000" />
+      <workItem from="1705870838241" duration="1407000" />
+      <workItem from="1705921143359" duration="14524000" />
+      <workItem from="1706007732185" duration="599000" />
+      <workItem from="1706051950454" duration="300000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -150,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705619217208</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Repaired scheduleActionCard.js rendering and some other stuff.">
+      <created>1705769276956</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705769276956</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

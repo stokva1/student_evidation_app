@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 
 const getAttendance = async (scheduleActionID) => {
     try {
-        const attendance = await prisma.absenceinfo.findMany({
+        const attendance = await prisma.absenceinfo2.findMany({
             orderBy: {
                 surname: "asc"
             },

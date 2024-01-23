@@ -10,7 +10,7 @@ export default function ScheduleActionCard({scheduleActions, onClick}) {
             {scheduleActions.map((data, i) => (
                 <button
                     key={i}
-                    className="w-full h-fit px-4 py-4 bg-white rounded-md z-0 shadow-md hover:text-fim hover:shadow-inner hover:ring"
+                    className="w-full h-fit px-4 py-4 bg-white rounded-md z-0 shadow-md hover:text-fim hover:shadow-inner hover:ring focus:text-fim focus:ring"
                     onClick={() => onClick(data.tScheduleActionID)}>
                     <h2 className="text-left text-2xl font-bold leading-none tracking-tight">
                         {data.subjectName}
