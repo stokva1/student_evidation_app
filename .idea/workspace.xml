@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Repaired scheduleActionCard.js rendering and some other stuff.">
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" afterDir="false" />
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added functionaliy to attendanceCard.js and some minor repaires">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +109,10 @@
       <workItem from="1705870838241" duration="1407000" />
       <workItem from="1705921143359" duration="14524000" />
       <workItem from="1706007732185" duration="599000" />
-      <workItem from="1706051950454" duration="300000" />
+      <workItem from="1706051950454" duration="442000" />
+      <workItem from="1706644504103" duration="310000" />
+      <workItem from="1708608314618" duration="14596000" />
+      <workItem from="1708696985760" duration="4031000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -160,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705769276956</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added functionaliy to attendanceCard.js and some minor repaires">
+      <created>1706052358106</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706052358106</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +194,8 @@
     <MESSAGE value="Added nav bar" />
     <MESSAGE value="Added rendering of scheduleActionCard.js and stared rendering of attendanceCard.js" />
     <MESSAGE value="Repaired scheduleActionCard.js rendering and some other stuff." />
-    <option name="LAST_COMMIT_MESSAGE" value="Repaired scheduleActionCard.js rendering and some other stuff." />
+    <MESSAGE value="Added functionaliy to attendanceCard.js and some minor repaires" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functionaliy to attendanceCard.js and some minor repaires" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
