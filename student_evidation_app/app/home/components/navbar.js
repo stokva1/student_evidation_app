@@ -40,7 +40,7 @@ export default function Navbar() {
                         <button className="w-full h-16 bg-white block rounded-sm px-3 py-2 text-lg font-semibold text-left text-base text-black focus:outline-none transition ease-in-out delay-50 hover:font-bold hover:text-fim hover:shadow-inner hover:border-3 shadow-lg">Účast</button>
                         <button className="w-full h-16 bg-white block rounded-sm px-3 py-2 text-lg font-semibold text-left text-base text-black focus:outline-none transition ease-in-out delay-50 hover:font-bold hover:text-fim hover:shadow-inner hover:border-3">Statistiky</button>
                         <button className="w-full h-16 bg-white block rounded-sm px-3 py-2 text-lg font-semibold text-left text-base text-black focus:outline-none transition ease-in-out delay-50 hover:font-bold hover:text-fim hover:shadow-inner hover:border-3">Účet</button>
-                        <button onClick={() => signOut()} className="w-full h-16 bg-white block rounded-sm px-3 py-2 text-lg font-semibold text-left text-base text-black focus:outline-none transition ease-in-out delay-50 hover:font-bold hover:text-fim hover:shadow-inner hover:border-3m">Nastavení</button>
+                        <button onClick={() => signOut()} className="w-full h-16 bg-white block rounded-sm px-3 py-2 text-lg font-semibold text-left text-base text-black focus:outline-none transition ease-in-out delay-50 hover:font-bold hover:text-red-500 hover:shadow-inner hover:border-3m">Odhlásit se</button>
                     </div>
                 </div>
                 <div className="size-full bg-gray-800/20" onClick={showMenu}></div>

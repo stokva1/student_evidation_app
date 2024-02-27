@@ -36,8 +36,8 @@ export default function HomeContent({scheduleActions}) {
                     <div className="divide-y mt-12">
                         <div className="flex flex-row px-5 py-2 text-center font-semibold ring-2 ring-gray-300">
                             <div className="w-32 mr-2">Jméno</div>
-                            <div className="text-center ml-auto mr-32">Přítomen</div>
-                            <div className="mr-44 ml-3">Omluven</div>
+                            <button className="text-center ml-auto mr-32">Přítomen</button>
+                            <button className="mr-44 ml-3">Omluven</button>
                             <div className="mr-36 ml-1">Typ absence</div>
                         </div>
                         {attendanceData.length === 0 ? (
