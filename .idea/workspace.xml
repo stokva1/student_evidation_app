@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added updateAttendance.js (not finished) and some small visua adjusttments">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added export to Excel file">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
     </list>
@@ -118,7 +117,10 @@
       <workItem from="1708696985760" duration="8396000" />
       <workItem from="1708796230619" duration="4191000" />
       <workItem from="1708967826413" duration="4031000" />
-      <workItem from="1709030852619" duration="3404000" />
+      <workItem from="1709030852619" duration="3466000" />
+      <workItem from="1709910365121" duration="9738000" />
+      <workItem from="1709993186182" duration="7386000" />
+      <workItem from="1710081845020" duration="9064000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -183,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708702031878</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added export to Excel file">
+      <created>1709045523070</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1709045523070</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +218,8 @@
     <MESSAGE value="Repaired scheduleActionCard.js rendering and some other stuff." />
     <MESSAGE value="Added functionaliy to attendanceCard.js and some minor repaires" />
     <MESSAGE value="Added updateAttendance.js (not finished) and some small visua adjusttments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added updateAttendance.js (not finished) and some small visua adjusttments" />
+    <MESSAGE value="Added export to Excel file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added export to Excel file" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

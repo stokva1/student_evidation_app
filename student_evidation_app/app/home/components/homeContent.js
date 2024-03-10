@@ -4,16 +4,49 @@ import ScheduleActionCard from "@/app/home/components/scheduleActionCard";
 import {AttendanceCard} from "@/app/home/components/attendanceCard";
 import {useEffect, useState} from "react";
 import getAttendance from "@/app/actions/getAttendance";
+import getAttendanceStats from "@/app/actions/getAttendanceStats";
+import getScheduleAction from "@/app/actions/getScheduleAction";
+import {BarChart} from '@mui/x-charts/BarChart';
 
 export default function HomeContent({scheduleActions}) {
     const [attendanceData, setAttendanceData] = useState([]);
-    const [attendance, setAttendance] = useState(false);
+    const [attendanceStats, setAttendanceStats] = useState([]);
+    const [scheduleAction, setScheduleAction] = useState([]);
 
+
+    const chartSetting = {
+        width: 800,
+        height: 600,
+    };
 
     const handleGetAttendanceData = async id => {
         const newAttendanceData = await getAttendance(id);
         setAttendanceData(newAttendanceData);
+        const newScheduleAction = await getScheduleAction(id);
+        setScheduleAction(newScheduleAction)
+        console.log("newAttendanceData")
+        console.log(newAttendanceData)
+        console.log(newScheduleAction)
+        console.log("newScheduleAction")
+
     };
+
+    useEffect(  () => {
+        handleGetAttendanceStats()
+    }, [scheduleAction])
+
+    const handleGetAttendanceStats = async () => {
+        console.log("bro")
+        console.log(attendanceData)
+        console.log(scheduleAction)
+        console.log("what")
+        const allAttendanceStats = attendanceData.map(async (attendanceData) => {
+                return await getAttendanceStats(attendanceData.firstname, scheduleAction.tSubjectID, scheduleAction.tTeacherID);
+            }
+        )
+        const newAttendanceStatsArray = (await Promise.all(allAttendanceStats)).flat();
+        setAttendanceStats(newAttendanceStatsArray);
+    }
 
     return (
         <>
@@ -34,16 +67,31 @@ export default function HomeContent({scheduleActions}) {
                         Docházka
                     </h2>
                     <div className="divide-y mt-12">
-                        <div className="flex flex-row px-5 py-2 text-center font-semibold ring-2 ring-gray-300">
-                            <div className="w-32 mr-2">Jméno</div>
-                            <button className="text-center ml-auto mr-32">Přítomen</button>
-                            <button className="mr-44 ml-3">Omluven</button>
-                            <div className="mr-36 ml-1">Typ absence</div>
-                        </div>
                         {attendanceData.length === 0 ? (
-                            <div className="text-center py-60 text-2xl font-semibold leading-9 tracking-tight text-gray-900"> <div>Nothing here :(</div></div>
-                        ):(
-                            <AttendanceCard attendance={attendanceData}/>
+                            <div
+                                className="text-center py-60 text-2xl font-semibold leading-9 tracking-tight text-gray-900">
+                                <div>Nothing here :(</div>
+                            </div>
+
+                        ) : (
+                            // <AttendanceCard attendance={attendanceData}/>
+                            <BarChart
+                                sx={{
+                                    mx: '100%'
+                                }}
+                                yAxis={[{data: attendanceStats.map(id => (id.surname)), scaleType: 'band'}]}
+                                series={[
+                                    {data: attendanceStats.map(id => (id.presentCount)), stack: 'A', label: 'Příomen'},
+                                    {data: attendanceStats.map(id => (id.excusedCount)), stack: 'A', label: 'Omluvené'},
+                                    {
+                                        data: attendanceStats.map(id => (id.unexcusedCount)),
+                                        stack: 'A',
+                                        label: 'Neomluvené'
+                                    },
+                                ]}
+                                layout="horizontal"
+                                {...chartSetting}
+                            />
                         )}
                     </div>
                     {/*{attendance ?*/}
