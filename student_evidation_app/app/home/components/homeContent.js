@@ -5,13 +5,12 @@ import {AttendanceCard} from "@/app/home/components/attendanceCard";
 import {useEffect, useState} from "react";
 import getAttendance from "@/app/actions/getAttendance";
 import getAttendanceStats from "@/app/actions/getAttendanceStats";
-import getScheduleAction from "@/app/actions/getScheduleAction";
+import getData from "@/app/actions/getScheduleAction";
 import {BarChart} from '@mui/x-charts/BarChart';
 
 export default function HomeContent({scheduleActions}) {
     const [attendanceData, setAttendanceData] = useState([]);
     const [attendanceStats, setAttendanceStats] = useState([]);
-    const [scheduleAction, setScheduleAction] = useState([]);
 
 
     const chartSetting = {
@@ -20,33 +19,10 @@ export default function HomeContent({scheduleActions}) {
     };
 
     const handleGetAttendanceData = async id => {
-        const newAttendanceData = await getAttendance(id);
-        setAttendanceData(newAttendanceData);
-        const newScheduleAction = await getScheduleAction(id);
-        setScheduleAction(newScheduleAction)
-        console.log("newAttendanceData")
-        console.log(newAttendanceData)
-        console.log(newScheduleAction)
-        console.log("newScheduleAction")
-
+        const newScheduleAction = await getData(id);
+        setAttendanceData(newScheduleAction.attendanceData)
+        setAttendanceStats(newScheduleAction.attendanceStatsArray)
     };
-
-    useEffect(  () => {
-        handleGetAttendanceStats()
-    }, [scheduleAction])
-
-    const handleGetAttendanceStats = async () => {
-        console.log("bro")
-        console.log(attendanceData)
-        console.log(scheduleAction)
-        console.log("what")
-        const allAttendanceStats = attendanceData.map(async (attendanceData) => {
-                return await getAttendanceStats(attendanceData.firstname, scheduleAction.tSubjectID, scheduleAction.tTeacherID);
-            }
-        )
-        const newAttendanceStatsArray = (await Promise.all(allAttendanceStats)).flat();
-        setAttendanceStats(newAttendanceStatsArray);
-    }
 
     return (
         <>
@@ -67,7 +43,7 @@ export default function HomeContent({scheduleActions}) {
                         Docházka
                     </h2>
                     <div className="divide-y mt-12">
-                        {attendanceData.length === 0 ? (
+                        {attendanceData.length === 0 || attendanceStats.length === 0 ? (
                             <div
                                 className="text-center py-60 text-2xl font-semibold leading-9 tracking-tight text-gray-900">
                                 <div>Nothing here :(</div>

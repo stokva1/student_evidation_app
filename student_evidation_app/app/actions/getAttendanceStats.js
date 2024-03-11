@@ -33,6 +33,7 @@ const getAttendanceStats = async (name, tSubjectID, tTeacherID)=> {
         `
         const processedResult = attendanceStats.map((row) => ({
             ...row,
+            totalActions: Number(row.totalActions),
             presentCount: Number(row.presentCount),
             excusedCount: Number(row.excusedCount),
             unexcusedCount: Number(row.unexcusedCount),

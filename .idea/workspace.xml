@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added export to Excel file">
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" afterDir="false" />
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Started working on attendance graph visualization.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +29,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.updates&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "TODO_SCOPE": "All Places",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\app\home\components" />
@@ -120,7 +116,8 @@
       <workItem from="1709030852619" duration="3466000" />
       <workItem from="1709910365121" duration="9738000" />
       <workItem from="1709993186182" duration="7386000" />
-      <workItem from="1710081845020" duration="9064000" />
+      <workItem from="1710081845020" duration="9178000" />
+      <workItem from="1710157182456" duration="8209000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -192,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709045523070</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Started working on attendance graph visualization.">
+      <created>1710112626403</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1710112626403</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,7 +223,8 @@
     <MESSAGE value="Added functionaliy to attendanceCard.js and some minor repaires" />
     <MESSAGE value="Added updateAttendance.js (not finished) and some small visua adjusttments" />
     <MESSAGE value="Added export to Excel file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added export to Excel file" />
+    <MESSAGE value="Started working on attendance graph visualization." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started working on attendance graph visualization." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
