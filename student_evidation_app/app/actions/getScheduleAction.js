@@ -5,8 +5,6 @@ import prisma from "@/lib/prisma";
 const getData = async (id) => {
     const data = {}
 
-    console.log(1, new Date().getSeconds(), new Date().getMilliseconds())
-    
     const newAttendanceData = await getAttendance(id);
     data.attendanceData = newAttendanceData
 

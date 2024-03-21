@@ -23,12 +23,12 @@ export default function LoginForm() {
     //TODO do smth with this useEffect, because session?.status is always 'authenticated'
 
 
-    useEffect(() => {   //react hook, který se spustí, když se změní některá ze závislostí
-        if (session?.status === 'authenticated'){
-            router.push("/home");
-        }
-        console.log(session)
-    }, [session?.status, router])
+    // useEffect(() => {   //react hook, který se spustí, když se změní některá ze závislostí
+    //     if (session?.status === 'authenticated'){
+    //         router.push("/home");
+    //     }
+    //     console.log(session)
+    // }, [session?.status, router])
 
     const handleSubmit = async (e) => {
         // e.preventDefault();     //zabránění aktuaizace stránky
@@ -58,17 +58,14 @@ export default function LoginForm() {
     });
 
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Sign in to your account
-                </h2>
-            </div>
-
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 sm:px-12">
+            <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                Sign in to your account
+            </h2>
+            <div className="mt-10">
                 <form className="space-y-6" action="#" method="POST" onSubmit={formik.handleSubmit}>
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                        <label htmlFor="email" className="block text-sm font-medium leading-4 text-gray-900">
                             Email address
                         </label>
                         <div className="mt-2">
@@ -87,7 +84,6 @@ export default function LoginForm() {
                             />
                         </div>
                     </div>
-
                     <div>
                         <div className="flex items-center justify-between">
                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
@@ -111,11 +107,10 @@ export default function LoginForm() {
                             />
                         </div>
                     </div>
-
-                    <div>
+                    <div className="pt-3">
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-fim px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-fim hover:bg-white hover:border-2 hover:border-fim focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition ease-in-out delay-100 hover:scale-105"
+                            className="flex w-full justify-center rounded-md bg-fim px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-fim hover:bg-white hover:outline hover:outline-2 hover:border-fim focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition ease-in-out delay-100"
                         >
                             Sign in
                         </button>
