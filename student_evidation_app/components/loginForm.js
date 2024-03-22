@@ -58,7 +58,7 @@ export default function LoginForm() {
     });
 
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 sm:px-12">
+        <div className="absolute bg-white border-2 border-fim drop-shadow-lg rounded-lg flex flex-1 flex-col justify-center px-6 py-10 sm:px-12 sm:border-0">
             <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Sign in to your account
             </h2>

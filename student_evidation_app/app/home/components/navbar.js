@@ -16,7 +16,7 @@ export default function Navbar() {
             <nav className="shadow-md bg-white">
                 <div className="mx-auto">
                     <div className="relative flex h-16 items-center justify-between">
-                        <div className="absolute inset-y-0 left-0 flex items-center ml-1">
+                        <div className="absolute inset-y-0 left-0 flex items-center ml-1 block lg:hidden">
                             <button type="button"
                                     className="relative inline-flex items-center justify-center rounded-sm p-2 text-black focus:outline-none transition ease-in-out delay-50 hover:bg-gray-200 hover:text-fim"
                                     onClick={showMenu}>

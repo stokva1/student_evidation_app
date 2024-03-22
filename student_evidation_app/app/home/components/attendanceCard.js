@@ -75,7 +75,7 @@ export function AttendanceCard({attendance}) {
 
     return (
         <form className="divide-y">
-            <TableContainer sx={{maxHeight: 640}}>
+            <TableContainer sx={{ height: 'calc(100vh - 315px)', overflowY: 'scroll', display: 'flex'}}>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -90,6 +90,14 @@ export function AttendanceCard({attendance}) {
                                 </TableCell>
                             ))}
                         </TableRow>
+                        <div className="navbar"></div>
+                        <div className="rest of the site">
+                            <div className="some text"></div>
+                            <form>
+                                <table className="teable has to fill the sapce, that it has"></table>
+                                <div className="div, that is suppose to be at the bottom of site no matter what, but the table shouldnt go past it"></div>
+                            </form>
+                        </div>
                     </TableHead>
                     <TableBody sx={{px: 10}}>
                         <Snackbar open={open} onClose={() => setOpen(false)} TransitionComponent={Grow}
@@ -130,7 +138,7 @@ export function AttendanceCard({attendance}) {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="w-full flex justify-center py-2 mx-auto">
+            <div className="w-full flex justify-center py-4 mx-auto">
                 <button type="submit"
                         className="w-28 h-12 rounded-md px-2 py-1.5 text-sm font-semibold shadow-md border-2 border-black hover:text-fim hover:border-fim hover:shadow-inner"
                         onClick={handleSubmit}>

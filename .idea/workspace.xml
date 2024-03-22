@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Fixed data loading for graph visualization">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Added toggle between attendance and graph. Started working on visuals and responsive design.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
     </list>
@@ -123,7 +122,8 @@
       <workItem from="1710157182456" duration="8246000" />
       <workItem from="1710843971222" duration="3759000" />
       <workItem from="1710955325444" duration="6623000" />
-      <workItem from="1711018303176" duration="13806000" />
+      <workItem from="1711018303176" duration="21866000" />
+      <workItem from="1711103742309" duration="13028000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -209,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710184112279</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added toggle between attendance and graph. Started working on visuals and responsive design.">
+      <created>1711035095056</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1711035095056</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +245,8 @@
     <MESSAGE value="Added export to Excel file" />
     <MESSAGE value="Started working on attendance graph visualization." />
     <MESSAGE value="Fixed data loading for graph visualization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed data loading for graph visualization" />
+    <MESSAGE value="Added toggle between attendance and graph. Started working on visuals and responsive design." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added toggle between attendance and graph. Started working on visuals and responsive design." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
