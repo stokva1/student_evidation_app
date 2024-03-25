@@ -13,7 +13,11 @@ const updateAttendance = async (data) => {
                 tAbsenceTypeID: data.absencetypeID,
             }
         })
+        if (data.attendanceID === 54){
+            console.log(data)
+        }
     }catch (e) {
+        console.log(e)
         return
     }
 }

@@ -18,10 +18,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Select from '@mui/material/Select';
 
 export function AttendanceCard({attendance}) {
     const label = {inputProps: {'aria-label': 'Checkbox demo'}};
     const [open, setOpen] = useState(false);
+    const [enable, toggleEnable] = useState(false);
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -48,7 +50,6 @@ export function AttendanceCard({attendance}) {
     }
 
     const handleSubmit = async (e) => {
-        console.log(open)
         e.preventDefault()
         await attendance.map((x) => (
             updateAttendance({
@@ -62,10 +63,10 @@ export function AttendanceCard({attendance}) {
     }
 
     const columns = [
-        {id: 'name', label: 'Jméno', minWidth: 170},
-        {id: 'present', label: 'Přítomen', minWidth: 170},
-        {id: 'excused', label: 'Omluven', minWidth: 170},
-        {id: 'absenceType', label: 'Typ absence', minWidth: 170},
+        {id: 'name', label: 'Jméno', minWidth: 'min-content', align: 'left'},
+        {id: 'present', label: 'Přítomen', minWidth: 'min-content', align: 'center'},
+        {id: 'excused', label: 'Omluven', minWidth: 'min-content', align: 'center'},
+        {id: 'absenceType', label: 'Typ absence', minWidth: 'min-content', align: 'center'},
     ]
 
     //TODO: set select to empty string if data.absencetype is null
@@ -74,30 +75,23 @@ export function AttendanceCard({attendance}) {
     //TODO: Fix absence type not saving or loading
 
     return (
-        <form className="divide-y">
-            <TableContainer sx={{ height: 'calc(100vh - 315px)', overflowY: 'scroll', display: 'flex'}}>
+        <form className="divide-y px-6">
+            <TableContainer className="flex outline outline-1 outline-fim overflow-y-scroll	rounded-md" sx={{height: 'calc(100vh - 300px)'}}>
                 <Table stickyHeader>
                     <TableHead>
-                        <TableRow>
+                        <TableRow className="outline outline-1 outline-fim">
                             {columns.map((column) => (
                                 <TableCell
                                     key={column.id}
                                     align={column.align}
                                     style={{minWidth: column.minWidth}}
-                                    sx={{fontWeight: 'bold', pl: 3}}
+                                    className="bg-fim text-white"
+                                    sx={{fontWeight: 900, pl: 3, fontSize: '1rem'}}
                                 >
                                     {column.label}
                                 </TableCell>
                             ))}
                         </TableRow>
-                        <div className="navbar"></div>
-                        <div className="rest of the site">
-                            <div className="some text"></div>
-                            <form>
-                                <table className="teable has to fill the sapce, that it has"></table>
-                                <div className="div, that is suppose to be at the bottom of site no matter what, but the table shouldnt go past it"></div>
-                            </form>
-                        </div>
                     </TableHead>
                     <TableBody sx={{px: 10}}>
                         <Snackbar open={open} onClose={() => setOpen(false)} TransitionComponent={Grow}
@@ -108,37 +102,55 @@ export function AttendanceCard({attendance}) {
                         </Snackbar>
                         {attendance.map((data) => (
                             <TableRow hover role="checkbox" key={data.tAttendanceID}>
-                                <TableCell sx={{pl: 3}}>{data.surname + ' ' + data.firstname}</TableCell>
-                                <TableCell>
+                                <TableCell sx={{pl: 3, fontWeight: 500, fontSize: '0.9rem'}}>
+                                    {data.surname + ' ' + data.firstname}</TableCell>
+                                <TableCell sx={{padding: '4px 4px 4px 13px'}} align={"center"}>
                                     <PresenceCard key={data.tAttendanceID} isPresent={data.isPresent} onClick={() => {
                                         data.isPresent = !data.isPresent
+                                        toggleEnable(!enable)
+                                        if (data.isPresent === true){
+                                            data.isExcused = false
+                                            data.tAbsenceTypeID = null
+                                        }
                                     }}/>
                                 </TableCell>
-                                <TableCell>
-                                    <Checkbox {...label} defaultChecked={data.isExcused} onClick={() => {
-                                        data.isExcused = !data.isExcused
-                                    }}/>
+                                <TableCell sx={{padding: '0 0 0 13px'}} align={"center"}>
+                                    <Checkbox {...label} checked={data.isExcused}
+                                              disabled={data.isPresent}
+                                              onChange={() => {
+                                                  data.isExcused = !data.isExcused
+                                                  toggleEnable(!enable)
+                                                  if (data.isExcused === false){
+                                                      data.tAbsenceTypeID = null
+                                                  }
+                                              }}/>
                                 </TableCell>
-                                <TableCell>
-                                    <select key={data.tAttendanceID} className="rounded-md border-2 border-fim"
-                                            defaultValue={data.absencetype ? data.absencetype.toString() : ""}
-                                            onChange={(e) => {
-                                                data.tAbsenceTypeID = e.target.selectedIndex + 1
-                                            }}>
-                                        <option>Nemoc</option>
-                                        <option>Rodinné důvody</option>
-                                        <option>Problém s dopravou</option>
-                                        <option>Zaspání</option>
-                                        <option>Školní akce</option>
-                                        <option>Jiné</option>
-                                    </select>
+                                <TableCell sx={{padding: '0 0 0 13px'}} align={"center"}>
+                                    {/*{data.isExcused && (*/}
+                                        <select key={data.tAttendanceID}
+                                                className="rounded-md border-2 border-fim h-8"
+                                                value={data.tAbsenceTypeID || 0}
+                                                disabled={!data.isExcused}
+                                                onInput={(e) => {
+                                                    data.tAbsenceTypeID = e.target.selectedIndex + 1
+                                                    toggleEnable(!enable)
+                                                }}>
+                                            <option value={0} disabled>-</option>
+                                            <option value={1}>Nemoc</option>
+                                            <option value={2}>Rodinné důvody</option>
+                                            <option value={3}>Problém s dopravou</option>
+                                            <option value={4}>Zaspání</option>
+                                            <option value={5}>Školní akce</option>
+                                            <option value={6}>Jiné</option>
+                                        </select>
+                                    {/*)}*/}
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="w-full flex justify-center py-4 mx-auto">
+            <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
                         className="w-28 h-12 rounded-md px-2 py-1.5 text-sm font-semibold shadow-md border-2 border-black hover:text-fim hover:border-fim hover:shadow-inner"
                         onClick={handleSubmit}>
