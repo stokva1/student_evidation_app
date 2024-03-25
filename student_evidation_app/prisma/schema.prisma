@@ -1,0 +1,165 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tabsencetype {
+  name           String        @db.VarChar(30)
+  tAbsenceTypeID Int           @id @default(autoincrement())
+  tattendance    tattendance[]
+}
+
+model tattendance {
+  isPresent         Boolean         @db.Bit(1)
+  tAttendanceID     Int             @id @default(autoincrement())
+  tAbsenceTypeID    Int?
+  tStudentID        Int
+  tScheduleActionID Int
+  isExcused         Boolean         @db.Bit(1)
+  tabsencetype      tabsencetype?   @relation(fields: [tAbsenceTypeID], references: [tAbsenceTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tAttendance_TtAbsenceType")
+  tscheduleaction   tscheduleaction @relation(fields: [tScheduleActionID], references: [tScheduleActionID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tAttendance_tScheduleAction")
+  tstudent          tstudent        @relation(fields: [tStudentID], references: [tStudentID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tAttendance_tStudent")
+
+  @@index([tAbsenceTypeID], map: "FK_tAttendance_TtAbsenceType")
+  @@index([tScheduleActionID], map: "FK_tAttendance_tScheduleAction")
+  @@index([tStudentID], map: "FK_tAttendance_tStudent")
+}
+
+model tenrolledstudents {
+  tEnrolledStudentsID Int      @id @default(autoincrement())
+  tStudentID          Int
+  tSubjectID          Int
+  tstudent            tstudent @relation(fields: [tStudentID], references: [tStudentID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tEnrolledStudents_tStudent")
+  tsubject            tsubject @relation(fields: [tSubjectID], references: [tSubjectID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tEnrolledStudents_tSubject")
+
+  @@index([tStudentID], map: "FK_tEnrolledStudents_tStudent")
+  @@index([tSubjectID], map: "FK_tEnrolledStudents_tSubject")
+}
+
+model tlogin {
+  email       String    @unique(map: "email") @db.VarChar(30)
+  password    String    @db.VarChar(60)
+  permissions Int
+  tLoginID    Int       @id @default(autoincrement())
+  tteacher    tteacher?
+}
+
+model tscheduleaction {
+  date                     DateTime                   @db.DateTime(0)
+  tScheduleActionID        Int                        @id @default(autoincrement())
+  tTeacherID               Int
+  tSubjectID               Int
+  tScheduleActionTypeID    Int
+  tattendance              tattendance[]
+  tscheduleactiontype      tscheduleactiontype        @relation(fields: [tScheduleActionTypeID], references: [tScheduleActionType], onUpdate: Restrict, map: "FK_tScheduleAction_tScheduleActionType")
+  tsubject                 tsubject                   @relation(fields: [tSubjectID], references: [tSubjectID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tScheduleAction_tSubject")
+  tteacher                 tteacher                   @relation(fields: [tTeacherID], references: [tTeacherID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tScheduleAction_tTeacher")
+  tstudentsscheduleactions tstudentsscheduleactions[]
+
+  @@index([tScheduleActionTypeID], map: "FK_tScheduleAction_tScheduleActionType")
+  @@index([tSubjectID], map: "FK_tScheduleAction_tSubject")
+  @@index([tTeacherID], map: "FK_tScheduleAction_tTeacher")
+}
+
+model tscheduleactiontype {
+  tScheduleActionType Int               @id @default(autoincrement())
+  type                String?           @db.VarChar(30)
+  tscheduleaction     tscheduleaction[]
+}
+
+model tstudent {
+  firstname                String                     @db.VarChar(20)
+  phoneNumber              String?                    @db.VarChar(15)
+  surname                  String                     @db.VarChar(20)
+  tStudentID               Int                        @id @default(autoincrement())
+  tattendance              tattendance[]
+  tenrolledstudents        tenrolledstudents[]
+  tstudentsscheduleactions tstudentsscheduleactions[]
+}
+
+model tstudentsscheduleactions {
+  tStudentsScheduleActionsID Int             @id @default(autoincrement())
+  tStudentID                 Int
+  tScheduleActionID          Int
+  tscheduleaction            tscheduleaction @relation(fields: [tScheduleActionID], references: [tScheduleActionID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tStudentsScheduleActions_tScheduleAction")
+  tstudent                   tstudent        @relation(fields: [tStudentID], references: [tStudentID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tStudentsScheduleActions_tStudent")
+
+  @@index([tScheduleActionID], map: "FK_tStudentsScheduleActions_tScheduleAction")
+  @@index([tStudentID], map: "FK_tStudentsScheduleActions_tStudent")
+}
+
+model tsubject {
+  capacity          Int
+  description       String?             @db.VarChar(100)
+  name              String              @db.VarChar(100)
+  tSubjectID        Int                 @id @default(autoincrement())
+  tenrolledstudents tenrolledstudents[]
+  tscheduleaction   tscheduleaction[]
+  tteacherssubjects tteacherssubjects[]
+}
+
+model tteacher {
+  firstname         String              @db.VarChar(20)
+  phoneNumber       String              @db.VarChar(15)
+  surname           String              @db.VarChar(20)
+  tTeacherID        Int                 @id @default(autoincrement())
+  tLoginID          Int                 @unique(map: "tLoginID")
+  tscheduleaction   tscheduleaction[]
+  tlogin            tlogin              @relation(fields: [tLoginID], references: [tLoginID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tTeacher_tLogin")
+  tteacherssubjects tteacherssubjects[]
+}
+
+model tteacherssubjects {
+  tTeachersSubjectsID Int      @id @default(autoincrement())
+  tSubjectID          Int
+  tTeacherID          Int
+  tsubject            tsubject @relation(fields: [tSubjectID], references: [tSubjectID], onDelete: NoAction, onUpdate: NoAction, map: "FK_Tteacherssubjects_Tsubject")
+  tteacher            tteacher @relation(fields: [tTeacherID], references: [tTeacherID], onDelete: NoAction, onUpdate: NoAction, map: "FK_Tteacherssubjects_Tteacher")
+
+  @@index([tSubjectID], map: "FK_Tteacherssubjects_Tsubject")
+  @@index([tTeacherID], map: "FK_Tteacherssubjects_Tteacher")
+}
+
+view scheduleactioninfo {
+  tScheduleActionID Int      @unique @default(0)
+  tTeacherID        Int
+  date              DateTime @db.DateTime(0)
+  subjectName       String   @db.VarChar(100)
+  type              String?  @db.VarChar(30)
+  studentCount      BigInt   @default(0)
+}
+
+view absenceinfo {
+  scheduleActionID Int     @unique
+  firstname        String? @db.VarChar(20)
+  surname          String? @db.VarChar(20)
+  isPresent        Boolean @db.Bit(1)
+  isExcused        Boolean @db.Bit(1)
+  absencetype      String? @db.VarChar(30)
+}
+
+view absenceinfo2 {
+  tAttendanceID    Int     @unique @default(0)
+  scheduleActionID Int     @unique
+  firstname        String? @db.VarChar(20)
+  surname          String? @db.VarChar(20)
+  isPresent        Boolean @db.Bit(1)
+  isExcused        Boolean @db.Bit(1)
+  absencetype      String? @db.VarChar(30)
+}
+
+view absenceinfo3 {
+  tAttendanceID    Int     @unique @default(0)
+  scheduleActionID Int     @unique
+  firstname        String? @db.VarChar(20)
+  surname          String? @db.VarChar(20)
+  isPresent        Boolean @db.Bit(1)
+  isExcused        Boolean @db.Bit(1)
+  absencetype      String? @db.VarChar(30)
+  tAbsenceTypeID   Int?
+}

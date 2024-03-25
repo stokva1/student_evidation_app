@@ -5,21 +5,24 @@ import {AttendanceCard} from "@/app/home/components/attendanceCard";
 import {useEffect, useState} from "react";
 import getAttendance from "@/app/actions/getAttendance";
 import getAttendanceStats from "@/app/actions/getAttendanceStats";
-import getData from "@/app/actions/getScheduleAction";
+import getData from "@/app/actions/getData";
 import {BarChart} from '@mui/x-charts/BarChart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {white} from "next/dist/lib/picocolors";
 import {red} from "@mui/material/colors";
+import {resolveAppleWebApp} from "next/dist/lib/metadata/resolvers/resolve-basics";
+import getScheduleActionInfo from "@/app/actions/getScheduleActionInfo";
+import PersonIcon from "@mui/icons-material/Person";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 export default function HomeContent({scheduleActions}) {
     const [attendanceData, setAttendanceData] = useState([]);
     const [attendanceStats, setAttendanceStats] = useState([]);
     const [toggleContent, setToggleContent] = useState(true);
     const [showSideBar, setShowSideBar] = useState(true);
-
-
+    const [scheduleAction, setScheduleAction] = useState({})
 
     const chartSetting = {
         width: 800,
@@ -27,9 +30,11 @@ export default function HomeContent({scheduleActions}) {
     };
 
     const handleGetAttendanceData = async id => {
-        const newScheduleAction = await getData(id);
+        const newScheduleAction = await getData(id)
         setAttendanceData(newScheduleAction.attendanceData)
         setAttendanceStats(newScheduleAction.attendanceStatsArray)
+        const scheduleActionInfo = await getScheduleActionInfo(id)
+        setScheduleAction(scheduleActionInfo)
     };
 
     // function showSideBar() {
@@ -43,16 +48,19 @@ export default function HomeContent({scheduleActions}) {
 
     return (
         <>
-            <div className="pt-14 flex flex-row h-screen">
+            <div className="pt-14 flex flex-row h-screen text-gray-900">
                 <button onClick={() => {setShowSideBar(!showSideBar)}}
-                        className="absolute rounded-lg size-12 bg-fim top-1/2 block lg:hidden rotate-45 -translate-x-6 z-40">
-                    <ArrowForwardIosIcon sx={{color: 'white'}} className="-rotate-45 translate-x-2 -translate-y-2"/>
+                        className="absolute rounded-lg size-12 bg-white outline outline-1 outline-gray-600 drop-shadow-lg top-1/2 block lg:hidden rotate-45 -translate-x-6 z-40">
+                    <ArrowForwardIosIcon sx={{color: 'white'}}
+                                         className="text-fim -rotate-45 translate-x-2 -translate-y-2"/>
                 </button>
-                <div className={(showSideBar ? "flex z-10" : "hidden") + " absolute lg:static bg-white w-full lg:w-5/12 lg:flex flex-col justify-center border-r-2 drop-shadow-lg"}>
-                    <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-fim">
+                <div
+                    className={(showSideBar ? "flex z-10" : "hidden") + " absolute lg:static bg-gradient-to-b from-blue-500 to-blue-400 w-full lg:w-5/12 lg:flex flex-col justify-center border-r-2 drop-shadow-lg"}>
+                    <h2 className="mt-5 text-white text-center text-2xl font-bold leading-9 tracking-tight">
                         Rozvrhové akce
                     </h2>
-                    <div className="drop-shadow-lg text-fim outline outline-1 outline-fim self-center w-4/5 sm:w-3/5 lg:w-auto lg:mx-12 mt-12 mb-7 py-6 px-6 sm:px-12 max-h-min overflow-y-scroll rounded-md space-y-5">
+                    <div
+                        className="drop-shadow-lg text-gray-900 self-center w-4/5 sm:w-3/5 lg:w-auto lg:mx-12 mt-12 mb-7 py-6 px-6 sm:px-12 max-h-min overflow-y-scroll rounded-md space-y-5">
                         <ScheduleActionCard
                             scheduleActions={scheduleActions}
                             onClick={handleGetAttendanceData}
@@ -73,9 +81,22 @@ export default function HomeContent({scheduleActions}) {
                     ) : (
                         <div className="mb-12">
                             <div className="flex flex-row justify-between px-6 mb-4">
-                                <div className="align-middle">Here</div>
+                                <div className="align-middle">
+                                    <h2 className="text-left text-2xl font-bold leading-none tracking-tight">
+                                        {scheduleAction.subjectName}
+                                    </h2>
+                                    <div className="text-left">
+                                        {scheduleAction.type}
+                                    </div>
+                                    <div className="align-sub flex flex-row">
+                                        <CalendarMonthIcon/>
+                                        <div>
+                                            {scheduleAction.date.toLocaleString()}
+                                        </div>
+                                    </div>
+                                </div>
                                 <ToggleButtonGroup
-                                    className=""
+                                    className="h-1/2 mt-auto"
                                     value={toggleContent}
                                     exclusive
                                 >

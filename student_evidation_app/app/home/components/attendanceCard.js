@@ -76,16 +76,16 @@ export function AttendanceCard({attendance}) {
 
     return (
         <form className="divide-y px-6">
-            <TableContainer className="flex outline outline-1 outline-fim overflow-y-scroll	rounded-md" sx={{height: 'calc(100vh - 300px)'}}>
+            <TableContainer className="flex outline outline-1 outline-blue-500 overflow-y-scroll	rounded-md" sx={{height: 'calc(100vh - 300px)'}}>
                 <Table stickyHeader>
                     <TableHead>
-                        <TableRow className="outline outline-1 outline-fim">
+                        <TableRow>
                             {columns.map((column) => (
                                 <TableCell
                                     key={column.id}
                                     align={column.align}
                                     style={{minWidth: column.minWidth}}
-                                    className="bg-fim text-white"
+                                    className="bg-blue-500 text-white"
                                     sx={{fontWeight: 900, pl: 3, fontSize: '1rem'}}
                                 >
                                     {column.label}
@@ -128,7 +128,7 @@ export function AttendanceCard({attendance}) {
                                 <TableCell sx={{padding: '0 0 0 13px'}} align={"center"}>
                                     {/*{data.isExcused && (*/}
                                         <select key={data.tAttendanceID}
-                                                className="rounded-md border-2 border-fim h-8"
+                                                className="rounded-md border-2 border-blue-500 h-8"
                                                 value={data.tAbsenceTypeID || 0}
                                                 disabled={!data.isExcused}
                                                 onInput={(e) => {
@@ -152,7 +152,7 @@ export function AttendanceCard({attendance}) {
             </TableContainer>
             <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
-                        className="w-28 h-12 rounded-md px-2 py-1.5 text-sm font-semibold shadow-md border-2 border-black hover:text-fim hover:border-fim hover:shadow-inner"
+                        className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner"
                         onClick={handleSubmit}>
                     SAVE
                     <SaveOutlinedIcon sx={{ml: 0.5}}/>

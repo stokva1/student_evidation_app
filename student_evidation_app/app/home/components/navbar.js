@@ -14,7 +14,7 @@ export default function Navbar() {
 
     return (
         <div className="fixed w-full z-10">
-            <nav className="flex items-center justify-end py-1 bg-fim shadow-xl">
+            <nav className="flex items-center justify-end py-1 bg-blue-500 shadow-xl">
                 {/*<button type="button"*/}
                 {/*        className="ml-1 relative rounded-sm p-2 text-black focus:outline-none transition ease-in-out delay-50 hover:bg-gray-200 hover:text-fim lg:hidden"*/}
                 {/*        onClick={showMenu}>*/}
@@ -28,7 +28,7 @@ export default function Navbar() {
                 {/*        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>*/}
                 {/*    </svg>*/}
                 {/*</button>*/}
-                <button className="mr-1 right-0 size-12 focus:outline-none transition ease-in-out delay-50 hover:bg-gray-200 hover:text-fim"
+                <button className="mr-1 text-white right-0 size-12 rounded-md focus:outline-none transition ease-in-out delay-50 hover:bg-gray-200 hover:text-fim"
                         onClick={() => signOut()}>
                     <LogoutIcon/>
                 </button>

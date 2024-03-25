@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Did some improvements on responsive design.">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Fixing and redesign.">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getData.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +127,8 @@
       <workItem from="1711018303176" duration="21866000" />
       <workItem from="1711103742309" duration="13130000" />
       <workItem from="1711190848179" duration="12539000" />
-      <workItem from="1711274494822" duration="21352000" />
+      <workItem from="1711274494822" duration="21459000" />
+      <workItem from="1711366243497" duration="9956000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -224,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711149925385</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fixing and redesign.">
+      <created>1711325775487</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1711325775488</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +266,8 @@
     <MESSAGE value="Fixed data loading for graph visualization" />
     <MESSAGE value="Added toggle between attendance and graph. Started working on visuals and responsive design." />
     <MESSAGE value="Did some improvements on responsive design." />
-    <option name="LAST_COMMIT_MESSAGE" value="Did some improvements on responsive design." />
+    <MESSAGE value="Fixing and redesign." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing and redesign." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
