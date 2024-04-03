@@ -19,11 +19,17 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Select from '@mui/material/Select';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Box from '@mui/material/Box';
 
 export function AttendanceCard({attendance}) {
     const label = {inputProps: {'aria-label': 'Checkbox demo'}};
     const [open, setOpen] = useState(false);
     const [enable, toggleEnable] = useState(false);
+    const [update, toggleUpdate] = useState(false);
+    const [order, setOrder] = useState("asc")
+    const [orderBy, setOrderBy] = useState("surname")
+
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -68,6 +74,40 @@ export function AttendanceCard({attendance}) {
         {id: 'excused', label: 'Omluven', minWidth: 'min-content', align: 'center'},
         {id: 'absenceType', label: 'Typ absence', minWidth: 'min-content', align: 'center'},
     ]
+    const sortArray = () => {
+        if (order === "asc"){
+            attendance.sort((a, b) => {
+                if (orderBy === 'name') {
+                    return a.surname.localeCompare(b.surname);
+                } else if (orderBy === 'present') {
+                    return a.isPresent - b.isPresent;
+                } else if (orderBy === 'excused') {
+                    return a.isExcused - b.isExcused;
+                } else if (orderBy === 'absenceType') {
+                    return a.tAbsenceTypeID - b.tAbsenceTypeID;
+                }
+                return 0;
+            });
+        } else {
+            attendance.sort((a, b) => {
+                if (orderBy === 'name') {
+                    return b.surname.localeCompare(a.surname);
+                } else if (orderBy === 'present') {
+                    return b.isPresent - a.isPresent;
+                } else if (orderBy === 'excused') {
+                    return b.isExcused - a.isExcused;
+                } else if (orderBy === 'absenceType') {
+                    return b.tAbsenceTypeID - a.tAbsenceTypeID;
+                }
+                return 0;
+            });
+        }
+    }
+
+    useEffect(() => {
+        sortArray()
+        toggleUpdate(!update)
+    }, [orderBy, order]);
 
     //TODO: set select to empty string if data.absencetype is null
     //TODO: Fix map key error
@@ -76,7 +116,8 @@ export function AttendanceCard({attendance}) {
 
     return (
         <form className="divide-y px-6">
-            <TableContainer className="flex outline outline-1 outline-blue-500 overflow-y-scroll	rounded-md" sx={{height: 'calc(100vh - 300px)'}}>
+            <TableContainer className="flex outline outline-1 outline-blue-500 overflow-y-scroll	rounded-md"
+                            sx={{height: 'calc(100vh - 300px)'}}>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -85,10 +126,22 @@ export function AttendanceCard({attendance}) {
                                     key={column.id}
                                     align={column.align}
                                     style={{minWidth: column.minWidth}}
-                                    className="bg-blue-500 text-white"
-                                    sx={{fontWeight: 900, pl: 3, fontSize: '1rem'}}
+                                    className="bg-blue-500"
+                                    sx={{fontWeight: 900, pl: 3, fontSize: '1rem', color: "white"}}
                                 >
-                                    {column.label}
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setOrderBy(column.id)
+                                            if (order === "asc"){
+                                                setOrder("desc")
+                                            }else{
+                                                setOrder("asc")
+                                            }
+                                        }}
+                                    >
+                                        {column.label}
+                                    </button>
                                 </TableCell>
                             ))}
                         </TableRow>
@@ -108,7 +161,7 @@ export function AttendanceCard({attendance}) {
                                     <PresenceCard key={data.tAttendanceID} isPresent={data.isPresent} onClick={() => {
                                         data.isPresent = !data.isPresent
                                         toggleEnable(!enable)
-                                        if (data.isPresent === true){
+                                        if (data.isPresent === true) {
                                             data.isExcused = false
                                             data.tAbsenceTypeID = null
                                         }
@@ -120,30 +173,28 @@ export function AttendanceCard({attendance}) {
                                               onChange={() => {
                                                   data.isExcused = !data.isExcused
                                                   toggleEnable(!enable)
-                                                  if (data.isExcused === false){
+                                                  if (data.isExcused === false) {
                                                       data.tAbsenceTypeID = null
                                                   }
                                               }}/>
                                 </TableCell>
                                 <TableCell sx={{padding: '0 0 0 13px'}} align={"center"}>
-                                    {/*{data.isExcused && (*/}
-                                        <select key={data.tAttendanceID}
-                                                className="rounded-md border-2 border-blue-500 h-8"
-                                                value={data.tAbsenceTypeID || 0}
-                                                disabled={!data.isExcused}
-                                                onInput={(e) => {
-                                                    data.tAbsenceTypeID = e.target.selectedIndex + 1
-                                                    toggleEnable(!enable)
-                                                }}>
-                                            <option value={0} disabled>-</option>
-                                            <option value={1}>Nemoc</option>
-                                            <option value={2}>Rodinné důvody</option>
-                                            <option value={3}>Problém s dopravou</option>
-                                            <option value={4}>Zaspání</option>
-                                            <option value={5}>Školní akce</option>
-                                            <option value={6}>Jiné</option>
-                                        </select>
-                                    {/*)}*/}
+                                    <select key={data.tAttendanceID}
+                                            className="rounded-md border-2 border-blue-500 h-8"
+                                            value={data.tAbsenceTypeID || 0}
+                                            disabled={!data.isExcused}
+                                            onInput={(e) => {
+                                                data.tAbsenceTypeID = e.target.selectedIndex + 1
+                                                toggleEnable(!enable)
+                                            }}>
+                                        <option value={0} disabled>-</option>
+                                        <option value={1}>Nemoc</option>
+                                        <option value={2}>Rodinné důvody</option>
+                                        <option value={3}>Problém s dopravou</option>
+                                        <option value={4}>Zaspání</option>
+                                        <option value={5}>Školní akce</option>
+                                        <option value={6}>Jiné</option>
+                                    </select>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -152,13 +203,13 @@ export function AttendanceCard({attendance}) {
             </TableContainer>
             <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
-                        className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner"
+                        className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner transition ease-in-out delay-50"
                         onClick={handleSubmit}>
                     SAVE
                     <SaveOutlinedIcon sx={{ml: 0.5}}/>
                 </button>
                 <button type="button"
-                        className="w-28 h-12 rounded-md px-2 py-1.5 text-sm font-semibold shadow-md border-2 border-black hover:text-fim hover:border-fim hover:shadow-inner"
+                        className="w-28 h-12 rounded-md px-2 py-1.5 text-sm font-semibold shadow-md outline outline-1 outline-black hover:bg-blue-500 hover:text-white hover:outline-0 hover:shadow-inner transition ease-in-out delay-50"
                         onClick={() => exportToExcel(attendanceData)}>
                     EXPORT
                     <FileDownloadOutlinedIcon sx={{ml: 0.5}}/>

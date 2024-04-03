@@ -1,6 +1,6 @@
+"use server"
 import getSession from "../actions/getSession";
 import prisma from "../../lib/prisma"
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 
 const getLoggedUser = async () => {
     try {

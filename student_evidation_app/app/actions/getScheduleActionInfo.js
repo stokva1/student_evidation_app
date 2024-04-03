@@ -9,7 +9,7 @@ const getScheduleActionsInfo = async (id) => {
                 tScheduleActionID: id
             }
         });
-        console.log(scheduleActionInfo)
+
         return scheduleActionInfo
     }catch (error){
         return [];

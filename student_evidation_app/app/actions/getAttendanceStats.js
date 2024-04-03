@@ -2,10 +2,6 @@
 import prisma from "@/lib/prisma";
 
 const getAttendanceStats = async (name, tSubjectID, tTeacherID)=> {
-    console.log(name);
-    console.log(tSubjectID);
-    console.log(tTeacherID);
-
     try {
         const attendanceStats = await prisma.$queryRaw`SELECT
                                                            s.firstname AS firstname,

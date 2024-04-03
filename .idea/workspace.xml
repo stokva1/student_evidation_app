@@ -4,15 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Fixing and redesign.">
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getData.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionInfo.js" afterDir="false" />
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Redesign">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAllSubjects.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionType.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionsByDate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getSubjectStudents.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getData.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +72,17 @@
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\.docker" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/student_evidation_app/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/student_evidation_app/package.json" />
       <command value="run" />
@@ -73,6 +96,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -128,7 +152,15 @@
       <workItem from="1711103742309" duration="13130000" />
       <workItem from="1711190848179" duration="12539000" />
       <workItem from="1711274494822" duration="21459000" />
-      <workItem from="1711366243497" duration="9956000" />
+      <workItem from="1711366243497" duration="11193000" />
+      <workItem from="1711432119769" duration="4000" />
+      <workItem from="1711448782290" duration="2290000" />
+      <workItem from="1711637608822" duration="12575000" />
+      <workItem from="1711717174184" duration="16730000" />
+      <workItem from="1711799423230" duration="7841000" />
+      <workItem from="1711966681336" duration="15256000" />
+      <workItem from="1712040256238" duration="21346000" />
+      <workItem from="1712136807673" duration="3374000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -235,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711325775488</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Redesign">
+      <created>1711395685038</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1711395685038</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +306,8 @@
     <MESSAGE value="Added toggle between attendance and graph. Started working on visuals and responsive design." />
     <MESSAGE value="Did some improvements on responsive design." />
     <MESSAGE value="Fixing and redesign." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing and redesign." />
+    <MESSAGE value="Redesign" />
+    <option name="LAST_COMMIT_MESSAGE" value="Redesign" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

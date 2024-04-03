@@ -28,7 +28,7 @@ export default function Navbar() {
                 {/*        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>*/}
                 {/*    </svg>*/}
                 {/*</button>*/}
-                <button className="mr-1 text-white right-0 size-12 rounded-md focus:outline-none transition ease-in-out delay-50 hover:bg-gray-200 hover:text-fim"
+                <button className="mr-1 text-white right-0 size-12 rounded-md focus:outline-none transition ease-in-out delay-50 hover:bg-white hover:text-blue-500"
                         onClick={() => signOut()}>
                     <LogoutIcon/>
                 </button>

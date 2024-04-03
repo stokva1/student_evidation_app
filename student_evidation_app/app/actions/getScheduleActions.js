@@ -1,3 +1,4 @@
+"use server"
 import getLoggedUser from "../actions/getLoggedUser"
 import prisma from "@/lib/prisma";
 

@@ -14,8 +14,8 @@ const getAttendance = async (scheduleActionID) => {
         });
         return attendance
     } catch (error) {
-        return [];
+        return []
     }
-};
+}
 
 export default getAttendance;

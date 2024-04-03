@@ -3,10 +3,10 @@ import prisma from "@/lib/prisma";
 import getScheduleAction from "@/app/actions/getScheduleAction"
 
 
-const getData = async (id) => {
+const getData = async (id, sort) => {
     const data = {}
 
-    const newAttendanceData = await getAttendance(id);
+    const newAttendanceData = await getAttendance(id, sort);
     data.attendanceData = newAttendanceData
 
     const newScheduleAction = await getScheduleAction(id);
@@ -20,12 +20,12 @@ const getData = async (id) => {
     return data
 }
 
-const getAttendance = async (scheduleActionID) => {
+const getAttendance = async (scheduleActionID, sort) => {
     //TODO: rename absenceinfo3 to absenceinfo in db and delete the others
     try {
         const attendance = await prisma.absenceinfo3.findMany({
             orderBy: {
-                surname: "asc"
+                surname: sort
             },
             where: {
                 scheduleActionID: scheduleActionID

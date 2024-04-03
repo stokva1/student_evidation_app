@@ -17,7 +17,7 @@ export default function ScheduleActionCard({scheduleActions, onClick}) {
             {scheduleActions.map((data, i) => (
                 <button
                     key={i}
-                    className="w-full h-min px-4 py-4 bg-white rounded-md z-0 shadow-md hover:text-white hover:bg-blue-400 hover:shadow-inner focus:outline focus:outline-1 focus:outline-white focus:bg-blue-400 focus:shadow-inner focus:text-white focus:ring has-[:focus]:bg-indigo-50"
+                    className="w-full h-min px-4 py-4 bg-white rounded-md z-0 shadow-md hover:text-white hover:bg-blue-400 hover:shadow-inner focus:outline focus:outline-1 focus:outline-white focus:bg-blue-400 focus:shadow-inner focus:text-white focus:ring has-[:focus]:bg-indigo-50 transition ease-in-out delay-50"
                     onClick={(e) => {
                         onClick(data.tScheduleActionID)
                         handleClick(e.target)
