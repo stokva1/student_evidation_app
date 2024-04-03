@@ -74,7 +74,7 @@ model tscheduleactiontype {
 
 model tstudent {
   firstname                String                     @db.VarChar(20)
-  phoneNumber              String?                    @db.VarChar(15)
+  userName                 String                     @unique(map: "userName") @db.VarChar(20)
   surname                  String                     @db.VarChar(20)
   tStudentID               Int                        @id @default(autoincrement())
   tattendance              tattendance[]

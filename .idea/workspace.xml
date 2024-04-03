@@ -4,28 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Redesign">
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAllSubjects.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionType.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionsByDate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getSubjectStudents.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" afterDir="false" />
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendance.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getAttendanceStats.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getData.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getLoggedUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActionInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/navbar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/presenceCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +146,7 @@
       <workItem from="1711799423230" duration="7841000" />
       <workItem from="1711966681336" duration="15256000" />
       <workItem from="1712040256238" duration="21346000" />
-      <workItem from="1712136807673" duration="3374000" />
+      <workItem from="1712136807673" duration="24564000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -274,7 +260,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711395685038</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality.">
+      <created>1712140534742</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1712140534742</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +300,8 @@
     <MESSAGE value="Did some improvements on responsive design." />
     <MESSAGE value="Fixing and redesign." />
     <MESSAGE value="Redesign" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redesign" />
+    <MESSAGE value="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
