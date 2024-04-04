@@ -1,10 +1,11 @@
 "use server"
 import prisma from "@/lib/prisma";
 import getLoggedUser from "@/app/actions/getLoggedUser";
-import {addWeeks} from "date-fns";
+import {addWeeks, getDay} from "date-fns";
+import { setWeek, nextMonday } from 'date-fns';
 
 
-async function createScheduleAction(date, subjectId, scheduleActionTypeId, students) {
+async function createScheduleAction(date, scheduleActionTypeID, subjectID, students) {
     const loggedUser = await getLoggedUser();
 
     if (!loggedUser?.tTeacherID) {
@@ -12,99 +13,146 @@ async function createScheduleAction(date, subjectId, scheduleActionTypeId, stude
     }
 
     try {
+        console.log(loggedUser.tTeacherID)
         console.log("Date")
         console.log(date)
         console.log("SubjectID")
-        console.log(subjectId)
+        console.log(subjectID)
         console.log("TypeID")
-        console.log(scheduleActionTypeId)
+        console.log(scheduleActionTypeID)
         console.log("Students")
         console.log(students)
 
-        const endOfSchoolYear = new Date(2024, 7, 3, 12, 0, 0);
 
-        // while (new Date(date) <= endOfSchoolYear) {
-            const teacher = await prisma.tteacher.findUnique({ where: { tTeacherID: loggedUser.tTeacherID } });
-            const subject = await prisma.tsubject.findUnique({ where: { tSubjectID: subjectId } });
-            const scheduleActionType = await prisma.tscheduleactiontype.findUnique({ where: { tScheduleActionType: scheduleActionTypeId } });
+        const year = date.getFullYear()
 
-            if (!teacher || !subject || !scheduleActionType) {
-                throw new Error('Related records do not exist');
-            }
+        const winterStartDate = setWeek(nextMonday(new Date(year, 0, 4)), 38, {
+            weekStartsOn: 1,
+            firstWeekContainsDate: 4
+        });
 
+        const winterEndDate = setWeek(nextMonday(new Date(year, 0, 4)), 51, {
+            weekStartsOn: 1,
+            firstWeekContainsDate: 4
+        });
 
+        const summerStartDate = setWeek(nextMonday(new Date(year, 0, 4)), 6, {
+            weekStartsOn: 1,
+            firstWeekContainsDate: 4
+        });
 
-            // const newScheduleAction = await prisma.tscheduleaction.create({
-            //     data: {
-            //         date: new Date(date),
-            //         tTeacherID: loggedUser.tTeacherID,
-            //         tSubjectID: subjectId,
-            //         tScheduleActionTypeID: scheduleActionTypeId,
-            //     },
-            // });
-            //
-            for (const student of students) {
-                let username = student.surname.substring(0, 4).toLowerCase() + student.firstname.substring(0, 2).toLowerCase();
-                let counter = 1;
-                let exists = true;
+        const summerEndDate = setWeek(nextMonday(new Date(year, 0, 4)), 19, {
+            weekStartsOn: 1,
+            firstWeekContainsDate: 4
+        });
 
-                while (exists) {
-                    const existingUser = await prisma.tstudent.findUnique({
-                        where: { userName: `${username}${counter}` },
-                    });
+        let endOfSemester = new Date()
 
-                    if (existingUser) {
-                        counter++;
-                    } else {
-                        username = `${username}${counter}`
-                        exists = false;
-                        console.log(username)
-                    }
-                }
-            //     let studentId
-            //     const existingStudent = await prisma.tstudent.findUnique({
-            //         where: {
-            //             firstname: student.firstname,
-            //             surname: student.surname,
-            //         },
-            //     });
-            //
-            //     if (!existingStudent) {
-            //         const newStudent = await prisma.tstudent.create({
-            //             data: {
-            //                 firstname: student.firstname,
-            //                 surname: student.surname,
-            //                 phoneNumber: '',
-            //             },
-            //         });
-            //
-            //         studentId = newStudent.tStudentID
-            //
-            //         await prisma.tenrolledstudents.create({
-            //             data: {
-            //                 tStudentID: newStudent.tStudentID,
-            //                 tSubjectID: subjectId,
-            //             },
-            //         });
-            //     }else {
-            //         studentId = existingStudent.tStudentID
-            //     }
-            //
-            //     await prisma.tattendance.create({
-            //         data: {
-            //             isPresent: false,
-            //             tStudentID: studentId,
-            //             tScheduleActionID: newScheduleAction.tScheduleActionID,
-            //         },
-            //     });
-            //
-            //     await prisma.tstudentsscheduleactions.create({
-            //         data: {
-            //             tStudentID: studentId,
-            //             tScheduleActionID: newScheduleAction.tScheduleActionID,
-            //         },
-            //     });
-            }
+        if (date > winterStartDate && date <= winterEndDate){
+            endOfSemester = winterEndDate
+        } else if (date > summerStartDate && date <= summerEndDate){
+            endOfSemester = summerEndDate
+        }
+
+        // while (new Date(date) <= endOfSemester) {
+        //     const teacher = await prisma.tteacher.findUnique({ where: { tTeacherID: loggedUser.tTeacherID } });
+        //     const subject = await prisma.tsubject.findUnique({ where: { tSubjectID: subjectID } });
+        //     const scheduleActionType = await prisma.tscheduleactiontype.findUnique({ where: { tScheduleActionType: scheduleActionTypeID } });
+        //
+        //     if (!teacher || !subject || !scheduleActionType) {
+        //         throw new Error('Related records do not exist');
+        //     }
+        //
+        //     const newScheduleAction = await prisma.tscheduleaction.create({
+        //         data: {
+        //             date: new Date(date),
+        //             tTeacherID: loggedUser.tTeacherID,
+        //             tSubjectID: subjectID,
+        //             tScheduleActionTypeID: scheduleActionTypeID,
+        //         },
+        //     });
+        //
+        //     for (const student of students) {
+        //         // let username = student.surname.substring(0, 4).toLowerCase() + student.firstname.substring(0, 2).toLowerCase();
+        //         // let counter = 1;
+        //         // let exists = true;
+        //         //
+        //         // while (exists) {
+        //         //     const existingUser = await prisma.tstudent.findUnique({
+        //         //         where: { userName: `${username}${counter}` },
+        //         //     });
+        //         //
+        //         //     if (existingUser) {
+        //         //         counter++;
+        //         //     } else {
+        //         //         username = `${username}${counter}`
+        //         //         exists = false;
+        //         //         console.log(username)
+        //         //     }
+        //         // }
+        //
+        //         let studentID
+        //         const existingStudent = await prisma.tstudent.findUnique({
+        //             where: {
+        //                 firstname: student.firstname,
+        //                 surname: student.surname,
+        //                 personalNum: student.personalNum,
+        //             },
+        //         });
+        //
+        //         if (!existingStudent) {
+        //             const newStudent = await prisma.tstudent.create({
+        //                 data: {
+        //                     firstname: student.firstname,
+        //                     surname: student.surname,
+        //                     personalNum: student.personalNum,
+        //                 },
+        //             });
+        //
+        //             studentID = newStudent.tStudentID
+        //
+        //             await prisma.tenrolledstudents.create({
+        //                 data: {
+        //                     tStudentID: newStudent.tStudentID,
+        //                     tSubjectID: subjectID,
+        //                 },
+        //             });
+        //         }else {
+        //             studentID = existingStudent.tStudentID
+        //
+        //             const alreadyEnrolled = await prisma.tenrolledstudents.findUnique({
+        //                 where: {
+        //                     tStudentID: studentID,
+        //                     tSubjectID: subjectID,
+        //                 }
+        //             })
+        //
+        //             if (!alreadyEnrolled){
+        //                 await prisma.tenrolledstudents.create({
+        //                     data: {
+        //                         tStudentID: studentID,
+        //                         tSubjectID: subjectID,
+        //                     },
+        //                 });
+        //             }
+        //         }
+        //
+        //         await prisma.tattendance.create({
+        //             data: {
+        //                 isPresent: false,
+        //                 isExcused: false,
+        //                 tStudentID: studentID,
+        //                 tScheduleActionID: newScheduleAction.tScheduleActionID,
+        //             },
+        //         });
+        //
+        //         await prisma.tstudentsscheduleactions.create({
+        //             data: {
+        //                 tStudentID: studentID,
+        //                 tScheduleActionID: newScheduleAction.tScheduleActionID,
+        //             },
+        //         });
+        //     }
 
             // date = addWeeks(new Date(date), 1)
         // }

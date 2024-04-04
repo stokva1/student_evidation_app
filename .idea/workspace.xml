@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality.">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Continue on schedule action creation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/updateAttendance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +143,8 @@
       <workItem from="1711799423230" duration="7841000" />
       <workItem from="1711966681336" duration="15256000" />
       <workItem from="1712040256238" duration="21346000" />
-      <workItem from="1712136807673" duration="24564000" />
+      <workItem from="1712136807673" duration="24920000" />
+      <workItem from="1712223247662" duration="15562000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -267,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712140534742</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Continue on schedule action creation">
+      <created>1712184337988</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712184337988</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,7 +306,8 @@
     <MESSAGE value="Fixing and redesign." />
     <MESSAGE value="Redesign" />
     <MESSAGE value="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality." />
-    <option name="LAST_COMMIT_MESSAGE" value="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality." />
+    <MESSAGE value="Continue on schedule action creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Continue on schedule action creation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

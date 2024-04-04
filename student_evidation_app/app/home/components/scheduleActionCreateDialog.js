@@ -23,15 +23,13 @@ import createScheduleAction from "@/app/actions/createScheduleAction";
 import {Formik, Form, useFormik} from "formik";
 import dayjs from "dayjs";
 
-
 const ScheduleActionSchema = Yup.object({
     date: Yup.date().required("Date is required"),
     typeID: Yup.number().required("Schedule Action Type is required"),
     subjectID: Yup.number().required("Subject is required"),
-    students: Yup.array().required("Students are required"),
+    students: Yup.array().required("Students are required").test('notEmpty', 'Students are required', (value) => value && value.length > 0),
 
 });
-
 
 export function ScheduleActionCreateDialog() {
     const [opened, setOpened] = useState(false);
@@ -74,6 +72,7 @@ export function ScheduleActionCreateDialog() {
                             const names = results.data.map(row => ({
                                 surname: row.prijmeni,
                                 firstname: row.jmeno,
+                                personalNum: row.osCislo
                             }));
                             formik.setFieldValue("students", names)
                         },
@@ -96,16 +95,19 @@ export function ScheduleActionCreateDialog() {
 
     const formik = useFormik({
         initialValues: {
-            date: dayjs(),
+            date: new Date(),
             typeID: "",
             subjectID: "",
-            students: [],
+            students: "",
         },
         validationSchema: ScheduleActionSchema,
         onSubmit: async (values) => {
-            console.log(values.date)
+            // console.log(values.students)
+            console.log("boy")
             try {
+                console.log(values)
                 await createScheduleAction(values.date, values.typeID, values.subjectID, values.students)
+                formik.resetForm()
                 handleClose()
             } catch (error) {
                 console.error(error)
@@ -136,30 +138,41 @@ export function ScheduleActionCreateDialog() {
                 <form onSubmit={formik.handleSubmit}>
                     <DialogContent>
                         <div className="flex flex-col space-y-5">
+                            <div>Datum</div>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']} size="small">
                                     <DateTimePicker id="date" name="date" label="Vyberte datum" onChange={(value) => {
-                                        formik.setFieldValue('date', value.$d)
-                                        console.log(value.$d)
-                                    }} value={formik.values.date ? dayjs(formik.values.date) : null}
+                                        formik.setFieldValue('date', new Date(value));
+                                    }}
+                                                    value={formik.values.date ? dayjs(formik.values.date) : null}
                                                     sx={{width: "100%"}} ampm={false}/>
                                 </DemoContainer>
                             </LocalizationProvider>
-                            <Select id="typeID" name="typeID" label="typeID" onChange={formik.handleChange} value={formik.values.typeID}>
-                                <MenuItem value={""}>-</MenuItem>
-                                {types.map((type) => (
-                                    <MenuItem key={type.tScheduleActionType}
-                                              value={type.tScheduleActionType}>{type.type}</MenuItem>
-                                ))}
-                            </Select>
-                            <Select id="subjectID" name="subjectID" label="subjectID" onChange={formik.handleChange} value={formik.values.subjectID}>
+                            <div>Předmět</div>
+                            <Select id="subjectID" name="subjectID" onChange={formik.handleChange}
+                                    value={formik.values.subjectID} error={formik.touched.subjectID && Boolean(formik.errors.subjectID)}
+                            >
                                 <MenuItem value={""}>-</MenuItem>
                                 {subjects.map((subject) => (
-                                    <MenuItem key={subject.tSubjectID}
-                                              value={subject.tSubjectID}>{subject.tsubject.name}</MenuItem>
+                                    <MenuItem key={subject.tSubjectID} value={subject.tSubjectID}>
+                                        {subject.tsubject.name}
+                                    </MenuItem>
                                 ))}
                             </Select>
-                            <Input id="students" name="students" label="students" type="file" accept=".csv" onChange={handleFileUpload}/>
+                            <div>Druh akce</div>
+                            <Select id="typeID" name="typeID" onChange={formik.handleChange}
+                                    value={formik.values.typeID} error={formik.touched.typeID && Boolean(formik.errors.typeID)}>
+                                <MenuItem value={""}>-</MenuItem>
+                                {types.map((type) => (
+                                    <MenuItem key={type.tScheduleActionType} value={type.tScheduleActionType}>
+                                        {type.type}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            <div>Seznam studentů</div>
+                            <Input id="students" name="students" label="students" type="file" accept=".csv"
+                                   onChange={handleFileUpload}
+                                   error={formik.touched.students && Boolean(formik.errors.students)}/>
                         </div>
                     </DialogContent>
                     <DialogActions>
