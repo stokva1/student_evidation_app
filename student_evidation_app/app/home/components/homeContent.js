@@ -41,6 +41,7 @@ export default function HomeContent() {
         setDate(date)
         const newScheduleActions = await getScheduleActionsByDate(date)
         setScheduleActions(newScheduleActions.scheduleActions)
+        console.log(newScheduleActions.scheduleActions)
         setWeek(newScheduleActions.week)
     }
 
@@ -95,8 +96,10 @@ export default function HomeContent() {
                             }>
                             <ArrowBackIosIcon/>
                         </button>
-                        <div className="w-16 flex flex-col text-center justify-center text-lg font-bold leading-9 tracking-tight mr-1">{week.start}</div>
-                        <div className="w-16 flex flex-col text-center justify-center text-lg font-bold leading-9 tracking-tight ml-1">{week.end}</div>
+                        <div
+                            className="w-16 flex flex-col text-center justify-center text-lg font-bold leading-9 tracking-tight mr-1">{week.start}</div>
+                        <div
+                            className="w-16 flex flex-col text-center justify-center text-lg font-bold leading-9 tracking-tight ml-1">{week.end}</div>
                         <button
                             className="size-10 hover:bg-white hover:text-blue-500 rounded-md text-center pl-0.5 pb-0.5 transition ease-in-out delay-50"
                             onClick={() =>
@@ -106,29 +109,35 @@ export default function HomeContent() {
                         </button>
 
                     </div>
-                    <div
-                        className="drop-shadow-lg text-gray-900 self-center w-4/5 sm:w-3/5 lg:w-full h-full pt-6 pb-10 px-12 sm:px-12 overflow-y-scroll rounded-md space-y-5">
-                        <ScheduleActionCard
-                            scheduleActions={scheduleActions}
-                            onClick={handleGetAttendanceData}
-                        />
-                    </div>
-                </div>
 
+                    {scheduleActions.length === 0 ? (
+                        <div className="h-1/2 flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-white">
+                            Žádné rozvrhov akce
+                        </div>
+                    ) : (
+                        <div
+                            className="drop-shadow-lg text-gray-900 self-center w-full sm:w-3/5 lg:w-full h-full pt-6 pb-10 px-8 sm:px-12 overflow-y-scroll rounded-md space-y-5">
+                            <ScheduleActionCard
+                                scheduleActions={scheduleActions}
+                                onClick={handleGetAttendanceData}
+                            />
+                        </div>
+                    )}
+                </div>
                 <div className="flex flex-col w-full max-h-min">
-                    <h2 className="mt-5 text-fim flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                    <h2 className="mt-5 mb-2 lg:mb-0 text-fim flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Docházka
                     </h2>
                     {attendanceData.length === 0 || attendanceStats.length === 0 ? (
                         <div
                             className="h-4/5 flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                            Nic tu není :(
+                            Není vybrána žádná rozvrhová akce
                         </div>
 
                     ) : (
                         <div className="mb-12">
-                            <div className="flex flex-row justify-between px-6 mb-4">
-                                <div className="align-middle">
+                            <div className="flex flex-col space-y-3 lg:flex-row lg:justify-between px-6 mb-4">
+                                <div className="text-center align-middle">
                                     <h2 className="text-left text-2xl font-bold leading-none tracking-tight">
                                         {scheduleAction.subjectName}
                                     </h2>
@@ -143,7 +152,7 @@ export default function HomeContent() {
                                     </div>
                                 </div>
                                 <ToggleButtonGroup
-                                    className="h-1/2 mt-auto"
+                                    className="h-1/2 mt-auto hidden lg:block"
                                     value={toggleContent}
                                     exclusive
                                 >
@@ -154,7 +163,7 @@ export default function HomeContent() {
                                                       width: 125,
                                                       borderRadius: '6px'
                                                   }}>
-                                        Docházka
+                                        Seznam
                                     </ToggleButton>
                                     <ToggleButton value="false" aria-label=""
                                                   onChange={() => setToggleContent(false)} sx={{
@@ -163,7 +172,7 @@ export default function HomeContent() {
                                         width: 125,
                                         borderRadius: '6px'
                                     }}>
-                                        Grafy
+                                        Graf
                                     </ToggleButton>
                                 </ToggleButtonGroup>
                             </div>
@@ -171,9 +180,9 @@ export default function HomeContent() {
                             {toggleContent ? (
                                 <AttendanceCard attendance={attendanceData}/>
                             ) : (
-                                <div className="flex h-full justify-center items-center">
+                                <div className="hidden lg:flex h-full justify-center items-center">
                                     <BarChart
-                                        sx={{maxHeight: 'calc(100vh - 315px)', overflowY: 'scroll'}}
+                                        sx={{maxHeight: 'calc(100vh - 315px)', width: "500px", overflowY: 'scroll'}}
                                         yAxis={[{data: attendanceStats.map(id => (id.surname)), scaleType: 'band'}]}
                                         series={[
                                             {

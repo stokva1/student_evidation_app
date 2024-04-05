@@ -2,7 +2,7 @@
 import prisma from "@/lib/prisma";
 import getLoggedUser from "@/app/actions/getLoggedUser";
 import {addWeeks, getDay} from "date-fns";
-import { setWeek, nextMonday } from 'date-fns';
+import {setWeek, nextMonday} from 'date-fns';
 
 
 async function createScheduleAction(date, scheduleActionTypeID, subjectID, students) {
@@ -48,114 +48,97 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
 
         let endOfSemester = new Date()
 
-        if (date > winterStartDate && date <= winterEndDate){
+        if (date > winterStartDate && date <= winterEndDate) {
             endOfSemester = winterEndDate
-        } else if (date > summerStartDate && date <= summerEndDate){
+        } else if (date > summerStartDate && date <= summerEndDate) {
             endOfSemester = summerEndDate
         }
 
-        // while (new Date(date) <= endOfSemester) {
-        //     const teacher = await prisma.tteacher.findUnique({ where: { tTeacherID: loggedUser.tTeacherID } });
-        //     const subject = await prisma.tsubject.findUnique({ where: { tSubjectID: subjectID } });
-        //     const scheduleActionType = await prisma.tscheduleactiontype.findUnique({ where: { tScheduleActionType: scheduleActionTypeID } });
-        //
-        //     if (!teacher || !subject || !scheduleActionType) {
-        //         throw new Error('Related records do not exist');
-        //     }
-        //
-        //     const newScheduleAction = await prisma.tscheduleaction.create({
-        //         data: {
-        //             date: new Date(date),
-        //             tTeacherID: loggedUser.tTeacherID,
-        //             tSubjectID: subjectID,
-        //             tScheduleActionTypeID: scheduleActionTypeID,
-        //         },
-        //     });
-        //
-        //     for (const student of students) {
-        //         // let username = student.surname.substring(0, 4).toLowerCase() + student.firstname.substring(0, 2).toLowerCase();
-        //         // let counter = 1;
-        //         // let exists = true;
-        //         //
-        //         // while (exists) {
-        //         //     const existingUser = await prisma.tstudent.findUnique({
-        //         //         where: { userName: `${username}${counter}` },
-        //         //     });
-        //         //
-        //         //     if (existingUser) {
-        //         //         counter++;
-        //         //     } else {
-        //         //         username = `${username}${counter}`
-        //         //         exists = false;
-        //         //         console.log(username)
-        //         //     }
-        //         // }
-        //
-        //         let studentID
-        //         const existingStudent = await prisma.tstudent.findUnique({
-        //             where: {
-        //                 firstname: student.firstname,
-        //                 surname: student.surname,
-        //                 personalNum: student.personalNum,
-        //             },
-        //         });
-        //
-        //         if (!existingStudent) {
-        //             const newStudent = await prisma.tstudent.create({
-        //                 data: {
-        //                     firstname: student.firstname,
-        //                     surname: student.surname,
-        //                     personalNum: student.personalNum,
-        //                 },
-        //             });
-        //
-        //             studentID = newStudent.tStudentID
-        //
-        //             await prisma.tenrolledstudents.create({
-        //                 data: {
-        //                     tStudentID: newStudent.tStudentID,
-        //                     tSubjectID: subjectID,
-        //                 },
-        //             });
-        //         }else {
-        //             studentID = existingStudent.tStudentID
-        //
-        //             const alreadyEnrolled = await prisma.tenrolledstudents.findUnique({
-        //                 where: {
-        //                     tStudentID: studentID,
-        //                     tSubjectID: subjectID,
-        //                 }
-        //             })
-        //
-        //             if (!alreadyEnrolled){
-        //                 await prisma.tenrolledstudents.create({
-        //                     data: {
-        //                         tStudentID: studentID,
-        //                         tSubjectID: subjectID,
-        //                     },
-        //                 });
-        //             }
-        //         }
-        //
-        //         await prisma.tattendance.create({
-        //             data: {
-        //                 isPresent: false,
-        //                 isExcused: false,
-        //                 tStudentID: studentID,
-        //                 tScheduleActionID: newScheduleAction.tScheduleActionID,
-        //             },
-        //         });
-        //
-        //         await prisma.tstudentsscheduleactions.create({
-        //             data: {
-        //                 tStudentID: studentID,
-        //                 tScheduleActionID: newScheduleAction.tScheduleActionID,
-        //             },
-        //         });
-        //     }
+        while (new Date(date) <= endOfSemester) {
+            const teacher = await prisma.tteacher.findUnique({where: {tTeacherID: loggedUser.tTeacherID}});
+            const subject = await prisma.tsubject.findUnique({where: {tSubjectID: subjectID}});
+            const scheduleActionType = await prisma.tscheduleactiontype.findUnique({where: {tScheduleActionType: scheduleActionTypeID}});
 
-            // date = addWeeks(new Date(date), 1)
-        // }
+            if (!teacher || !subject || !scheduleActionType) {
+                throw new Error('Related records do not exist');
+            }
+
+            const newScheduleAction = await prisma.tscheduleaction.create({
+                data: {
+                    date: new Date(date),
+                    tTeacherID: loggedUser.tTeacherID,
+                    tSubjectID: subjectID,
+                    tScheduleActionTypeID: scheduleActionTypeID,
+                },
+            });
+
+            for (const student of students) {
+
+                let studentID
+                const existingStudent = await prisma.tstudent.findUnique({
+                    where: {
+                        firstname: student.firstname,
+                        surname: student.surname,
+                        personalNum: student.personalNum,
+                    },
+                });
+
+                if (!existingStudent) {
+                    const newStudent = await prisma.tstudent.create({
+                        data: {
+                            firstname: student.firstname,
+                            surname: student.surname,
+                            personalNum: student.personalNum,
+                        },
+                    });
+
+                    studentID = newStudent.tStudentID
+
+                    await prisma.tenrolledstudents.create({
+                        data: {
+                            tStudentID: newStudent.tStudentID,
+                            tSubjectID: subjectID,
+                        },
+                    });
+                } else {
+                    studentID = existingStudent.tStudentID
+
+                    const alreadyEnrolled = await prisma.tenrolledstudents.findFirst({
+                        where: {
+                            tStudentID: studentID,
+                            tSubjectID: subjectID,
+                        }
+                    })
+
+                    if (!alreadyEnrolled) {
+                        await prisma.tenrolledstudents.create({
+                            data: {
+                                tStudentID: studentID,
+                                tSubjectID: subjectID,
+                            },
+                        });
+                    }
+                }
+
+                await prisma.tattendance.create({
+                    data: {
+                        isPresent: false,
+                        isExcused: false,
+                        tStudentID: studentID,
+                        tScheduleActionID: newScheduleAction.tScheduleActionID,
+                    },
+                });
+
+                await prisma.tstudentsscheduleactions.create({
+                    data: {
+                        tStudentID: studentID,
+                        tScheduleActionID: newScheduleAction.tScheduleActionID,
+                    },
+                });
+            }
+
+            date = addWeeks(new Date(date), 1)
+        }
 
     } catch (error) {
         console.error(error);

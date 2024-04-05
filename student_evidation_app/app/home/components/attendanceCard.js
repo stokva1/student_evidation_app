@@ -16,11 +16,24 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Select from '@mui/material/Select';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Box from '@mui/material/Box';
+import {useFormik} from "formik";
+import * as Yup from 'yup'
+
+const attendanceSchema = Yup.array().of(
+    Yup.object({
+        tAttendanceID: Yup.number().required('Attendance ID is required'),
+        isPresent: Yup.boolean().required('Presence status is required'),
+        isExcused: Yup.boolean().required('Excused status is required'),
+        tAbsenceTypeID: Yup.number()
+            // .when('isExcused', {
+            //     is: true,
+            //     then: Yup.number().nullable(),
+            //     otherwise: Yup.number().nullable().required('Absence Type ID must be null when not excused'),
+            // }),
+    })
+);
+
 
 export function AttendanceCard({attendance}) {
     const label = {inputProps: {'aria-label': 'Checkbox demo'}};
@@ -68,6 +81,7 @@ export function AttendanceCard({attendance}) {
         setOpen(true)
     }
 
+
     const columns = [
         {id: 'name', label: 'Jméno', minWidth: 'min-content', align: 'left'},
         {id: 'present', label: 'Přítomen', minWidth: 'min-content', align: 'center'},
@@ -109,14 +123,41 @@ export function AttendanceCard({attendance}) {
         toggleUpdate(!update)
     }, [orderBy, order]);
 
+    const formik = useFormik({
+        initialValues: attendance.map(item => ({
+            tAttendanceID: item.tAttendanceID,
+            isPresent: item.isPresent,
+            isExcused: item.isExcused,
+            tAbsenceTypeID: item.tAbsenceTypeID
+        })),
+        validationSchema: null,
+        onSubmit: async (values) => {
+            console.log(values)
+            try {
+                // await Promise.all(values.map((x) => (
+                //     updateAttendance({
+                //         attendanceID: x.tAttendanceID,
+                //         isPresent: x.isPresent,
+                //         isExcused: x.isExcused,
+                //         absencetypeID: x.tAbsenceTypeID,
+                //     })
+                // )));
+                console.log(values)
+                setOpen(true);
+            }catch (e) {
+                console.log(e)
+            }
+        },
+    });
+
     //TODO: set select to empty string if data.absencetype is null
     //TODO: Fix map key error
     //TODO: Move alert and make visible for a bit longer
     //TODO: Fix absence type not saving or loading
 
     return (
-        <form className="divide-y px-6">
-            <TableContainer className="flex outline outline-1 outline-blue-500 overflow-y-scroll	rounded-md"
+        <form className="divide-y px-6" onSubmit={formik.handleSubmit}>
+            <TableContainer className="flex outline outline-1 outline-blue-500 overflow-y-scroll rounded-md"
                             sx={{height: 'calc(100vh - 300px)'}}>
                 <Table stickyHeader>
                     <TableHead>
@@ -147,12 +188,6 @@ export function AttendanceCard({attendance}) {
                         </TableRow>
                     </TableHead>
                     <TableBody sx={{px: 10}}>
-                        <Snackbar open={open} onClose={() => setOpen(false)} TransitionComponent={Grow}
-                                  autoHideDuration={1200}>
-                            <Alert severity="success" variant="filled" sx={{width: '100%'}}>
-                                Data were successfully saved!
-                            </Alert>
-                        </Snackbar>
                         {attendance.map((data) => (
                             <TableRow hover role="checkbox" key={data.tAttendanceID}>
                                 <TableCell sx={{pl: 3, fontWeight: 500, fontSize: '0.9rem'}}>
@@ -160,6 +195,7 @@ export function AttendanceCard({attendance}) {
                                 <TableCell sx={{padding: '4px 4px 4px 13px'}} align={"center"}>
                                     <PresenceCard key={data.tAttendanceID} isPresent={data.isPresent} onClick={() => {
                                         data.isPresent = !data.isPresent
+                                        formik.setFieldValue("isPresent", !formik.values.isPresent)
                                         toggleEnable(!enable)
                                         if (data.isPresent === true) {
                                             data.isExcused = false
@@ -170,8 +206,10 @@ export function AttendanceCard({attendance}) {
                                 <TableCell sx={{padding: '0 0 0 13px'}} align={"center"}>
                                     <Checkbox {...label} checked={data.isExcused}
                                               disabled={data.isPresent}
-                                              onChange={() => {
+                                              onChange={(e) => {
                                                   data.isExcused = !data.isExcused
+                                                  formik.setFieldValue("isExcused", data.isExcused)
+                                                  console.log(e.target.checked)
                                                   toggleEnable(!enable)
                                                   if (data.isExcused === false) {
                                                       data.tAbsenceTypeID = null
@@ -185,6 +223,7 @@ export function AttendanceCard({attendance}) {
                                             disabled={!data.isExcused}
                                             onInput={(e) => {
                                                 data.tAbsenceTypeID = e.target.selectedIndex + 1
+                                                formik.setFieldValue("tAbsenceTypeID", e.target.selectedIndex + 1)
                                                 toggleEnable(!enable)
                                             }}>
                                         <option value={0} disabled>-</option>
@@ -200,11 +239,17 @@ export function AttendanceCard({attendance}) {
                         ))}
                     </TableBody>
                 </Table>
+                <Snackbar open={open} onClose={() => setOpen(false)} TransitionComponent={Grow}
+                          autoHideDuration={1200}>
+                    <Alert severity="success" variant="filled" sx={{width: '100%'}}>
+                        Data were successfully saved!
+                    </Alert>
+                </Snackbar>
             </TableContainer>
             <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
                         className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner transition ease-in-out delay-50"
-                        onClick={handleSubmit}>
+                        >
                     SAVE
                     <SaveOutlinedIcon sx={{ml: 0.5}}/>
                 </button>

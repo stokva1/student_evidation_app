@@ -22,11 +22,12 @@ import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import createScheduleAction from "@/app/actions/createScheduleAction";
 import {Formik, Form, useFormik} from "formik";
 import dayjs from "dayjs";
+import CloseIcon from '@mui/icons-material/Close';
 
 const ScheduleActionSchema = Yup.object({
-    date: Yup.date().required("Date is required"),
-    typeID: Yup.number().required("Schedule Action Type is required"),
     subjectID: Yup.number().required("Subject is required"),
+    typeID: Yup.number().required("Schedule Action Type is required"),
+    date: Yup.date().required("Date is required"),
     students: Yup.array().required("Students are required").test('notEmpty', 'Students are required', (value) => value && value.length > 0),
 
 });
@@ -34,10 +35,7 @@ const ScheduleActionSchema = Yup.object({
 export function ScheduleActionCreateDialog() {
     const [opened, setOpened] = useState(false);
     const [subjects, setSubjects] = useState([])
-    const [subjectID, setSubjectID] = useState('')
-    const [students, setStudents] = useState([])
     const [types, setTypes] = useState([])
-    const [type, setType] = useState([])
 
     const handleClose = () => {
         setOpened(false);
@@ -95,22 +93,19 @@ export function ScheduleActionCreateDialog() {
 
     const formik = useFormik({
         initialValues: {
-            date: new Date(),
-            typeID: "",
             subjectID: "",
+            typeID: "",
+            date: new Date(),
             students: "",
         },
         validationSchema: ScheduleActionSchema,
         onSubmit: async (values) => {
-            // console.log(values.students)
-            console.log("boy")
             try {
-                console.log(values)
                 await createScheduleAction(values.date, values.typeID, values.subjectID, values.students)
                 formik.resetForm()
                 handleClose()
-            } catch (error) {
-                console.error(error)
+            } catch (e) {
+                console.error(e)
             }
         },
     });
@@ -124,44 +119,41 @@ export function ScheduleActionCreateDialog() {
                 </button>
             </div>
             <Dialog sx={{textAlign: "center"}} open={opened} onClose={handleClose}>
-                <DialogTitle>Vytvořit akci</DialogTitle>
+                <DialogTitle className="font-bold text-gray-900">Vytvořit akci</DialogTitle>
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
+                    className="size-12"
                     sx={{
                         position: "absolute",
                         right: 8,
                         top: 8,
-                        color: (theme) => theme.palette.grey[500],
+                        color: (theme) => theme.palette.grey[900],
                     }}
-                />
+                >
+                    <CloseIcon/>
+                </IconButton>
                 <form onSubmit={formik.handleSubmit}>
                     <DialogContent>
                         <div className="flex flex-col space-y-5">
-                            <div>Datum</div>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DatePicker']} size="small">
-                                    <DateTimePicker id="date" name="date" label="Vyberte datum" onChange={(value) => {
-                                        formik.setFieldValue('date', new Date(value));
-                                    }}
-                                                    value={formik.values.date ? dayjs(formik.values.date) : null}
-                                                    sx={{width: "100%"}} ampm={false}/>
-                                </DemoContainer>
-                            </LocalizationProvider>
-                            <div>Předmět</div>
+                            <div className="font-semibold text-gray-900">Předmět</div>
                             <Select id="subjectID" name="subjectID" onChange={formik.handleChange}
-                                    value={formik.values.subjectID} error={formik.touched.subjectID && Boolean(formik.errors.subjectID)}
+                                    className="bg-gray-100 rounded-full text-blue-500 h-12"
+                                    value={formik.values.subjectID}
+                                    error={formik.touched.subjectID && Boolean(formik.errors.subjectID)}
                             >
-                                <MenuItem value={""}>-</MenuItem>
+                                <MenuItem value={""} className="text-blue-500">-</MenuItem>
                                 {subjects.map((subject) => (
-                                    <MenuItem key={subject.tSubjectID} value={subject.tSubjectID}>
+                                    <MenuItem key={subject.tSubjectID} value={subject.tSubjectID} className="text-blue-500">
                                         {subject.tsubject.name}
                                     </MenuItem>
                                 ))}
                             </Select>
-                            <div>Druh akce</div>
+                            <div className="font-semibold text-gray-900">Druh akce</div>
                             <Select id="typeID" name="typeID" onChange={formik.handleChange}
-                                    value={formik.values.typeID} error={formik.touched.typeID && Boolean(formik.errors.typeID)}>
+                                    className="bg-gray-100 rounded-full text-blue-500 h-12"
+                                    value={formik.values.typeID}
+                                    error={formik.touched.typeID && Boolean(formik.errors.typeID)}>
                                 <MenuItem value={""}>-</MenuItem>
                                 {types.map((type) => (
                                     <MenuItem key={type.tScheduleActionType} value={type.tScheduleActionType}>
@@ -169,17 +161,29 @@ export function ScheduleActionCreateDialog() {
                                     </MenuItem>
                                 ))}
                             </Select>
-                            <div>Seznam studentů</div>
-                            <Input id="students" name="students" label="students" type="file" accept=".csv"
+                            <div className="font-semibold text-gray-900">Datum</div>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']} size="small">
+                                    <DateTimePicker id="date" name="date" onChange={(value) => {
+                                        formik.setFieldValue('date', new Date(value));
+                                    }}
+                                                    className="bg-gray-100"
+                                                    value={formik.values.date ? dayjs(formik.values.date) : null}
+                                                    sx={{width: "100%"}} ampm={false}/>
+                                </DemoContainer>
+                            </LocalizationProvider>
+                            <div className="font-semibold text-gray-900">Seznam studentů</div>
+                            <input id="students" name="students" label="students" type="file" accept=".csv"
+                                   className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white"
                                    onChange={handleFileUpload}
-                                   error={formik.touched.students && Boolean(formik.errors.students)}/>
+                                   required={formik.touched.students && Boolean(formik.errors.students)}/>
                         </div>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose}>Zrušit</Button>
-                        <Button type="submit">
+                        <Button type="submit" className="rounded-lg bg-blue-500 text-white w-24">
                             Vytvořit
                         </Button>
+                        <Button onClick={handleClose} className="rounded-lg text-red-600 outline outline-1 outline-red-600 w-24">Zrušit</Button>
                     </DialogActions>
                 </form>
             </Dialog>
