@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Finalized schedule action creaton">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Minor improvements">
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/addSubject.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/subjectForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/actions/createScheduleAction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/api/auth/[...nextauth]/route.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/attendanceCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/homeContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/app/home/components/scheduleActionCreateDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/components/loginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/student_evidation_app/prisma/schema.prisma" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +150,9 @@
       <workItem from="1712040256238" duration="21346000" />
       <workItem from="1712136807673" duration="24920000" />
       <workItem from="1712223247662" duration="15620000" />
-      <workItem from="1712309277207" duration="19628000" />
+      <workItem from="1712309277207" duration="19705000" />
+      <workItem from="1712396257290" duration="8065000" />
+      <workItem from="1712424134144" duration="7240000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -282,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712273327099</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Minor improvements">
+      <created>1712357236657</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1712357236657</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -318,7 +330,8 @@
     <MESSAGE value="Small design changes. Added table sorting, weekly schedule action view and started working on creating schedule actions functionality." />
     <MESSAGE value="Continue on schedule action creation" />
     <MESSAGE value="Finalized schedule action creaton" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finalized schedule action creaton" />
+    <MESSAGE value="Minor improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor improvements" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

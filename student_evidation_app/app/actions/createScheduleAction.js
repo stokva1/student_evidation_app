@@ -13,17 +13,6 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
     }
 
     try {
-        console.log(loggedUser.tTeacherID)
-        console.log("Date")
-        console.log(date)
-        console.log("SubjectID")
-        console.log(subjectID)
-        console.log("TypeID")
-        console.log(scheduleActionTypeID)
-        console.log("Students")
-        console.log(students)
-
-
         const year = date.getFullYear()
 
         const winterStartDate = setWeek(nextMonday(new Date(year, 0, 4)), 38, {

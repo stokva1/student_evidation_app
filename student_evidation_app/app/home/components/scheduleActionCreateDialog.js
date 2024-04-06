@@ -32,10 +32,12 @@ const ScheduleActionSchema = Yup.object({
 
 });
 
+
 export function ScheduleActionCreateDialog() {
     const [opened, setOpened] = useState(false);
     const [subjects, setSubjects] = useState([])
     const [types, setTypes] = useState([])
+    const [subjectOpen, setSubjectOpen] = useState(false)
 
     const handleClose = () => {
         setOpened(false);
@@ -133,10 +135,20 @@ export function ScheduleActionCreateDialog() {
                 >
                     <CloseIcon/>
                 </IconButton>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} className="p-2">
                     <DialogContent>
                         <div className="flex flex-col space-y-5">
-                            <div className="font-semibold text-gray-900">Předmět</div>
+                            <div className="flex flex-row justify-between">
+                                <div className="size-8"></div>
+                                <div className="font-semibold text-gray-900 mt-0">Předmět</div>
+                                <button type="button"
+                                        className={(subjectOpen ? "rotate-45" : "") + " text-white bg-blue-500 hover:text-blue-500 hover:bg-white rounded-full size-8 pb-0.5 transition ease-in-out delay-50"}
+                                        onClick={() => {
+                                            setSubjectOpen(!subjectOpen)
+                                        }}>
+                                    <AddIcon/>
+                                </button>
+                            </div>
                             <Select id="subjectID" name="subjectID" onChange={formik.handleChange}
                                     className="bg-gray-100 rounded-full text-blue-500 h-12"
                                     value={formik.values.subjectID}
@@ -144,7 +156,8 @@ export function ScheduleActionCreateDialog() {
                             >
                                 <MenuItem value={""} className="text-blue-500">-</MenuItem>
                                 {subjects.map((subject) => (
-                                    <MenuItem key={subject.tSubjectID} value={subject.tSubjectID} className="text-blue-500">
+                                    <MenuItem key={subject.tSubjectID} value={subject.tSubjectID}
+                                              className="text-blue-500">
                                         {subject.tsubject.name}
                                     </MenuItem>
                                 ))}
@@ -183,7 +196,9 @@ export function ScheduleActionCreateDialog() {
                         <Button type="submit" className="rounded-lg bg-blue-500 text-white w-24">
                             Vytvořit
                         </Button>
-                        <Button onClick={handleClose} className="rounded-lg text-red-600 outline outline-1 outline-red-600 w-24">Zrušit</Button>
+                        <Button onClick={handleClose}
+                                className="rounded-lg text-red-600 outline outline-1 outline-red-600 w-24">Zrušit
+                        </Button>
                     </DialogActions>
                 </form>
             </Dialog>

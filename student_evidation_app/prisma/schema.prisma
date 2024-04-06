@@ -42,11 +42,10 @@ model tenrolledstudents {
 }
 
 model tlogin {
-  email       String    @unique(map: "email") @db.VarChar(30)
-  password    String    @db.VarChar(60)
-  permissions Int
-  tLoginID    Int       @id @default(autoincrement())
-  tteacher    tteacher?
+  email    String    @unique(map: "email") @db.VarChar(30)
+  password String    @db.VarChar(60)
+  tLoginID Int       @id @default(autoincrement())
+  tteacher tteacher?
 }
 
 model tscheduleaction {
@@ -94,8 +93,6 @@ model tstudentsscheduleactions {
 }
 
 model tsubject {
-  capacity          Int
-  description       String?             @db.VarChar(100)
   name              String              @db.VarChar(100)
   tSubjectID        Int                 @id @default(autoincrement())
   tenrolledstudents tenrolledstudents[]

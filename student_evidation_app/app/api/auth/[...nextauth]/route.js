@@ -20,7 +20,7 @@ export const authOptions = {
                 const user = await prisma.tlogin.findUnique({
                     where: {
                         email: credentials.email
-                    }
+                    },
                 });
 
                 if (!user || !(await compare(credentials.password, user.password))) {

@@ -20,19 +20,12 @@ import TableRow from '@mui/material/TableRow';
 import {useFormik} from "formik";
 import * as Yup from 'yup'
 
-const attendanceSchema = Yup.array().of(
-    Yup.object({
-        tAttendanceID: Yup.number().required('Attendance ID is required'),
-        isPresent: Yup.boolean().required('Presence status is required'),
-        isExcused: Yup.boolean().required('Excused status is required'),
-        tAbsenceTypeID: Yup.number()
-            // .when('isExcused', {
-            //     is: true,
-            //     then: Yup.number().nullable(),
-            //     otherwise: Yup.number().nullable().required('Absence Type ID must be null when not excused'),
-            // }),
-    })
-);
+const attendanceSchema = Yup.object({
+    tAttendanceID: Yup.number().required('Attendance ID is required'),
+    isPresent: Yup.boolean().required('Presence status is required'),
+    isExcused: Yup.boolean().required('Excused status is required'),
+    tAbsenceTypeID: Yup.number().nullable()
+})
 
 
 export function AttendanceCard({attendance}) {
@@ -42,6 +35,7 @@ export function AttendanceCard({attendance}) {
     const [update, toggleUpdate] = useState(false);
     const [order, setOrder] = useState("asc")
     const [orderBy, setOrderBy] = useState("surname")
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
@@ -69,17 +63,32 @@ export function AttendanceCard({attendance}) {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        await attendance.map((x) => (
-            updateAttendance({
-                attendanceID: x.tAttendanceID,
-                isPresent: x.isPresent,
-                isExcused: x.isExcused,
-                absencetypeID: x.tAbsenceTypeID,
-            })
-        ))
-        setOpen(true)
-    }
+        e.preventDefault();
+        try {
+            const validatedAttendance = await Promise.all(attendance.map(async (data) => {
+                try {
+                    const validatedData = await attendanceSchema.validate(data)
+                    return validatedData;
+                } catch (error) {
+                    setErrorMessage(error.message)
+                    throw error;
+                }
+            }));
+
+            await Promise.all(validatedAttendance.map(async (data) => {
+                await updateAttendance({
+                    attendanceID: data.tAttendanceID,
+                    isPresent: data.isPresent,
+                    isExcused: data.isExcused,
+                    absencetypeID: data.tAbsenceTypeID,
+                });
+            }));
+
+            setOpen(true);
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
 
     const columns = [
@@ -89,7 +98,7 @@ export function AttendanceCard({attendance}) {
         {id: 'absenceType', label: 'Typ absence', minWidth: 'min-content', align: 'center'},
     ]
     const sortArray = () => {
-        if (order === "asc"){
+        if (order === "asc") {
             attendance.sort((a, b) => {
                 if (orderBy === 'name') {
                     return a.surname.localeCompare(b.surname);
@@ -123,40 +132,13 @@ export function AttendanceCard({attendance}) {
         toggleUpdate(!update)
     }, [orderBy, order]);
 
-    const formik = useFormik({
-        initialValues: attendance.map(item => ({
-            tAttendanceID: item.tAttendanceID,
-            isPresent: item.isPresent,
-            isExcused: item.isExcused,
-            tAbsenceTypeID: item.tAbsenceTypeID
-        })),
-        validationSchema: null,
-        onSubmit: async (values) => {
-            console.log(values)
-            try {
-                // await Promise.all(values.map((x) => (
-                //     updateAttendance({
-                //         attendanceID: x.tAttendanceID,
-                //         isPresent: x.isPresent,
-                //         isExcused: x.isExcused,
-                //         absencetypeID: x.tAbsenceTypeID,
-                //     })
-                // )));
-                console.log(values)
-                setOpen(true);
-            }catch (e) {
-                console.log(e)
-            }
-        },
-    });
-
     //TODO: set select to empty string if data.absencetype is null
     //TODO: Fix map key error
     //TODO: Move alert and make visible for a bit longer
     //TODO: Fix absence type not saving or loading
 
     return (
-        <form className="divide-y px-6" onSubmit={formik.handleSubmit}>
+        <form className="divide-y px-6" onSubmit={handleSubmit}>
             <TableContainer className="flex outline outline-1 outline-blue-500 overflow-y-scroll rounded-md"
                             sx={{height: 'calc(100vh - 300px)'}}>
                 <Table stickyHeader>
@@ -174,9 +156,9 @@ export function AttendanceCard({attendance}) {
                                         type="button"
                                         onClick={() => {
                                             setOrderBy(column.id)
-                                            if (order === "asc"){
+                                            if (order === "asc") {
                                                 setOrder("desc")
-                                            }else{
+                                            } else {
                                                 setOrder("asc")
                                             }
                                         }}
@@ -195,7 +177,6 @@ export function AttendanceCard({attendance}) {
                                 <TableCell sx={{padding: '4px 4px 4px 13px'}} align={"center"}>
                                     <PresenceCard key={data.tAttendanceID} isPresent={data.isPresent} onClick={() => {
                                         data.isPresent = !data.isPresent
-                                        formik.setFieldValue("isPresent", !formik.values.isPresent)
                                         toggleEnable(!enable)
                                         if (data.isPresent === true) {
                                             data.isExcused = false
@@ -208,8 +189,6 @@ export function AttendanceCard({attendance}) {
                                               disabled={data.isPresent}
                                               onChange={(e) => {
                                                   data.isExcused = !data.isExcused
-                                                  formik.setFieldValue("isExcused", data.isExcused)
-                                                  console.log(e.target.checked)
                                                   toggleEnable(!enable)
                                                   if (data.isExcused === false) {
                                                       data.tAbsenceTypeID = null
@@ -223,7 +202,6 @@ export function AttendanceCard({attendance}) {
                                             disabled={!data.isExcused}
                                             onInput={(e) => {
                                                 data.tAbsenceTypeID = e.target.selectedIndex + 1
-                                                formik.setFieldValue("tAbsenceTypeID", e.target.selectedIndex + 1)
                                                 toggleEnable(!enable)
                                             }}>
                                         <option value={0} disabled>-</option>
@@ -239,17 +217,23 @@ export function AttendanceCard({attendance}) {
                         ))}
                     </TableBody>
                 </Table>
-                <Snackbar open={open} onClose={() => setOpen(false)} TransitionComponent={Grow}
+                <Snackbar open={open && errorMessage === ''} onClose={() => setOpen(false)} TransitionComponent={Grow}
                           autoHideDuration={1200}>
                     <Alert severity="success" variant="filled" sx={{width: '100%'}}>
                         Data were successfully saved!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={errorMessage !== ''} onClose={() => setErrorMessage('')} TransitionComponent={Grow}
+                          autoHideDuration={6000}>
+                    <Alert severity="error" variant="filled" sx={{width: '100%'}}>
+                        {errorMessage}
                     </Alert>
                 </Snackbar>
             </TableContainer>
             <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
                         className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner transition ease-in-out delay-50"
-                        >
+                >
                     SAVE
                     <SaveOutlinedIcon sx={{ml: 0.5}}/>
                 </button>
@@ -261,119 +245,5 @@ export function AttendanceCard({attendance}) {
                 </button>
             </div>
         </form>
-
-
     )
-
-    {/*<div className="flex flex-row px-5 py-2 text-center font-semibold ring-2 ring-gray-300">*/
-    }
-    {/*    <div className="w-32 mr-2">Jméno</div>*/
-    }
-    {/*    <button className="text-center ml-auto mr-32">Přítomen</button>*/
-    }
-    {/*    <button className="mr-44 ml-3">Omluven</button>*/
-    }
-    {/*    <div className="mr-36 ml-1">Typ absence</div>*/
-    }
-    {/*</div>*/
-    }
-    {/*
-            todo: typ absence jako vyskakovací okno?*/
-    }
-    {/*<form className="overflow-y-scroll divide-y">*/
-    }
-    {/*    <Snackbar open={open} onClose={() => setOpen(false)} TransitionComponent={Grow} autoHideDuration={1200}>*/
-    }
-    {/*        <Alert severity="success" variant="filled" sx={{width: '100%'}}>*/
-    }
-    {/*            Data were successfully saved!*/
-    }
-    {/*        </Alert>*/
-    }
-    {/*    </Snackbar>*/
-    }
-    {/*    {attendance.map((data) => (*/
-    }
-    {/*        <div key={data.tAttendanceID} className="h-16 flex flex-row px-5 py-2">*/
-    }
-    {/*            <button className="my-auto w-48 text-left" type="button">*/
-    }
-    {/*                {data.surname} {data.firstname}*/
-    }
-    {/*            </button>*/
-    }
-    {/*            <PresenceCard key={data.tAttendanceID} isPresent={data.isPresent} onClick={() => {*/
-    }
-    {/*                data.isPresent = !data.isPresent*/
-    }
-    {/*            }}/>*/
-    }
-    {/*            <div className="mr-40">*/
-    }
-    {/*                <Checkbox {...label} defaultChecked={data.isExcused} onClick={() => {*/
-    }
-    {/*                    data.isExcused = !data.isExcused*/
-    }
-    {/*                }}/>*/
-    }
-    {/*            </div>*/
-    }
-    {/*<select key={data.tAttendanceID} className="rounded-md border-2 border-fim mr-24"*/
-    }
-    {/*        defaultValue={data.absencetype ? data.absencetype.toString() : ""}*/
-    }
-    {/*        onChange={(e) => {*/
-    }
-    {/*            data.tAbsenceTypeID = e.target.selectedIndex + 1*/
-    }
-    {/*        }}>*/
-    }
-    {/*    <option>Nemoc</option>*/
-    }
-    {/*    <option>Rodinné důvody</option>*/
-    }
-    {/*    <option>Problém s dopravou</option>*/
-    }
-    {/*    <option>Zaspání</option>*/
-    }
-    {/*    <option>Školní akce</option>*/
-    }
-    {/*    <option>Jiné</option>*/
-    }
-    {/*</select>*/
-    }
-    {/*        </div>*/
-    }
-    {/*    ))}*/
-    }
-    {/*    <div className="w-full flex justify-center py-2 mx-auto">*/
-    }
-    {/*        <button type="submit"*/
-    }
-    {/*                className="w-28 h-12 ml-auto mr-1.5 rounded-md px-2 py-1.5 text-sm font-semibold shadow-md border-2 border-black hover:text-fim hover:border-fim hover:shadow-inner"*/
-    }
-    {/*                onClick={handleSubmit}>*/
-    }
-    {/*            SAVE*/
-    }
-    {/*            <SaveOutlinedIcon sx={{ml: 0.5}}/>*/
-    }
-    {/*        </button>*/
-    }
-    {/*        <button type="button"*/
-    }
-    {/*                className="w-28 h-12 ml-1.5 mr-auto rounded-md px-2 py-1.5 text-sm font-semibold shadow-md border-2 border-black hover:text-fim hover:border-fim hover:shadow-inner"*/
-    }
-    {/*                onClick={() => exportToExcel(attendanceData)}>*/
-    }
-    {/*            EXPORT*/
-    }
-    {/*            <FileDownloadOutlinedIcon sx={{ml: 0.5}}/>*/
-    }
-    {/*        </button>*/
-    }
-    {/*    </div>*/
-    }
-    {/*</form>*/
-    }
 }

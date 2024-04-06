@@ -31,7 +31,7 @@ export default function LoginForm() {
     // }, [session?.status, router])
 
     const handleSubmit = async (e) => {
-        // e.preventDefault();     //zabránění aktuaizace stránky
+        // e.preventDefault();
         try {
             const res = await signIn('credentials', {
                 email: e.email,
@@ -40,6 +40,7 @@ export default function LoginForm() {
             });
 
             if (res.error) {
+                console.log(res.error)
                 setError("Invalid Credentials");
                 return;
             }
