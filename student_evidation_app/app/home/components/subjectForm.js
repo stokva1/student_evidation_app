@@ -10,9 +10,8 @@ const SubjectSchema = Yup.object({
     subjectName: Yup.string().required("Subject is required"),
 })
 
-export function subjectForm(open, subjectOpened) {
-    const [opened, setOpened] = useState(open);
-    const [subjectOpen, setSubjectOpen] = useState(subjectOpened)
+export function SubjectAddDialog({onSubjectAdded}) {
+    const [opened, setOpened] = useState(false);
 
     const handleClose = () => {
         setOpened(false);
@@ -26,6 +25,9 @@ export function subjectForm(open, subjectOpened) {
         onSubmit: async (values) => {
             try {
                 await addSubject(values.subjectName)
+                formik.resetForm()
+                handleClose()
+                onSubjectAdded()
             } catch (e) {
                 console.log(e)
             }
@@ -33,50 +35,50 @@ export function subjectForm(open, subjectOpened) {
     });
 
     return (
-        <Dialog sx={{textAlign: "center"}} open={opened} onClose={handleClose}>
-            <DialogTitle className="font-bold text-gray-900">Přidat předmět</DialogTitle>
-            <IconButton
-                aria-label="close"
-                onClick={handleClose}
-                className="size-12"
-                sx={{
-                    position: "absolute",
-                    right: 8,
-                    top: 8,
-                    color: (theme) => theme.palette.grey[900],
-                }}
-            >
-                <CloseIcon/>
-            </IconButton>
-            <form onSubmit={formik.handleSubmit} className="p-2">
-                <DialogContent>
-                    <div className="flex flex-col space-y-5">
-                        <div className="flex flex-row justify-between">
-                            <div className="size-8"></div>
-                            <div className="font-semibold text-gray-900 mt-0">Předmět</div>
-                            <button type="button"
-                                    className={(subjectOpen ? "rotate-45" : "") + " text-white bg-blue-500 hover:text-blue-500 hover:bg-white rounded-full size-8 pb-0.5 transition ease-in-out delay-50"}
-                                    onClick={() => {
-                                        setSubjectOpen(!subjectOpen)
-                                    }}>
-                                <AddIcon/>
-                            </button>
+        <>
+            <button type="button"
+                    className={(opened ? "rotate-45" : "") + " text-white bg-blue-500 hover:text-blue-500 hover:bg-white rounded-full size-8 pb-0.5 transition ease-in-out delay-50"}
+                    onClick={() => {
+                        setOpened(!opened)
+                    }}>
+                <AddIcon/>
+            </button>
+            <Dialog sx={{textAlign: "center"}} open={opened} onClose={handleClose}>
+                <DialogTitle className="font-bold text-gray-900">Přidat předmět</DialogTitle>
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    className="size-12"
+                    sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[900],
+                    }}
+                >
+                    <CloseIcon/>
+                </IconButton>
+                <form onSubmit={formik.handleSubmit} className="p-2">
+                    <DialogContent>
+                        <div className="flex flex-col space-y-5">
+                            <div className="font-semibold text-gray-900 mt-0">Název předmětu</div>
+                            <input id="subjectName" name="subjectName"
+                                   className="bg-gray-100 rounded-full text-blue-500 w-full h-12 px-4"
+                                   onChange={formik.handleChange}
+                                   required={formik.touched.subjectName && Boolean(formik.errors.subjectName)}/>
                         </div>
-                        <input id="subjectName" name="subjectName" className="bg-gray-100 rounded-full text-blue-500 w-full h-12 px-4"
-                               onChange={formik.handleChange}
-                               required={formik.touched.subjectName && Boolean(formik.errors.subjectName)}/>
-                    </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button type="submit" className="rounded-lg bg-blue-500 text-white w-24">
-                        Přídat
-                    </Button>
-                    <Button onClick={handleClose}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button type="submit" className="rounded-lg bg-blue-500 text-white w-24">
+                            Přídat
+                        </Button>
+                        <Button
+                            onClick={handleClose}
                             className="rounded-lg text-red-600 outline outline-1 outline-red-600 w-24">Zrušit
-                    </Button>
-                </DialogActions>
-            </form>
-        </Dialog>
-
+                        </Button>
+                    </DialogActions>
+                </form>
+            </Dialog>
+        </>
     )
 }

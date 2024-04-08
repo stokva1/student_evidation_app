@@ -23,6 +23,7 @@ import createScheduleAction from "@/app/actions/createScheduleAction";
 import {Formik, Form, useFormik} from "formik";
 import dayjs from "dayjs";
 import CloseIcon from '@mui/icons-material/Close';
+import {SubjectAddDialog} from "@/app/home/components/subjectForm";
 
 const ScheduleActionSchema = Yup.object({
     subjectID: Yup.number().required("Subject is required"),
@@ -33,11 +34,10 @@ const ScheduleActionSchema = Yup.object({
 });
 
 
-export function ScheduleActionCreateDialog() {
-    const [opened, setOpened] = useState(false);
+export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
+    const [opened, setOpened] = useState(false)
     const [subjects, setSubjects] = useState([])
     const [types, setTypes] = useState([])
-    const [subjectOpen, setSubjectOpen] = useState(false)
 
     const handleClose = () => {
         setOpened(false);
@@ -46,6 +46,11 @@ export function ScheduleActionCreateDialog() {
     useEffect(() => {
         getActionTypesAndSubjects().catch()
     }, [])
+
+    const getSubjects = async () => {
+        const allSubjects = await getAllSubjects()
+        setSubjects(allSubjects)
+    }
 
     const getActionTypesAndSubjects = async () => {
         const allTypes = await getScheduleActionType()
@@ -106,6 +111,7 @@ export function ScheduleActionCreateDialog() {
                 await createScheduleAction(values.date, values.typeID, values.subjectID, values.students)
                 formik.resetForm()
                 handleClose()
+                onScheduleActionAdded()
             } catch (e) {
                 console.error(e)
             }
@@ -141,13 +147,7 @@ export function ScheduleActionCreateDialog() {
                             <div className="flex flex-row justify-between">
                                 <div className="size-8"></div>
                                 <div className="font-semibold text-gray-900 mt-0">Předmět</div>
-                                <button type="button"
-                                        className={(subjectOpen ? "rotate-45" : "") + " text-white bg-blue-500 hover:text-blue-500 hover:bg-white rounded-full size-8 pb-0.5 transition ease-in-out delay-50"}
-                                        onClick={() => {
-                                            setSubjectOpen(!subjectOpen)
-                                        }}>
-                                    <AddIcon/>
-                                </button>
+                                <SubjectAddDialog onSubjectAdded={getSubjects}/>
                             </div>
                             <Select id="subjectID" name="subjectID" onChange={formik.handleChange}
                                     className="bg-gray-100 rounded-full text-blue-500 h-12"
@@ -202,6 +202,7 @@ export function ScheduleActionCreateDialog() {
                     </DialogActions>
                 </form>
             </Dialog>
+
         </>
     );
 }

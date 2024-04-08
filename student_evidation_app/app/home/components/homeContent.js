@@ -34,14 +34,13 @@ export default function HomeContent() {
     const [sort, setSort] = useState("asc")
 
     useEffect(() => {
-        getDate(date).catch()
+        getDate().catch()
     }, [])
 
-    const getDate = async (date) => {
+    const getDate = async () => {
         setDate(date)
         const newScheduleActions = await getScheduleActionsByDate(date)
         setScheduleActions(newScheduleActions.scheduleActions)
-        console.log(newScheduleActions.scheduleActions)
         setWeek(newScheduleActions.week)
     }
 
@@ -57,19 +56,9 @@ export default function HomeContent() {
         const scheduleActionInfo = await getScheduleActionInfo(id)
         setScheduleAction(scheduleActionInfo)
     };
-
-    // const scheduleActions = async () => {
-    //     await getScheduleActions()
-    // }
-
-    // function showSideBar() {
-    //     let x = document.getElementById("sideBar")
-    //     if (x.style.display === "none") {
-    //         x.style.display = "flex"
-    //     } else {
-    //         x.style.display = "none"
-    //     }
-    // }
+    const handleActionAdd = async () => {
+        getDate().catch()
+    }
 
     return (
         <>
@@ -87,7 +76,7 @@ export default function HomeContent() {
                     <h2 className="mt-5 text-white text-center text-2xl font-bold leading-9 tracking-tight">
                         Rozvrhové akce
                     </h2>
-                    <ScheduleActionCreateDialog/>
+                    <ScheduleActionCreateDialog onScheduleActionAdded={handleActionAdd}/>
                     <div className="flex justify-center text-white mt-12 mb-4">
                         <button
                             className="size-10 hover:bg-white hover:text-blue-500 rounded-md text-center pl-2 pb-0.5 transition ease-in-out delay-50"

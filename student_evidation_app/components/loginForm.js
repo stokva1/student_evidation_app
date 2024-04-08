@@ -7,18 +7,12 @@ import {LoginSchema} from "../schemas/loginSchema";
 import {useFormik} from "formik";
 
 
-const initialValues = {
-    email: "",
-    password: ""
-};
-
-export default function LoginForm() {
+export default function LoginForm(defaultEmail) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const router = useRouter();
-    const session = useSession();
 
     //TODO do smth with this useEffect, because session?.status is always 'authenticated'
 
@@ -30,12 +24,11 @@ export default function LoginForm() {
     //     console.log(session)
     // }, [session?.status, router])
 
-    const handleSubmit = async (e) => {
-        // e.preventDefault();
+    const handleSubmit = async () => {
         try {
             const res = await signIn('credentials', {
-                email: e.email,
-                password: e.password,
+                email: formik.values.email,
+                password: formik.values.password,
                 redirect: false,
             });
 
@@ -53,21 +46,24 @@ export default function LoginForm() {
     };
 
     const formik = useFormik({
-        initialValues,
+        initialValues: {
+            email: defaultEmail.defaultEmail || "",
+            password: ""
+        },
         validationSchema: LoginSchema,
         onSubmit: handleSubmit,
     });
 
     return (
         <div className="absolute bg-white border-2 border-fim drop-shadow-lg rounded-lg flex flex-1 flex-col justify-center px-6 py-10 sm:px-12 sm:border-0">
-            <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                Sign in to your account
+            <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center">
+                Přihlášení
             </h2>
             <div className="mt-10">
                 <form className="space-y-6" action="#" method="POST" onSubmit={formik.handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-4 text-gray-900">
-                            Email address
+                            Email
                         </label>
                         <div className="mt-2">
                             <input
@@ -88,7 +84,7 @@ export default function LoginForm() {
                     <div>
                         <div className="flex items-center justify-between">
                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                                Password
+                                Heslo
                             </label>
                         </div>
                         <div className="mt-2">
@@ -113,7 +109,7 @@ export default function LoginForm() {
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-fim px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-fim hover:bg-white hover:outline hover:outline-2 hover:border-fim focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition ease-in-out delay-100"
                         >
-                            Sign in
+                            Přihlásit
                         </button>
                         {error && (
                             <div

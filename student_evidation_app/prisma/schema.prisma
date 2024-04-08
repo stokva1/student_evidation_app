@@ -46,6 +46,7 @@ model tlogin {
   password String    @db.VarChar(60)
   tLoginID Int       @id @default(autoincrement())
   tteacher tteacher?
+  ttoken   ttoken?
 }
 
 model tscheduleaction {
@@ -102,7 +103,7 @@ model tsubject {
 
 model tteacher {
   firstname         String              @db.VarChar(20)
-  phoneNumber       String              @db.VarChar(15)
+  phoneNumber       String?             @db.VarChar(15)
   surname           String              @db.VarChar(20)
   tTeacherID        Int                 @id @default(autoincrement())
   tLoginID          Int                 @unique(map: "tLoginID")
@@ -120,6 +121,14 @@ model tteacherssubjects {
 
   @@index([tSubjectID], map: "FK_Tteacherssubjects_Tsubject")
   @@index([tTeacherID], map: "FK_Tteacherssubjects_Tteacher")
+}
+
+model ttoken {
+  token     String   @unique(map: "token") @db.VarChar(40)
+  expiresAt DateTime @default(now()) @db.Timestamp(6)
+  tTokenID  Int      @id @default(autoincrement())
+  email     String   @unique(map: "email") @db.VarChar(30)
+  tlogin    tlogin   @relation(fields: [email], references: [email], onUpdate: Restrict, map: "fk_ttoken_tlogin")
 }
 
 view scheduleactioninfo {

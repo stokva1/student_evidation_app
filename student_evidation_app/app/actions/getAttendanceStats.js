@@ -36,7 +36,6 @@ const getAttendanceStats = async (name, tSubjectID, tTeacherID)=> {
 
         }));
 
-        console.log(processedResult);
         return processedResult
     } catch (error) {
         console.log(error);

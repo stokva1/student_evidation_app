@@ -2,6 +2,7 @@ import NextAuth, {AuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
 import {compare} from "bcrypt";
+import EmailProvider from "next-auth/providers/email";
 
 export const authOptions = {
     providers: [
@@ -13,7 +14,7 @@ export const authOptions = {
             },
 
             async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) { //kontrola, zda nechybí email nebo heslo
+                if (!credentials?.email || !credentials?.password) {
                     throw new Error("Missing email or password");
                 }
 
@@ -24,7 +25,7 @@ export const authOptions = {
                 });
 
                 if (!user || !(await compare(credentials.password, user.password))) {
-                    throw new Error("Invalid email or password") //kontrola správných přihlašovacích údajů
+                    throw new Error("Invalid email or password")
                 }
 
                 const perm = await prisma.tteacher.findUnique({

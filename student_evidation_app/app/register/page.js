@@ -1,13 +1,13 @@
-"use client"
-import LoginForm from "@/components/loginForm";
 import Image from "next/image";
-import loginPick from "../images/login_screen_background.jpg"
-import EmailForm from "@/components/emailForm";
-import {useState} from "react";
+import loginPick from "../../images/login_screen_background.jpg"
+import RegisterForm from "@/app/register/components/registerForm";
+import {redirect, useSearchParams} from "next/navigation";
+import validToken from "@/app/actions/validToken";
 
-export default function Login() {
-    const [login, setLogin] = useState(false)
-    const [email, setEmail] = useState("")
+export default async function Register({searchParams}) {
+    const token = searchParams.token
+
+    const isValid = await validToken(token)
 
     const imageStyle = {
         display: "block",
@@ -17,14 +17,9 @@ export default function Login() {
         maxHeight: "1080px",
     }
 
-    const userHasPassword = (letLogin) => {
-        if (letLogin){
-            setLogin(true)
-        }
-    }
-
-    const handleEmail = (email) => {
-        setEmail(email)
+    if (!isValid){
+        redirect("/")
+        return
     }
 
     return (
@@ -38,12 +33,7 @@ export default function Login() {
                            style={imageStyle}
                            alt="three sudents on stairs"/>
                 </div>
-                {login ? (
-                    <LoginForm defaultEmail={email}/>
-                ):(
-                    <EmailForm userExist={userHasPassword} emailValue={handleEmail}/>
-
-                )}
+                <RegisterForm token={token}/>
             </div>
         </main>
     );
