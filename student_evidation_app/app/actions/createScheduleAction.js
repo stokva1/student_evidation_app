@@ -1,7 +1,7 @@
 "use server"
 import prisma from "@/lib/prisma";
 import getLoggedUser from "@/app/actions/getLoggedUser";
-import {addWeeks, getDay} from "date-fns";
+import {addWeeks} from "date-fns";
 import {setWeek, nextMonday} from 'date-fns';
 
 
@@ -9,7 +9,7 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
     const loggedUser = await getLoggedUser();
 
     if (!loggedUser?.tTeacherID) {
-        return [];
+        return []
     }
 
     try {

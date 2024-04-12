@@ -13,7 +13,7 @@ const updateAttendance = async (data) => {
                 tAbsenceTypeID: data.absencetypeID,
             }
         })
-    }catch (e) {
+    } catch (e) {
         console.log(e)
         return
     }

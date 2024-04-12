@@ -5,8 +5,8 @@ import getLoggedUser from "@/app/actions/getLoggedUser";
 async function getAllSubjects() {
     const loggedUser = await getLoggedUser()
 
-    if (!loggedUser?.tTeacherID){
-        return[];
+    if (!loggedUser?.tTeacherID) {
+        return []
     }
 
     try {
@@ -26,9 +26,9 @@ async function getAllSubjects() {
                 },
             },
         });
-        
+
         return subjectsWithStudents
-    }catch (e) {
+    } catch (e) {
         return []
     }
 }

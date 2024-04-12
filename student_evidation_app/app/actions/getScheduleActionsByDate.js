@@ -1,24 +1,24 @@
 "use server"
 import getLoggedUser from "../actions/getLoggedUser"
 import prisma from "@/lib/prisma";
-import { startOfWeek, endOfWeek } from 'date-fns';
+import {startOfWeek, endOfWeek} from 'date-fns';
 
 const getScheduleActionsByDate = async (date) => {
-    const startOfWeekDate = startOfWeek(date, { weekStartsOn: 1 });
-    const endOfWeekDate = endOfWeek(date, { weekStartsOn: 1 });
+    const startOfWeekDate = startOfWeek(date, {weekStartsOn: 1});
+    const endOfWeekDate = endOfWeek(date, {weekStartsOn: 1});
 
     const loggedUser = await getLoggedUser()
 
-    if (!loggedUser?.tTeacherID){
-        return[];
+    if (!loggedUser?.tTeacherID) {
+        return []
     }
 
     try {
         const scheduleActions = await prisma.scheduleactioninfo.findMany({
-            orderBy:{
+            orderBy: {
                 date: "asc"
             },
-            where:{
+            where: {
                 tTeacherID: loggedUser.tTeacherID,
                 date: {
                     lte: endOfWeekDate,
@@ -26,6 +26,7 @@ const getScheduleActionsByDate = async (date) => {
                 }
             }
         });
+
         const result = {
             scheduleActions,
             week: {
@@ -35,7 +36,7 @@ const getScheduleActionsByDate = async (date) => {
         };
 
         return result
-    }catch (error){
+    } catch (error) {
         return [];
     }
 };

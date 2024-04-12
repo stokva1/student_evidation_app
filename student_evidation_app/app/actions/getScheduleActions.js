@@ -2,27 +2,26 @@
 import getLoggedUser from "../actions/getLoggedUser"
 import prisma from "@/lib/prisma";
 
-
 const getScheduleActions = async () => {
     const loggedUser = await getLoggedUser()
 
-    if (!loggedUser?.tTeacherID){
-        return[];
+    if (!loggedUser?.tTeacherID) {
+        return []
     }
 
     try {
         const scheduleActions = await prisma.scheduleactioninfo.findMany({
-            orderBy:{
+            orderBy: {
                 date: "desc"
             },
-            where:{
+            where: {
                 tTeacherID: loggedUser.tTeacherID
             }
         });
 
         return scheduleActions
-    }catch (error){
-        return [];
+    } catch (error) {
+        return []
     }
 };
 

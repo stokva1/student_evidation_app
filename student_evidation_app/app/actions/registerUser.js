@@ -17,11 +17,11 @@ async function registerUser(firstname, surname, password, tokenObject) {
                 },
             },
         });
-    }catch (e) {
+    } catch (e) {
         console.log(e)
     }
 
-    if (!existingLogin && tokenObject.expiresAt.getTime() > Date.now()){
+    if (!existingLogin && tokenObject.expiresAt.getTime() > Date.now()) {
 
         try {
             const hashedPassword = await bcrypt.hash(password, 10)
@@ -56,7 +56,7 @@ async function registerUser(firstname, surname, password, tokenObject) {
             })
 
             await prisma.ttoken.delete({
-                where:{
+                where: {
                     token: tokenObject.token,
                 }
             })

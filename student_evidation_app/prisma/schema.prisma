@@ -141,26 +141,7 @@ view scheduleactioninfo {
 }
 
 view absenceinfo {
-  scheduleActionID Int     @unique
-  firstname        String? @db.VarChar(20)
-  surname          String? @db.VarChar(20)
-  isPresent        Boolean @db.Bit(1)
-  isExcused        Boolean @db.Bit(1)
-  absencetype      String? @db.VarChar(30)
-}
-
-view absenceinfo2 {
-  tAttendanceID    Int     @unique @default(0)
-  scheduleActionID Int     @unique
-  firstname        String? @db.VarChar(20)
-  surname          String? @db.VarChar(20)
-  isPresent        Boolean @db.Bit(1)
-  isExcused        Boolean @db.Bit(1)
-  absencetype      String? @db.VarChar(30)
-}
-
-view absenceinfo3 {
-  tAttendanceID    Int     @unique @default(0)
+  tAttendanceID    Int     @default(0)
   scheduleActionID Int     @unique
   firstname        String? @db.VarChar(20)
   surname          String? @db.VarChar(20)

@@ -9,6 +9,7 @@ const getScheduleAction = async (id) => {
                 tScheduleActionID: id,
             }
         })
+
         return scheduleAction
     } catch (error) {
         return [];

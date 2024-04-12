@@ -2,9 +2,8 @@
 import prisma from "@/lib/prisma";
 
 const getAttendance = async (scheduleActionID) => {
-    //TODO: rename absenceinfo3 to absenceinfo in db and delete the others
     try {
-        const attendance = await prisma.absenceinfo3.findMany({
+        const attendance = await prisma.absenceinfo.findMany({
             orderBy: {
                 surname: "asc"
             },

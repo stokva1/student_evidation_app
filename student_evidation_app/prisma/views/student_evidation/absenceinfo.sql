@@ -1,10 +1,12 @@
 SELECT
+  `a`.`tAttendanceID` AS `tAttendanceID`,
   `a`.`tScheduleActionID` AS `scheduleActionID`,
   `s`.`firstname` AS `firstname`,
   `s`.`surname` AS `surname`,
   `a`.`isPresent` AS `isPresent`,
   `a`.`isExcused` AS `isExcused`,
-  `te`.`name` AS `absencetype`
+  `te`.`name` AS `absencetype`,
+  `a`.`tAbsenceTypeID` AS `tAbsenceTypeID`
 FROM
   (
     (

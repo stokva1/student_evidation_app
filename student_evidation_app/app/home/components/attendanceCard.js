@@ -17,8 +17,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {useFormik} from "formik";
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 const attendanceSchema = Yup.object({
     tAttendanceID: Yup.number().required('Attendance ID is required'),
@@ -131,11 +130,6 @@ export function AttendanceCard({attendance}) {
         sortArray()
         toggleUpdate(!update)
     }, [orderBy, order]);
-
-    //TODO: set select to empty string if data.absencetype is null
-    //TODO: Fix map key error
-    //TODO: Move alert and make visible for a bit longer
-    //TODO: Fix absence type not saving or loading
 
     return (
         <form className="divide-y px-6" onSubmit={handleSubmit}>

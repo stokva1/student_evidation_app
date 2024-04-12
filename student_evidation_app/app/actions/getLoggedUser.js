@@ -4,8 +4,7 @@ import prisma from "../../lib/prisma"
 
 const getLoggedUser = async () => {
     try {
-        const session = await getSession();
-
+        const session = await getSession()
 
         if (!session.user?.email) {
             return null

@@ -1,11 +1,11 @@
 "use server"
 import prisma from "@/lib/prisma";
 
-async function validToken(token){
+async function validToken(token) {
     try {
         console.log(token)
         const isToken = await prisma.ttoken.findUnique({
-            where:{
+            where: {
                 token: token,
                 expiresAt: {
                     gt: new Date()
@@ -15,7 +15,7 @@ async function validToken(token){
 
         return !!isToken
 
-    }catch (e){
+    } catch (e) {
         return false
     }
 }

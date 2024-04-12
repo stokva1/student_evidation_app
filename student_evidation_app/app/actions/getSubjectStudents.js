@@ -14,7 +14,7 @@ async function getSubjectStudents(subjectID) {
 
         return enrolledStudents;
 
-    }catch (e) {
+    } catch (e) {
         return []
     }
 }

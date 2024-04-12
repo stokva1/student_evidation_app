@@ -1,26 +1,18 @@
 "use client"
-
 import ScheduleActionCard from "@/app/home/components/scheduleActionCard";
 import {AttendanceCard} from "@/app/home/components/attendanceCard";
 import {useEffect, useState} from "react";
-import getAttendance from "@/app/actions/getAttendance";
-import getAttendanceStats from "@/app/actions/getAttendanceStats";
 import getData from "@/app/actions/getData";
 import {BarChart} from '@mui/x-charts/BarChart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import {white} from "next/dist/lib/picocolors";
-import {red} from "@mui/material/colors";
-import {resolveAppleWebApp} from "next/dist/lib/metadata/resolvers/resolve-basics";
 import getScheduleActionInfo from "@/app/actions/getScheduleActionInfo";
-import PersonIcon from "@mui/icons-material/Person";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import getScheduleActionsByDate from "@/app/actions/getScheduleActionsByDate";
 import {addWeeks} from "date-fns";
 import {ScheduleActionCreateDialog} from "@/app/home/components/scheduleActionCreateDialog";
-import AddIcon from '@mui/icons-material/Add';
 
 export default function HomeContent() {
     const [attendanceData, setAttendanceData] = useState([]);
@@ -31,15 +23,14 @@ export default function HomeContent() {
     const [date, setDate] = useState(new Date())
     const [scheduleActions, setScheduleActions] = useState([])
     const [week, setWeek] = useState({})
-    const [sort, setSort] = useState("asc")
 
     useEffect(() => {
-        getDate().catch()
+        getDate(date).catch()
     }, [])
 
-    const getDate = async () => {
-        setDate(date)
-        const newScheduleActions = await getScheduleActionsByDate(date)
+    const getDate = async (dates) => {
+        setDate(dates)
+        const newScheduleActions = await getScheduleActionsByDate(dates)
         setScheduleActions(newScheduleActions.scheduleActions)
         setWeek(newScheduleActions.week)
     }
@@ -49,15 +40,22 @@ export default function HomeContent() {
         height: 600,
     };
 
-    const handleGetAttendanceData = async id => {
-        const newScheduleAction = await getData(id, sort)
-        setAttendanceData(newScheduleAction.attendanceData)
-        setAttendanceStats(newScheduleAction.attendanceStatsArray)
-        const scheduleActionInfo = await getScheduleActionInfo(id)
-        setScheduleAction(scheduleActionInfo)
+    const handleGetAttendanceData = async (id) => {
+        if (id === null){
+            const newScheduleActions = await getScheduleActionsByDate(date)
+            setScheduleActions(newScheduleActions.scheduleActions)
+            setAttendanceData([])
+            setAttendanceStats([])
+        } else {
+            const newScheduleAction = await getData(id)
+            setAttendanceData(newScheduleAction.attendanceData)
+            setAttendanceStats(newScheduleAction.attendanceStatsArray)
+            const scheduleActionInfo = await getScheduleActionInfo(id)
+            setScheduleAction(scheduleActionInfo)
+        }
     };
     const handleActionAdd = async () => {
-        getDate().catch()
+        getDate(date).catch()
     }
 
     return (
@@ -77,7 +75,7 @@ export default function HomeContent() {
                         Rozvrhové akce
                     </h2>
                     <ScheduleActionCreateDialog onScheduleActionAdded={handleActionAdd}/>
-                    <div className="flex justify-center text-white mt-12 mb-4">
+                    <div className="flex justify-center text-white mt-4 mb-4">
                         <button
                             className="size-10 hover:bg-white hover:text-blue-500 rounded-md text-center pl-2 pb-0.5 transition ease-in-out delay-50"
                             onClick={() =>
@@ -125,12 +123,12 @@ export default function HomeContent() {
 
                     ) : (
                         <div className="mb-12">
-                            <div className="flex flex-col space-y-3 lg:flex-row lg:justify-between px-6 mb-4">
-                                <div className="text-center align-middle">
-                                    <h2 className="text-left text-2xl font-bold leading-none tracking-tight">
+                            <div className="flex flex-col space-y-3 lg:flex-row justify-center items-center lg:justify-between px-6 mb-4">
+                                <div className="text-center lg:text-left ">
+                                    <h2 className="text-2xl font-bold leading-none tracking-tight">
                                         {scheduleAction.subjectName}
                                     </h2>
-                                    <div className="text-left">
+                                    <div>
                                         {scheduleAction.type}
                                     </div>
                                     <div className="align-sub flex flex-row">
@@ -140,36 +138,37 @@ export default function HomeContent() {
                                         </div>
                                     </div>
                                 </div>
-                                <ToggleButtonGroup
-                                    className="h-1/2 mt-auto hidden lg:block"
-                                    value={toggleContent}
-                                    exclusive
-                                >
-                                    <ToggleButton value="true" aria-label="" onChange={() => setToggleContent(true)}
-                                                  sx={{
-                                                      fontWeight: 'bold',
-                                                      border: 2,
-                                                      width: 125,
-                                                      borderRadius: '6px'
-                                                  }}>
-                                        Seznam
-                                    </ToggleButton>
-                                    <ToggleButton value="false" aria-label=""
-                                                  onChange={() => setToggleContent(false)} sx={{
-                                        fontWeight: 'bold',
-                                        border: 2,
-                                        width: 125,
-                                        borderRadius: '6px'
-                                    }}>
-                                        Graf
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
+                                <div className="h-1/2 mt-auto hidden lg:block">
+                                    <ToggleButtonGroup
+                                        value={toggleContent}
+                                        exclusive
+                                    >
+                                        <ToggleButton value="true" aria-label="" onChange={() => setToggleContent(true)}
+                                                      sx={{
+                                                          fontWeight: 'bold',
+                                                          border: 2,
+                                                          width: 125,
+                                                          borderRadius: '6px'
+                                                      }}>
+                                            Seznam
+                                        </ToggleButton>
+                                        <ToggleButton value="false" aria-label=""
+                                                      onChange={() => setToggleContent(false)} sx={{
+                                            fontWeight: 'bold',
+                                            border: 2,
+                                            width: 125,
+                                            borderRadius: '6px'
+                                        }}>
+                                            Graf
+                                        </ToggleButton>
+                                    </ToggleButtonGroup>
+                                </div>
                             </div>
 
                             {toggleContent ? (
                                 <AttendanceCard attendance={attendanceData}/>
                             ) : (
-                                <div className="hidden lg:flex h-full justify-center items-center">
+                                <div className="hidden lg:flex justify-center items-center">
                                     <BarChart
                                         sx={{maxHeight: 'calc(100vh - 315px)', width: "500px", overflowY: 'scroll'}}
                                         yAxis={[{data: attendanceStats.map(id => (id.surname)), scaleType: 'band'}]}

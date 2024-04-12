@@ -14,16 +14,6 @@ export default function LoginForm(defaultEmail) {
 
     const router = useRouter();
 
-    //TODO do smth with this useEffect, because session?.status is always 'authenticated'
-
-
-    // useEffect(() => {   //react hook, který se spustí, když se změní některá ze závislostí
-    //     if (session?.status === 'authenticated'){
-    //         router.push("/home");
-    //     }
-    //     console.log(session)
-    // }, [session?.status, router])
-
     const handleSubmit = async () => {
         try {
             const res = await signIn('credentials', {

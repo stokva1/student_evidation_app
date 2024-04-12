@@ -6,7 +6,7 @@ async function addSubject(name){
     const loggedUser = await getLoggedUser()
 
     if (!loggedUser?.tTeacherID){
-        return[];
+        return[]
     }
 
     try {

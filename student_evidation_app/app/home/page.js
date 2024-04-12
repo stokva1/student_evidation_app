@@ -7,7 +7,7 @@ export default async function Home() {
             <Navbar/>
             <HomeContent/>
         </main>
-    );
+    )
 }
 
 

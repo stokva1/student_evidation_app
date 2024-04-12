@@ -1,5 +1,4 @@
 "use server"
-import getSession from "../actions/getSession";
 import prisma from "../../lib/prisma"
 
 async function getUserByEmail(email) {

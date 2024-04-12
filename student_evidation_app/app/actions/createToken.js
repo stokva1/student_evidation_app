@@ -1,13 +1,13 @@
 "use server"
 import prisma from "@/lib/prisma";
-import nodemailer, { createTransport } from "nodemailer"
+import nodemailer from "nodemailer"
 import {addMinutes} from "date-fns";
 
 const text = (email, token, host) => {
     const confirmUrl = `${host}/register?token=${token}`
-    return `Hello,
-Please click the link bellow to confirm your registration on web
-<a href="${confirmUrl}">Confirm my email address</a>`
+    return `Dobrý den,
+Prosím ověřte svoji adresu pomocí tohoto odkazu. (POZOR! Odkaz je validní poze po dobu 30 minut)
+<a href="${confirmUrl}">Ověři adresu</a>`
 }
 
 const getProvider = () => {
@@ -40,8 +40,7 @@ async function createToken(email, host) {
             text: text(email, token, host),
         })
 
-
-        if (result.rejected.length === 0){
+        if (result.rejected.length === 0) {
             return true
         }
 
