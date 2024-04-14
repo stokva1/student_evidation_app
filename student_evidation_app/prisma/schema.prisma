@@ -103,7 +103,6 @@ model tsubject {
 
 model tteacher {
   firstname         String              @db.VarChar(20)
-  phoneNumber       String?             @db.VarChar(15)
   surname           String              @db.VarChar(20)
   tTeacherID        Int                 @id @default(autoincrement())
   tLoginID          Int                 @unique(map: "tLoginID")
