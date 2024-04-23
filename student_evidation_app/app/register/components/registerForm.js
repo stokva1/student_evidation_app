@@ -1,7 +1,6 @@
 "use client"
-
-import {useEffect, useState} from "react";
-import {signIn, useSession} from "next-auth/react";
+import {useState} from "react";
+import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import {useFormik} from "formik";
 import * as Yup from "yup";
@@ -9,20 +8,15 @@ import registerUser from "@/app/actions/registerUser";
 import isToken from "@/app/actions/isToken";
 
 const RegisterSchema = Yup.object({
-    firstname: Yup.string()
-        .required('Jméno je povinný údaj'),
-
-    surname: Yup.string()
-        .required('Příjmení je povinný údaj'),
-
+    firstname: Yup.string().required("Jméno je povinný údaj"),
+    surname: Yup.string().required("Příjmení je povinný údaj"),
     password: Yup.string()
-        .required('Heslo je povinný údaj')
-        .min(6, 'Heslo musí být alespoň 6 znaků dlouhé')
-        .max(60, 'Heslo je příliš dlouhé'),
-
+        .required("Heslo je povinný údaj")
+        .min(6, "Heslo musí být alespoň 6 znaků dlouhé")
+        .max(60, "Heslo je příliš dlouhé"),
     confirmPassword: Yup.string()
-        .required('Potvrzení hesla je povinné')
-        .oneOf([Yup.ref('password'), null], 'Hesla se neshodují'),
+        .required("Potvrzení hesla je povinné")
+        .oneOf([Yup.ref('password'), null], "Hesla se neshodují"),
 });
 
 export default function RegisterForm({token}) {
@@ -137,10 +131,10 @@ export default function RegisterForm({token}) {
                                             autoComplete="current-password"
                                             required
                                             className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
-                                            onChange={(e) => {
+                                            onChange={() => {
                                                 setError("");
                                             }}
-                                            {...formik.getFieldProps('password')}
+                                            {...formik.getFieldProps("password")}
                                         />
                                         {formik.touched.password && formik.errors.password ? (
                                             <div className="text-red-500 text-xs mt-1">
@@ -163,10 +157,10 @@ export default function RegisterForm({token}) {
                                             autoComplete="current-password"
                                             required
                                             className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
-                                            onChange={(e) => {
+                                            onChange={() => {
                                                 setError("");
                                             }}
-                                            {...formik.getFieldProps('confirmPassword')}
+                                            {...formik.getFieldProps("confirmPassword")}
                                         />
                                         {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
                                             <div className="text-red-500 text-xs mt-1">

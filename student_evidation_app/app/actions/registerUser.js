@@ -17,8 +17,8 @@ async function registerUser(firstname, surname, password, tokenObject) {
                 },
             },
         });
-    } catch (e) {
-        console.log(e)
+    } catch (error) {
+        console.log(error)
     }
 
     if (!existingLogin && tokenObject.expiresAt.getTime() > Date.now()) {
@@ -61,8 +61,8 @@ async function registerUser(firstname, surname, password, tokenObject) {
                 }
             })
 
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            console.log(error)
         }
     }
 }

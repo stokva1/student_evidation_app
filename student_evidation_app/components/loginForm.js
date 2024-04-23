@@ -1,16 +1,23 @@
 "use client"
-
-import {useEffect, useState} from "react";
-import {signIn, useSession} from "next-auth/react";
+import {useState} from "react";
+import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
-import {LoginSchema} from "../schemas/loginSchema";
 import {useFormik} from "formik";
+import * as Yup from "yup";
 
+const LoginSchema = Yup.object().shape({
+    email: Yup.string()
+        .required("Email je povinný údaj")
+        .email("Špatný formát emailu"),
+    password: Yup.string()
+        .required("Heslo je povinný údaj")
+        .min(6, "Heslo musí být alespoň 6 znaků dlouhé")
+        .max(60, "Heslo je příliš dlouhé"),
+
+});
 
 export default function LoginForm(defaultEmail) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     const router = useRouter();
 
@@ -45,7 +52,8 @@ export default function LoginForm(defaultEmail) {
     });
 
     return (
-        <div className="absolute bg-white border-2 border-fim drop-shadow-lg rounded-lg flex flex-1 flex-col justify-center px-6 py-10 sm:px-12 sm:border-0">
+        <div
+            className="absolute bg-white border-2 border-fim drop-shadow-lg rounded-lg flex flex-1 flex-col justify-center px-6 py-10 sm:px-12 sm:border-0">
             <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center">
                 Přihlášení
             </h2>
@@ -63,8 +71,7 @@ export default function LoginForm(defaultEmail) {
                                 autoComplete="email"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
+                                onChange={() => {
                                     setError("");
                                 }}
                                 {...formik.getFieldProps('email')}
@@ -85,8 +92,7 @@ export default function LoginForm(defaultEmail) {
                                 autoComplete="current-password"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
+                                onChange={() => {
                                     setError("");
                                 }}
                                 {...formik.getFieldProps('password')}

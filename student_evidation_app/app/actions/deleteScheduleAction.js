@@ -20,8 +20,8 @@ const deleteScheduleAction = async (scheduleActionID) => {
                 tScheduleActionID: scheduleActionID
             },
         });
-    } catch (e) {
-        console.log(e)
+    } catch (error) {
+        console.log(error)
     }
 }
 

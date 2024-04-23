@@ -7,7 +7,7 @@ const text = (email, token, host) => {
     const confirmUrl = `${host}/register?token=${token}`
     return `Dobrý den,
 Prosím ověřte svoji adresu pomocí tohoto odkazu. (POZOR! Odkaz je validní poze po dobu 30 minut)
-<a href="${confirmUrl}">Ověři adresu</a>`
+<a href="${confirmUrl}">Ověřit adresu</a>`
 }
 
 const getProvider = () => {
@@ -36,7 +36,7 @@ async function createToken(email, host) {
         const result = await transport.sendMail({
             to: email,
             from: process.env.EMAIL_FROM,
-            subject: `Sign in to ${host}`,
+            subject: `Potvrzení registrace pro ${host}`,
             text: text(email, token, host),
         })
 
@@ -44,8 +44,8 @@ async function createToken(email, host) {
             return true
         }
 
-    } catch (e) {
-        console.log(e)
+    } catch (error) {
+        console.log(error)
     }
     return false
 }

@@ -5,7 +5,7 @@ import {addWeeks} from "date-fns";
 import {setWeek, nextMonday} from 'date-fns';
 
 
-async function createScheduleAction(date, scheduleActionTypeID, subjectID, students) {
+async function createScheduleAction(date, scheduleActionTypeID, subjectID, students, doOnce) {
     const loggedUser = await getLoggedUser();
 
     if (!loggedUser?.tTeacherID) {
@@ -37,7 +37,9 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
 
         let endOfSemester = new Date()
 
-        if (date > winterStartDate && date <= winterEndDate) {
+        if (doOnce){
+            endOfSemester = new Date(date)
+        } else if (date > winterStartDate && date <= winterEndDate) {
             endOfSemester = winterEndDate
         } else if (date > summerStartDate && date <= summerEndDate) {
             endOfSemester = summerEndDate

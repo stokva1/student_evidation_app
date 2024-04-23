@@ -15,7 +15,7 @@ async function validToken(token) {
 
         return !!isToken
 
-    } catch (e) {
+    } catch (error) {
         return false
     }
 }

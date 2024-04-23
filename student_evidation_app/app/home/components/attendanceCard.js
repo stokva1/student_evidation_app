@@ -1,5 +1,4 @@
 "use client"
-
 import {useEffect, useState} from "react";
 import PresenceCard from "@/app/home/components/presenceCard";
 import Checkbox from '@mui/material/Checkbox';
@@ -20,22 +19,20 @@ import TableRow from '@mui/material/TableRow';
 import * as Yup from 'yup';
 
 const attendanceSchema = Yup.object({
-    tAttendanceID: Yup.number().required('Attendance ID is required'),
-    isPresent: Yup.boolean().required('Presence status is required'),
-    isExcused: Yup.boolean().required('Excused status is required'),
+    tAttendanceID: Yup.number().required("Attendance ID je povinné"),
+    isPresent: Yup.boolean().required("Docházka je povinná"),
+    isExcused: Yup.boolean().required("Omluvenost je povinná"),
     tAbsenceTypeID: Yup.number().nullable()
 })
 
 
 export function AttendanceCard({attendance}) {
-    const label = {inputProps: {'aria-label': 'Checkbox demo'}};
-    const [open, setOpen] = useState(false);
-    const [enable, toggleEnable] = useState(false);
-    const [update, toggleUpdate] = useState(false);
+    const [open, setOpen] = useState(false)
+    const [enable, toggleEnable] = useState(false)
+    const [update, toggleUpdate] = useState(false)
     const [order, setOrder] = useState("asc")
     const [orderBy, setOrderBy] = useState("surname")
-    const [errorMessage, setErrorMessage] = useState('');
-
+    const [errorMessage, setErrorMessage] = useState("")
 
     const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -63,6 +60,7 @@ export function AttendanceCard({attendance}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const validatedAttendance = await Promise.all(attendance.map(async (data) => {
                 try {
@@ -84,11 +82,10 @@ export function AttendanceCard({attendance}) {
             }));
 
             setOpen(true);
-        } catch (e) {
-            console.log(e);
+        } catch (error) {
+            console.log(error);
         }
     };
-
 
     const columns = [
         {id: 'name', label: 'Jméno', minWidth: 'min-content', align: 'left'},
@@ -96,6 +93,7 @@ export function AttendanceCard({attendance}) {
         {id: 'excused', label: 'Omluven', minWidth: 'min-content', align: 'center'},
         {id: 'absenceType', label: 'Typ absence', minWidth: 'min-content', align: 'center'},
     ]
+
     const sortArray = () => {
         if (order === "asc") {
             attendance.sort((a, b) => {
@@ -179,7 +177,7 @@ export function AttendanceCard({attendance}) {
                                     }}/>
                                 </TableCell>
                                 <TableCell sx={{padding: '0 0 0 13px'}} align={"center"}>
-                                    <Checkbox {...label} checked={data.isExcused}
+                                    <Checkbox checked={data.isExcused}
                                               disabled={data.isPresent}
                                               onChange={(e) => {
                                                   data.isExcused = !data.isExcused
@@ -214,7 +212,7 @@ export function AttendanceCard({attendance}) {
                 <Snackbar open={open && errorMessage === ''} onClose={() => setOpen(false)} TransitionComponent={Grow}
                           autoHideDuration={1200}>
                     <Alert severity="success" variant="filled" sx={{width: '100%'}}>
-                        Data were successfully saved!
+                        Data byla úspěšně uložena!
                     </Alert>
                 </Snackbar>
                 <Snackbar open={errorMessage !== ''} onClose={() => setErrorMessage('')} TransitionComponent={Grow}

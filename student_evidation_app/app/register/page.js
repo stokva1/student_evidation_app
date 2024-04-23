@@ -1,7 +1,7 @@
 import Image from "next/image";
 import loginPick from "../../images/login_screen_background.jpg"
 import RegisterForm from "@/app/register/components/registerForm";
-import {redirect, useSearchParams} from "next/navigation";
+import {redirect} from "next/navigation";
 import validToken from "@/app/actions/validToken";
 
 export default async function Register({searchParams}) {
@@ -17,7 +17,7 @@ export default async function Register({searchParams}) {
         maxHeight: "1080px",
     }
 
-    if (!isValid){
+    if (!isValid) {
         redirect("/")
         return
     }
@@ -31,7 +31,7 @@ export default async function Register({searchParams}) {
                            quality={50}
                            placeholder={"blur"}
                            style={imageStyle}
-                           alt="three sudents on stairs"/>
+                           alt="tři studenti na schodech"/>
                 </div>
                 <RegisterForm token={token}/>
             </div>

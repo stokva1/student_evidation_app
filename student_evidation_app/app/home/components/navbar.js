@@ -21,8 +21,9 @@ export default function Navbar() {
                 <div className="ml-3 text-white text-lg font-semibold leading-9 tracking-tight">
                     {userName}
                 </div>
-                <button className="text-white right-0 size-12 rounded-md focus:outline-none transition ease-in-out delay-50 hover:bg-white hover:text-blue-500"
-                        onClick={() => signOut()}>
+                <button
+                    className="text-white right-0 size-12 rounded-md focus:outline-none transition ease-in-out delay-50 hover:bg-white hover:text-blue-500"
+                    onClick={() => signOut()}>
                     <LogoutIcon/>
                 </button>
             </nav>

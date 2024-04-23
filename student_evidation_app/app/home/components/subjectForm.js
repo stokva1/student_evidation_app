@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import {useFormik} from "formik";
 
 const SubjectSchema = Yup.object({
-    subjectName: Yup.string().required("Subject is required"),
+    subjectName: Yup.string().required("Předmět je povinný údaj"),
 })
 
 export function SubjectAddDialog({onSubjectAdded}) {
@@ -28,8 +28,8 @@ export function SubjectAddDialog({onSubjectAdded}) {
                 formik.resetForm()
                 handleClose()
                 onSubjectAdded()
-            } catch (e) {
-                console.log(e)
+            } catch (error) {
+                console.log(error)
             }
         },
     });

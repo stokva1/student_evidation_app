@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Fixing bugs and added the functionality to delete schedule actions.">
+    <list default="true" id="ee4d7be5-b6ac-4276-9770-8c579379f471" name="Changes" comment="Adjusted prisma schema and removed getScheduleActions.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student_evidation_app/app/actions/getScheduleActions.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,23 +26,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "TODO_SCOPE": "All Places",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "last_opened_file_path": "C:/Users/stokv/IdeaProjects/student_evidation_app/student_evidation_app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\stokv\IdeaProjects\student_evidation_app\student_evidation_app\app\register\components" />
@@ -152,7 +155,9 @@
       <workItem from="1712862212104" duration="117000" />
       <workItem from="1712927765483" duration="830000" />
       <workItem from="1712953128393" duration="6323000" />
-      <workItem from="1713094133562" duration="2859000" />
+      <workItem from="1713094133562" duration="3865000" />
+      <workItem from="1713104313513" duration="326000" />
+      <workItem from="1713104746194" duration="1093000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>
@@ -315,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712959507472</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Adjusted prisma schema and removed getScheduleActions.js">
+      <created>1713103002254</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1713103002254</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,7 +367,8 @@
     <MESSAGE value="Started suubjec add functionality and added validation to attendance." />
     <MESSAGE value="Added emmail verificaton functionality" />
     <MESSAGE value="Fixing bugs and added the functionality to delete schedule actions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing bugs and added the functionality to delete schedule actions." />
+    <MESSAGE value="Adjusted prisma schema and removed getScheduleActions.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjusted prisma schema and removed getScheduleActions.js" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

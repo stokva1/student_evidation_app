@@ -22,8 +22,8 @@ async function addSubject(name){
                 tTeacherID: loggedUser.tTeacherID,
             }
         })
-    }catch (e) {
-        console.log(e)
+    }catch (error) {
+        console.log(error)
     }
 }
 

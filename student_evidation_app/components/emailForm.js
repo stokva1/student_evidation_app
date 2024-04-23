@@ -1,8 +1,5 @@
 "use client"
-
-import {useEffect, useState} from "react";
-import {signIn, useSession} from "next-auth/react";
-import {useRouter} from "next/navigation";
+import {useState} from "react";
 import {useFormik} from "formik";
 import * as Yup from "yup";
 import createToken from "@/app/actions/createToken";
@@ -11,14 +8,12 @@ import getUserByEmail from "@/app/actions/getUserByEmail";
 
 const EmailSchema = Yup.object({
     email: Yup.string()
-        .required('Email je povinný údaj')
-        .email('Špatný formát emailu'),
+        .required("Email je povinný údaj")
+        .email("Špatný formát emailu"),
 });
 
 export default function EmailForm({userExist, emailValue}) {
-    const [email, setEmail] = useState('');
     const [error, setError] = useState('');
-
 
     const handleSubmit = async () => {
         try {
@@ -27,8 +22,8 @@ export default function EmailForm({userExist, emailValue}) {
             if (user) {
                 if (!user.password) {
                     const isValid = await createToken(formik.values.email, window.location.origin)
-                    
-                    if (isValid){
+
+                    if (isValid) {
                         setError("Zkontrolujte email, pro dokončení registrace.");
                     } else {
                         setError("Něco se pokazilo :(")
@@ -63,7 +58,8 @@ export default function EmailForm({userExist, emailValue}) {
                 Zadejte email
             </h2>
             <div className="mt-10">
-                <form className="space-y-6" action="student_evidation_app/app/home/components#" method="POST" onSubmit={formik.handleSubmit}>
+                <form className="space-y-6" action="student_evidation_app/app/home/components#" method="POST"
+                      onSubmit={formik.handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium leading-4 text-gray-900">
                             Email
@@ -76,8 +72,7 @@ export default function EmailForm({userExist, emailValue}) {
                                 autoComplete="email"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
+                                onChange={() => {
                                     setError("");
                                 }}
                                 {...formik.getFieldProps('email')}

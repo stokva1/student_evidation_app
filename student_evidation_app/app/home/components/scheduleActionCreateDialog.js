@@ -6,7 +6,7 @@ import {
     DialogContent,
     DialogActions,
     IconButton,
-    Button, Input,
+    Button,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
@@ -15,23 +15,59 @@ import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import getAllSubjects from "@/app/actions/getAllSubjects";
-import getSubjectStudents from "@/app/actions/getSubjectStudents";
 import Papa from 'papaparse';
 import getScheduleActionType from "@/app/actions/getScheduleActionType";
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 import createScheduleAction from "@/app/actions/createScheduleAction";
-import {Formik, Form, useFormik} from "formik";
+import {useFormik} from "formik";
 import dayjs from "dayjs";
 import CloseIcon from '@mui/icons-material/Close';
 import {SubjectAddDialog} from "@/app/home/components/subjectForm";
+import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
+import HelpDialog from "@/app/home/components/helpDialog";
 
 const ScheduleActionSchema = Yup.object({
-    subjectID: Yup.number().required("Subject is required"),
-    typeID: Yup.number().required("Schedule Action Type is required"),
-    date: Yup.date().required("Date is required"),
-    students: Yup.array().required("Students are required").test('notEmpty', 'Students are required', (value) => value && value.length > 0),
+    subjectID: Yup.number().required("Předmět je povinný údaj"),
+    typeID: Yup.number().required("Druh akce je povinný údaj"),
+    doOnce: Yup.boolean(),
+    date: Yup.date().required("Datum je povinný údaj"),
+    students: Yup.array().required("Seznam studentů je povinný údaj").test('notEmpty', "Seznam studentů je povinný údaj", (value) => value && value.length > 0),
 
 });
+
+const Android12Switch = styled(Switch)(({ theme }) => ({
+    padding: 8,
+    '& .MuiSwitch-track': {
+        borderRadius: 22 / 2,
+        '&::before, &::after': {
+            content: '""',
+            position: 'absolute',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 16,
+            height: 16,
+        },
+        '&::before': {
+            backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+                theme.palette.getContrastText(theme.palette.primary.main),
+            )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+            left: 12,
+        },
+        '&::after': {
+            backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+                theme.palette.getContrastText(theme.palette.primary.main),
+            )}" d="M19,13H5V11H19V13Z" /></svg>')`,
+            right: 12,
+        },
+    },
+    '& .MuiSwitch-thumb': {
+        boxShadow: 'none',
+        width: 16,
+        height: 16,
+        margin: 2,
+    },
+}));
 
 
 export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
@@ -86,15 +122,15 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                 };
 
                 reader.onerror = function (e) {
-                    console.error("File could not be read! Code " + e.target.error);
+                    console.error("Soubor nemohl být přečten! " + e.target.error);
                 };
 
                 reader.readAsText(e.target.files[0], "windows-1250");
             } else {
-                alert("Please upload a CSV file.");
+                alert("Prosím nahrajte CSV soubor");
             }
         } else {
-            console.log("No file selected.");
+            console.log("Soubor nebyl vybrán");
         }
     };
 
@@ -102,18 +138,19 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
         initialValues: {
             subjectID: "",
             typeID: "",
+            doOnce: false,
             date: new Date(),
             students: "",
         },
         validationSchema: ScheduleActionSchema,
         onSubmit: async (values) => {
             try {
-                await createScheduleAction(values.date, values.typeID, values.subjectID, values.students)
+                await createScheduleAction(values.date, values.typeID, values.subjectID, values.students, values.doOnce)
                 formik.resetForm()
                 handleClose()
                 onScheduleActionAdded()
-            } catch (e) {
-                console.error(e)
+            } catch (error) {
+                console.error(error)
             }
         },
     });
@@ -174,7 +211,14 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                                     </MenuItem>
                                 ))}
                             </Select>
-                            <div className="font-semibold text-gray-900">Datum</div>
+                            <div className="font-semibold text-gray-900">Datum
+                                <div className="font-light">
+                                    Jednorázová akce
+                                    <Android12Switch id="doOnce" name="doOnce"
+                                                     onChange={(e) => formik.setFieldValue('doOnce', e.target.checked)}
+                                                     checked={formik.values.doOnce}/>
+                                </div>
+                            </div>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']} size="small">
                                     <DateTimePicker id="date" name="date" onChange={(value) => {
@@ -185,8 +229,12 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                                                     sx={{width: "100%"}} ampm={false}/>
                                 </DemoContainer>
                             </LocalizationProvider>
-                            <div className="font-semibold text-gray-900">Seznam studentů</div>
-                            <input id="students" name="students" label="students" type="file" accept=".csv"
+                            <div className="flex flex-row justify-between">
+                                <div className="size-8"></div>
+                                <div className="font-semibold text-gray-900">Seznam studentů</div>
+                                <HelpDialog/>
+                            </div>
+                            <input id="students" name="students" type="file" accept=".csv"
                                    className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white"
                                    onChange={handleFileUpload}
                                    required={formik.touched.students && Boolean(formik.errors.students)}/>

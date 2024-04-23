@@ -18,7 +18,7 @@ export default function Login() {
     }
 
     const userHasPassword = (letLogin) => {
-        if (letLogin){
+        if (letLogin) {
             setLogin(true)
         }
     }
@@ -36,13 +36,12 @@ export default function Login() {
                            quality={50}
                            placeholder={"blur"}
                            style={imageStyle}
-                           alt="three sudents on stairs"/>
+                           alt="tři studenti na schodech"/>
                 </div>
                 {login ? (
                     <LoginForm defaultEmail={email}/>
-                ):(
+                ) : (
                     <EmailForm userExist={userHasPassword} emailValue={handleEmail}/>
-
                 )}
             </div>
         </main>

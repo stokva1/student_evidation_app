@@ -1,5 +1,4 @@
 "use client"
-
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -23,11 +22,14 @@ export default function ScheduleActionCard({scheduleActions, onClick}) {
         // @ts-expect-error Server Component
         <>
             {scheduleActions.map((data, i) => (
-                <div key={i} className={(activeButton === data.tScheduleActionID ? 'border-r-8 border-red-600' : '') + " relative w-full h-min px-4 py-4 bg-white rounded-md z-0 shadow-md hover:shadow-inner hover:translate-x-3 transition ease-in-out delay-50"}>
-                    <button className="absolute right-4 lg:right-2 xl:right-4 bottom-3 size-10 rounded-md text-red-600 hover:text-white hover:bg-red-500 transition ease-in-out delay-50" onClick={(e) => {
-                        handleDelete(data.tScheduleActionID, e).catch()
-                        setActive(false)
-                    }}>
+                <div key={i}
+                     className={(activeButton === data.tScheduleActionID ? 'border-r-8 border-red-600' : '') + " relative w-full h-min px-4 py-4 bg-white rounded-md z-0 shadow-md hover:shadow-inner hover:translate-x-3 transition ease-in-out delay-50"}>
+                    <button
+                        className="absolute right-4 lg:right-2 xl:right-4 bottom-3 size-10 rounded-md text-red-600 hover:text-white hover:bg-red-500 transition ease-in-out delay-50"
+                        onClick={(e) => {
+                            handleDelete(data.tScheduleActionID, e).catch()
+                            setActive(false)
+                        }}>
                         <DeleteOutlineIcon/>
                     </button>
                     <button
@@ -52,7 +54,10 @@ export default function ScheduleActionCard({scheduleActions, onClick}) {
                         <div className="align-sub flex flex-row">
                             <CalendarMonthIcon/>
                             <div>
-                                {data.date.toLocaleString()}
+                                {data.date.toLocaleDateString() + " " + data.date.toLocaleTimeString([], {
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                })}
                             </div>
                         </div>
                     </button>

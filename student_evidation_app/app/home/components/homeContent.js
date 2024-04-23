@@ -15,10 +15,10 @@ import {addWeeks} from "date-fns";
 import {ScheduleActionCreateDialog} from "@/app/home/components/scheduleActionCreateDialog";
 
 export default function HomeContent() {
-    const [attendanceData, setAttendanceData] = useState([]);
-    const [attendanceStats, setAttendanceStats] = useState([]);
-    const [toggleContent, setToggleContent] = useState(true);
-    const [showSideBar, setShowSideBar] = useState(true);
+    const [attendanceData, setAttendanceData] = useState([])
+    const [attendanceStats, setAttendanceStats] = useState([])
+    const [toggleContent, setToggleContent] = useState(true)
+    const [showSideBar, setShowSideBar] = useState(true)
     const [scheduleAction, setScheduleAction] = useState({})
     const [date, setDate] = useState(new Date())
     const [scheduleActions, setScheduleActions] = useState([])
@@ -41,7 +41,7 @@ export default function HomeContent() {
     };
 
     const handleGetAttendanceData = async (id) => {
-        if (id === null){
+        if (id === null) {
             const newScheduleActions = await getScheduleActionsByDate(date)
             setScheduleActions(newScheduleActions.scheduleActions)
             setAttendanceData([])
@@ -54,6 +54,7 @@ export default function HomeContent() {
             setScheduleAction(scheduleActionInfo)
         }
     };
+
     const handleActionAdd = async () => {
         getDate(date).catch()
     }
@@ -98,7 +99,8 @@ export default function HomeContent() {
                     </div>
 
                     {scheduleActions.length === 0 ? (
-                        <div className="h-1/2 flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-white">
+                        <div
+                            className="h-1/2 flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-white">
                             Žádné rozvrhov akce
                         </div>
                     ) : (
@@ -120,10 +122,10 @@ export default function HomeContent() {
                             className="h-4/5 flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                             Není vybrána žádná rozvrhová akce
                         </div>
-
                     ) : (
                         <div className="mb-12">
-                            <div className="flex flex-col space-y-3 lg:flex-row justify-center items-center lg:justify-between px-6 mb-4">
+                            <div
+                                className="flex flex-col space-y-3 lg:flex-row justify-center items-center lg:justify-between px-6 mb-4">
                                 <div className="text-center lg:text-left ">
                                     <h2 className="text-2xl font-bold leading-none tracking-tight">
                                         {scheduleAction.subjectName}
@@ -134,7 +136,7 @@ export default function HomeContent() {
                                     <div className="align-sub flex flex-row">
                                         <CalendarMonthIcon/>
                                         <div>
-                                            {scheduleAction.date && scheduleAction.date.toLocaleString()}
+                                            {scheduleAction.date && scheduleAction.date.toLocaleDateString() + " " + scheduleAction.date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +166,6 @@ export default function HomeContent() {
                                     </ToggleButtonGroup>
                                 </div>
                             </div>
-
                             {toggleContent ? (
                                 <AttendanceCard attendance={attendanceData}/>
                             ) : (

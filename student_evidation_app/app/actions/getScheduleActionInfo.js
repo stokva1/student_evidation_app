@@ -9,7 +9,7 @@ const getScheduleActionsInfo = async (id) => {
             }
         });
         return scheduleActionInfo
-    } catch (e) {
+    } catch (error) {
         return []
     }
 }

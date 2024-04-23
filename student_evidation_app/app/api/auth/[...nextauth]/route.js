@@ -14,7 +14,7 @@ export const authOptions = {
 
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
-                    throw new Error("Missing email or password")
+                    throw new Error("Chybějící email nebo heslo")
                 }
 
                 const user = await prisma.tlogin.findUnique({
@@ -24,7 +24,7 @@ export const authOptions = {
                 })
 
                 if (!user || !(await compare(credentials.password, user.password))) {
-                    throw new Error("Invalid email or password")
+                    throw new Error("Neplatný email nebo heslo")
                 }
 
                 const perm = await prisma.tteacher.findUnique({

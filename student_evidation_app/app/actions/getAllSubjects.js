@@ -28,7 +28,7 @@ async function getAllSubjects() {
         });
 
         return subjectsWithStudents
-    } catch (e) {
+    } catch (error) {
         return []
     }
 }
