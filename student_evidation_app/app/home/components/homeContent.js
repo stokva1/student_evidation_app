@@ -23,6 +23,7 @@ export default function HomeContent() {
     const [date, setDate] = useState(new Date())
     const [scheduleActions, setScheduleActions] = useState([])
     const [week, setWeek] = useState({})
+    const [id, setId] = useState("")
 
     useEffect(() => {
         getDate(date).catch()
@@ -47,6 +48,7 @@ export default function HomeContent() {
             setAttendanceData([])
             setAttendanceStats([])
         } else {
+            setId(id)
             const newScheduleAction = await getData(id)
             setAttendanceData(newScheduleAction.attendanceData)
             setAttendanceStats(newScheduleAction.attendanceStatsArray)
@@ -54,6 +56,16 @@ export default function HomeContent() {
             setScheduleAction(scheduleActionInfo)
         }
     };
+
+    const updateStats = async () => {
+        const newScheduleAction = await getData(id)
+        setAttendanceStats(newScheduleAction.attendanceStatsArray)
+        await updateStats2()
+    }
+    const updateStats2 = async () => {
+        const newScheduleAction = await getData(id)
+        setAttendanceStats(newScheduleAction.attendanceStatsArray)
+    }
 
     const handleActionAdd = async () => {
         getDate(date).catch()
@@ -136,7 +148,10 @@ export default function HomeContent() {
                                     <div className="align-sub flex flex-row">
                                         <CalendarMonthIcon/>
                                         <div>
-                                            {scheduleAction.date && scheduleAction.date.toLocaleDateString() + " " + scheduleAction.date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}
+                                            {scheduleAction.date && scheduleAction.date.toLocaleDateString() + " " + scheduleAction.date.toLocaleTimeString([], {
+                                                hour: '2-digit',
+                                                minute: '2-digit'
+                                            })}
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +182,10 @@ export default function HomeContent() {
                                 </div>
                             </div>
                             {toggleContent ? (
-                                <AttendanceCard attendance={attendanceData}/>
+                                <AttendanceCard
+                                    attendance={attendanceData}
+                                    onClick={updateStats}
+                                />
                             ) : (
                                 <div className="hidden lg:flex justify-center items-center">
                                     <BarChart

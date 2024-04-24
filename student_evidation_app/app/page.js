@@ -8,6 +8,7 @@ import {useState} from "react";
 export default function Login() {
     const [login, setLogin] = useState(false)
     const [email, setEmail] = useState("")
+    const [emailSent, setEmailSent] = useState(false)
 
     const imageStyle = {
         display: "block",
@@ -27,6 +28,10 @@ export default function Login() {
         setEmail(email)
     }
 
+    const handleEmailSent = () => {
+        setEmailSent(true)
+    }
+
     return (
         <main>
             <div className="flex h-screen justify-center items-center overflow-hidden">
@@ -38,10 +43,24 @@ export default function Login() {
                            style={imageStyle}
                            alt="tři studenti na schodech"/>
                 </div>
-                {login ? (
-                    <LoginForm defaultEmail={email}/>
+                {emailSent ? (
+                    <div className="absolute bg-white border-2 border-fim drop-shadow-lg rounded-lg flex flex-1 flex-col justify-center px-6 py-10 sm:px-12 sm:border-0">
+                        <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center">
+                            Zkontrolujte email, pro dokončení registrace.
+                        </h2>
+                    </div>
                 ) : (
-                    <EmailForm userExist={userHasPassword} emailValue={handleEmail}/>
+                    <>
+                        {login ? (
+                            <LoginForm defaultEmail={email}/>
+                        ) : (
+                            <EmailForm
+                                userExist={userHasPassword}
+                                emailValue={handleEmail}
+                                emailSent={handleEmailSent}
+                            />
+                        )}
+                    </>
                 )}
             </div>
         </main>

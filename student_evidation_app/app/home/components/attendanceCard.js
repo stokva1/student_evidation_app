@@ -25,8 +25,7 @@ const attendanceSchema = Yup.object({
     tAbsenceTypeID: Yup.number().nullable()
 })
 
-
-export function AttendanceCard({attendance}) {
+export function AttendanceCard({attendance, onClick}) {
     const [open, setOpen] = useState(false)
     const [enable, toggleEnable] = useState(false)
     const [update, toggleUpdate] = useState(false)
@@ -224,6 +223,7 @@ export function AttendanceCard({attendance}) {
             </TableContainer>
             <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
+                        onClick={onClick}
                         className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner transition ease-in-out delay-50"
                 >
                     SAVE

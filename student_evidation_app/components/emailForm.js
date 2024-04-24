@@ -5,14 +5,13 @@ import * as Yup from "yup";
 import createToken from "@/app/actions/createToken";
 import getUserByEmail from "@/app/actions/getUserByEmail";
 
-
 const EmailSchema = Yup.object({
     email: Yup.string()
         .required("Email je povinný údaj")
         .email("Špatný formát emailu"),
 });
 
-export default function EmailForm({userExist, emailValue}) {
+export default function EmailForm({userExist, emailValue, emailSent}) {
     const [error, setError] = useState('');
 
     const handleSubmit = async () => {
@@ -24,6 +23,7 @@ export default function EmailForm({userExist, emailValue}) {
                     const isValid = await createToken(formik.values.email, window.location.origin)
 
                     if (isValid) {
+                        emailSent()
                         setError("Zkontrolujte email, pro dokončení registrace.");
                     } else {
                         setError("Něco se pokazilo :(")
