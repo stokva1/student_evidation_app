@@ -128,7 +128,7 @@ export default function HomeContent() {
                             Není vybrána žádná rozvrhová akce
                         </div>
                     ) : (
-                        <div className="mb-12 overflow-y-hidden">
+                        <div className={(toggleContent ? "" : "overflow-y-hidden") + " mb-12"}>
                             <div
                                 className="flex flex-col space-y-3 lg:flex-row justify-center items-center lg:justify-between px-6 mb-4">
                                 <div className="text-center lg:text-left ">
