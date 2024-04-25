@@ -7,8 +7,8 @@ const getScheduleActionType = async () => {
         return scheduleAction
 
     } catch (error) {
-        return [];
+        return []
     }
-};
+}
 
 export default getScheduleActionType

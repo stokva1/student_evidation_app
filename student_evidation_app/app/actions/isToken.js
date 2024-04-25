@@ -1,5 +1,5 @@
 "use server"
-import prisma from "@/lib/prisma"
+import prisma from "@/lib/prisma";
 
 async function isToken(newToken) {
     try {
@@ -7,7 +7,8 @@ async function isToken(newToken) {
             where: {
                 token: newToken,
             },
-        });
+        })
+
         if (!token) {
             return null
         } else {

@@ -14,12 +14,11 @@ const LoginSchema = Yup.object().shape({
         .min(6, "Heslo musí být alespoň 6 znaků dlouhé")
         .max(60, "Heslo je příliš dlouhé"),
 
-});
+})
 
 export default function LoginForm(defaultEmail) {
-    const [error, setError] = useState("");
-
-    const router = useRouter();
+    const [error, setError] = useState("")
+    const router = useRouter()
 
     const handleSubmit = async () => {
         try {
@@ -27,20 +26,20 @@ export default function LoginForm(defaultEmail) {
                 email: formik.values.email,
                 password: formik.values.password,
                 redirect: false,
-            });
+            })
 
             if (res.error) {
                 console.log(res.error)
-                setError("Invalid Credentials");
-                return;
+                setError("Invalid Credentials")
+                return
             }
             if (res.ok && !res.error) {
-                router.push("/home");
+                router.push("/home")
             }
         } catch (error) {
             console.log(error)
         }
-    };
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -49,7 +48,7 @@ export default function LoginForm(defaultEmail) {
         },
         validationSchema: LoginSchema,
         onSubmit: handleSubmit,
-    });
+    })
 
     return (
         <div
@@ -72,7 +71,7 @@ export default function LoginForm(defaultEmail) {
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                 onChange={() => {
-                                    setError("");
+                                    setError("")
                                 }}
                                 {...formik.getFieldProps('email')}
                             />
@@ -93,7 +92,7 @@ export default function LoginForm(defaultEmail) {
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                 onChange={() => {
-                                    setError("");
+                                    setError("")
                                 }}
                                 {...formik.getFieldProps('password')}
 

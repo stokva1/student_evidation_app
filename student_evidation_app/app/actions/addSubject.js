@@ -14,7 +14,7 @@ async function addSubject(name){
             data: {
                 name: name,
             },
-        });
+        })
 
         await prisma.tteacherssubjects.create({
             data: {
@@ -27,6 +27,6 @@ async function addSubject(name){
     }
 }
 
-export default addSubject;
+export default addSubject
 
 

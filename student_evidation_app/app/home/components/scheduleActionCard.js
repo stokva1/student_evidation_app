@@ -6,10 +6,10 @@ import {useState} from "react";
 import deleteScheduleAction from "@/app/actions/deleteScheduleAction";
 
 export default function ScheduleActionCard({scheduleActions, onClick}) {
-    const [activeButton, setActive] = useState(null);
+    const [activeButton, setActive] = useState(null)
 
     const handleClick = (e, actionId) => {
-        setActive(actionId);
+        setActive(actionId)
     }
 
     const handleDelete = async (id, e) => {

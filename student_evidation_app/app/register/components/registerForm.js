@@ -17,17 +17,16 @@ const RegisterSchema = Yup.object({
     confirmPassword: Yup.string()
         .required("Potvrzení hesla je povinné")
         .oneOf([Yup.ref('password'), null], "Hesla se neshodují"),
-});
+})
 
 export default function RegisterForm({token}) {
-    const [error, setError] = useState('');
-
-    const router = useRouter();
+    const [error, setError] = useState('')
+    const router = useRouter()
 
     const handleSubmit = async () => {
         if (formik.values.password !== formik.values.confirmPassword) {
-            setError("Hesla se neshodují");
-            return;
+            setError("Hesla se neshodují")
+            return
         }
 
         try {
@@ -39,12 +38,12 @@ export default function RegisterForm({token}) {
                 email: tokenObject.email,
                 password: formik.values.password,
                 redirect: false,
-            });
+            })
 
             if (res.error) {
                 console.log(res.error)
                 setError("Neplatné údaje")
-                return;
+                return
             }
             if (res.ok && !res.error) {
                 router.push("/home")
@@ -52,7 +51,7 @@ export default function RegisterForm({token}) {
         } catch (error) {
             console.log(error)
         }
-    };
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -63,7 +62,7 @@ export default function RegisterForm({token}) {
         },
         validationSchema: RegisterSchema,
         onSubmit: handleSubmit,
-    });
+    })
 
     return (
         <>
@@ -132,7 +131,7 @@ export default function RegisterForm({token}) {
                                             required
                                             className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                             onChange={() => {
-                                                setError("");
+                                                setError("")
                                             }}
                                             {...formik.getFieldProps("password")}
                                         />
@@ -158,7 +157,7 @@ export default function RegisterForm({token}) {
                                             required
                                             className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                             onChange={() => {
-                                                setError("");
+                                                setError("")
                                             }}
                                             {...formik.getFieldProps("confirmPassword")}
                                         />

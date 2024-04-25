@@ -16,7 +16,7 @@ async function registerUser(firstname, surname, password, tokenObject) {
                     },
                 },
             },
-        });
+        })
     } catch (error) {
         console.log(error)
     }
@@ -30,10 +30,10 @@ async function registerUser(firstname, surname, password, tokenObject) {
                 where: {
                     token: tokenObject.token,
                 },
-            });
+            })
 
             if (!tokenRecord) {
-                throw new Error("Token not found");
+                throw new Error("Token not found")
             }
 
             const login = await prisma.tlogin.update({
@@ -43,7 +43,7 @@ async function registerUser(firstname, surname, password, tokenObject) {
                 data: {
                     password: hashedPassword,
                 },
-            });
+            })
 
             await prisma.tteacher.upsert({
                 where: {tLoginID: login.tLoginID},

@@ -25,7 +25,7 @@ async function getAllSubjects() {
                     },
                 },
             },
-        });
+        })
 
         return subjectsWithStudents
     } catch (error) {
@@ -33,4 +33,4 @@ async function getAllSubjects() {
     }
 }
 
-export default getAllSubjects;
+export default getAllSubjects

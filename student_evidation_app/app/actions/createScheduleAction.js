@@ -6,7 +6,7 @@ import {setWeek, nextMonday} from 'date-fns';
 
 
 async function createScheduleAction(date, scheduleActionTypeID, subjectID, students, doOnce) {
-    const loggedUser = await getLoggedUser();
+    const loggedUser = await getLoggedUser()
 
     if (!loggedUser?.tTeacherID) {
         return []
@@ -18,22 +18,22 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
         const winterStartDate = setWeek(nextMonday(new Date(year, 0, 4)), 38, {
             weekStartsOn: 1,
             firstWeekContainsDate: 4
-        });
+        })
 
         const winterEndDate = setWeek(nextMonday(new Date(year, 0, 4)), 51, {
             weekStartsOn: 1,
             firstWeekContainsDate: 4
-        });
+        })
 
         const summerStartDate = setWeek(nextMonday(new Date(year, 0, 4)), 6, {
             weekStartsOn: 1,
             firstWeekContainsDate: 4
-        });
+        })
 
         const summerEndDate = setWeek(nextMonday(new Date(year, 0, 4)), 19, {
             weekStartsOn: 1,
             firstWeekContainsDate: 4
-        });
+        })
 
         let endOfSemester = new Date()
 
@@ -46,12 +46,12 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
         }
 
         while (new Date(date) <= endOfSemester) {
-            const teacher = await prisma.tteacher.findUnique({where: {tTeacherID: loggedUser.tTeacherID}});
-            const subject = await prisma.tsubject.findUnique({where: {tSubjectID: subjectID}});
-            const scheduleActionType = await prisma.tscheduleactiontype.findUnique({where: {tScheduleActionType: scheduleActionTypeID}});
+            const teacher = await prisma.tteacher.findUnique({where: {tTeacherID: loggedUser.tTeacherID}})
+            const subject = await prisma.tsubject.findUnique({where: {tSubjectID: subjectID}})
+            const scheduleActionType = await prisma.tscheduleactiontype.findUnique({where: {tScheduleActionType: scheduleActionTypeID}})
 
             if (!teacher || !subject || !scheduleActionType) {
-                throw new Error('Related records do not exist');
+                throw new Error('Related records do not exist')
             }
 
             const newScheduleAction = await prisma.tscheduleaction.create({
@@ -61,7 +61,7 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
                     tSubjectID: subjectID,
                     tScheduleActionTypeID: scheduleActionTypeID,
                 },
-            });
+            })
 
             for (const student of students) {
 
@@ -72,7 +72,7 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
                         surname: student.surname,
                         personalNum: student.personalNum,
                     },
-                });
+                })
 
                 if (!existingStudent) {
                     const newStudent = await prisma.tstudent.create({
@@ -81,7 +81,7 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
                             surname: student.surname,
                             personalNum: student.personalNum,
                         },
-                    });
+                    })
 
                     studentID = newStudent.tStudentID
 
@@ -90,7 +90,7 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
                             tStudentID: newStudent.tStudentID,
                             tSubjectID: subjectID,
                         },
-                    });
+                    })
                 } else {
                     studentID = existingStudent.tStudentID
 
@@ -107,7 +107,7 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
                                 tStudentID: studentID,
                                 tSubjectID: subjectID,
                             },
-                        });
+                        })
                     }
                 }
 
@@ -118,22 +118,22 @@ async function createScheduleAction(date, scheduleActionTypeID, subjectID, stude
                         tStudentID: studentID,
                         tScheduleActionID: newScheduleAction.tScheduleActionID,
                     },
-                });
+                })
 
                 await prisma.tstudentsscheduleactions.create({
                     data: {
                         tStudentID: studentID,
                         tScheduleActionID: newScheduleAction.tScheduleActionID,
                     },
-                });
+                })
             }
 
             date = addWeeks(new Date(date), 1)
         }
 
     } catch (error) {
-        console.error(error);
+        console.error(error)
     }
 }
 
-export default createScheduleAction;
+export default createScheduleAction

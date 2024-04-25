@@ -7,7 +7,7 @@ const deleteScheduleAction = async (scheduleActionID) => {
             where: {
                 tScheduleActionID: scheduleActionID
             },
-        });
+        })
 
         await prisma.tstudentsscheduleactions.deleteMany({
             where: {
@@ -19,10 +19,10 @@ const deleteScheduleAction = async (scheduleActionID) => {
             where: {
                 tScheduleActionID: scheduleActionID
             },
-        });
+        })
     } catch (error) {
         console.log(error)
     }
 }
 
-export default deleteScheduleAction;
+export default deleteScheduleAction

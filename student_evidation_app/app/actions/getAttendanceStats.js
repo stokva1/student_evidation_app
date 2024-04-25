@@ -31,12 +31,12 @@ const getAttendanceStats = async (name, tSubjectID, tTeacherID) => {
             excusedCount: Number(row.excusedCount),
             unexcusedCount: Number(row.unexcusedCount),
 
-        }));
+        }))
 
         return processedResult
     } catch (error) {
-        return [];
+        return []
     }
-};
+}
 
 export default getAttendanceStats

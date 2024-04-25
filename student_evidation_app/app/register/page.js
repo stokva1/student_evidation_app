@@ -1,5 +1,5 @@
 import Image from "next/image";
-import loginPick from "../../images/login_screen_background.jpg"
+import loginPick from "../../images/login_screen_background.jpg";
 import RegisterForm from "@/app/register/components/registerForm";
 import {redirect} from "next/navigation";
 import validToken from "@/app/actions/validToken";

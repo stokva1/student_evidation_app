@@ -9,10 +9,10 @@ const EmailSchema = Yup.object({
     email: Yup.string()
         .required("Email je povinný údaj")
         .email("Špatný formát emailu"),
-});
+})
 
 export default function EmailForm({userExist, emailValue, emailSent}) {
-    const [error, setError] = useState('');
+    const [error, setError] = useState('')
 
     const handleSubmit = async () => {
         try {
@@ -24,7 +24,7 @@ export default function EmailForm({userExist, emailValue, emailSent}) {
 
                     if (isValid) {
                         emailSent()
-                        setError("Zkontrolujte email, pro dokončení registrace.");
+                        setError("Zkontrolujte email, pro dokončení registrace.")
                     } else {
                         setError("Něco se pokazilo :(")
                     }
@@ -33,12 +33,12 @@ export default function EmailForm({userExist, emailValue, emailSent}) {
                     userExist(true)
                 }
             } else {
-                setError("Email není v databzi učitelů.");
+                setError("Email není v databzi učitelů.")
             }
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-    };
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -49,7 +49,7 @@ export default function EmailForm({userExist, emailValue, emailSent}) {
             handleSubmit(values).catch()
             emailValue(values.email)
         },
-    });
+    })
 
     return (
         <div
@@ -73,7 +73,7 @@ export default function EmailForm({userExist, emailValue, emailSent}) {
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-fim sm:text-sm sm:leading-6"
                                 onChange={() => {
-                                    setError("");
+                                    setError("")
                                 }}
                                 {...formik.getFieldProps('email')}
                             />

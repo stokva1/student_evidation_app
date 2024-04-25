@@ -12,8 +12,8 @@ const getScheduleAction = async (id) => {
 
         return scheduleAction
     } catch (error) {
-        return [];
+        return []
     }
-};
+}
 
 export default getScheduleAction

@@ -1,5 +1,5 @@
 "use server"
-import getScheduleAction from "@/app/actions/getScheduleAction"
+import getScheduleAction from "@/app/actions/getScheduleAction";
 import getAttendance from "@/app/actions/getAttendance";
 import getAttendanceStats from "@/app/actions/getAttendanceStats";
 

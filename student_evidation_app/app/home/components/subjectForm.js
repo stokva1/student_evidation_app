@@ -11,11 +11,11 @@ const SubjectSchema = Yup.object({
 })
 
 export function SubjectAddDialog({onSubjectAdded}) {
-    const [opened, setOpened] = useState(false);
+    const [opened, setOpened] = useState(false)
 
     const handleClose = () => {
-        setOpened(false);
-    };
+        setOpened(false)
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -32,7 +32,7 @@ export function SubjectAddDialog({onSubjectAdded}) {
                 console.log(error)
             }
         },
-    });
+    })
 
     return (
         <>

@@ -1,6 +1,6 @@
 "use server"
 import getSession from "../actions/getSession";
-import prisma from "@/lib/prisma"
+import prisma from "@/lib/prisma";
 
 const getLoggedUser = async () => {
     try {

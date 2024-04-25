@@ -5,7 +5,7 @@ async function getUserByEmail(email) {
     try {
         const user = await prisma.tlogin.findUnique({
             where: {email: email},
-        });
+        })
 
         if (!user) {
             return null

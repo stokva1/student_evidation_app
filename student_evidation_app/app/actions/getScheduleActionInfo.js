@@ -7,11 +7,11 @@ const getScheduleActionsInfo = async (id) => {
             where: {
                 tScheduleActionID: id
             }
-        });
+        })
         return scheduleActionInfo
     } catch (error) {
         return []
     }
 }
 
-export default getScheduleActionsInfo;
+export default getScheduleActionsInfo

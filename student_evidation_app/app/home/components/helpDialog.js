@@ -7,11 +7,11 @@ import helpImage2 from "@/images/helpImage2.png";
 import Image from "next/image";
 
 export default function HelpDialog() {
-    const [opened, setOpened] = useState(false);
+    const [opened, setOpened] = useState(false)
 
     const handleClose = () => {
-        setOpened(false);
-    };
+        setOpened(false)
+    }
 
     return (
         <>

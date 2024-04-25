@@ -39,7 +39,7 @@ export default function HomeContent() {
     const chartSetting = {
         width: 800,
         height: 600,
-    };
+    }
 
     const handleGetAttendanceData = async (id) => {
         if (id === null) {
@@ -55,14 +55,9 @@ export default function HomeContent() {
             const scheduleActionInfo = await getScheduleActionInfo(id)
             setScheduleAction(scheduleActionInfo)
         }
-    };
+    }
 
     const updateStats = async () => {
-        const newScheduleAction = await getData(id)
-        setAttendanceStats(newScheduleAction.attendanceStatsArray)
-        await updateStats2()
-    }
-    const updateStats2 = async () => {
         const newScheduleAction = await getData(id)
         setAttendanceStats(newScheduleAction.attendanceStatsArray)
     }
@@ -107,9 +102,7 @@ export default function HomeContent() {
                             }>
                             <ArrowForwardIosIcon/>
                         </button>
-
                     </div>
-
                     {scheduleActions.length === 0 ? (
                         <div
                             className="h-1/2 flex flex-col text-center justify-center text-2xl font-bold leading-9 tracking-tight text-white">
@@ -135,7 +128,7 @@ export default function HomeContent() {
                             Není vybrána žádná rozvrhová akce
                         </div>
                     ) : (
-                        <div className="mb-12">
+                        <div className="mb-12 overflow-y-hidden">
                             <div
                                 className="flex flex-col space-y-3 lg:flex-row justify-center items-center lg:justify-between px-6 mb-4">
                                 <div className="text-center lg:text-left ">
@@ -187,25 +180,35 @@ export default function HomeContent() {
                                     onClick={updateStats}
                                 />
                             ) : (
-                                <div className="hidden lg:flex justify-center items-center">
+                                <div className="hidden lg:flex justify-center items-center h-full">
                                     <BarChart
                                         sx={{maxHeight: 'calc(100vh - 315px)', width: "500px", overflowY: 'scroll'}}
-                                        yAxis={[{data: attendanceStats.map(id => (id.surname)), scaleType: 'band'}]}
+                                        yAxis={[
+                                            {
+                                                data: attendanceStats.map(id => (id.surname)),
+                                                scaleType: 'band'
+                                            }
+                                        ]}
+                                        xAxis={[{tickMinStep: 1,}]}
                                         series={[
                                             {
                                                 data: attendanceStats.map(id => (id.presentCount)),
                                                 stack: 'A',
-                                                label: 'Příomen'
+                                                label: 'Příomen',
+                                                color: 'rgb(21 128 61)'
                                             },
                                             {
                                                 data: attendanceStats.map(id => (id.excusedCount)),
                                                 stack: 'A',
-                                                label: 'Omluvené'
+                                                label: 'Omluvené',
+                                                color: 'rgb(59 130 246)'
                                             },
                                             {
                                                 data: attendanceStats.map(id => (id.unexcusedCount)),
                                                 stack: 'A',
-                                                label: 'Neomluvené'
+                                                label: 'Neomluvené',
+                                                color: 'rgb(239 68 68)'
+
                                             },
                                         ]}
                                         layout="horizontal"
@@ -218,5 +221,5 @@ export default function HomeContent() {
                 </div>
             </div>
         </>
-    );
+    )
 }

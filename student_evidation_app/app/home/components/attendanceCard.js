@@ -33,43 +33,43 @@ export function AttendanceCard({attendance, onClick}) {
     const [orderBy, setOrderBy] = useState("surname")
     const [errorMessage, setErrorMessage] = useState("")
 
-    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8';
-    const fileExtension = '.xlsx';
-    const fileName = 'attendance';
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8'
+    const fileExtension = '.xlsx'
+    const fileName = 'attendance'
     const attendanceData = attendance.map(function (item) {
-        const {tAttendanceID, scheduleActionID, tAbsenceTypeID, ...newItem} = item;
-        return newItem;
+        const {tAttendanceID, scheduleActionID, tAbsenceTypeID, ...newItem} = item
+        return newItem
     })
 
     const exportToExcel = async (data) => {
-        const ws = XLSX.utils.json_to_sheet(data);
+        const ws = XLSX.utils.json_to_sheet(data)
         ws['!cols'] = [
             {width: 20},
             {width: 20},
             {width: 15},
             {width: 15},
             {width: 50}
-        ];
-        XLSX.utils.sheet_add_aoa(ws, [["Jméno", "Příjmení", "Přítomen", "Omluveno", "Důvod absence"]], {origin: "A1"});
-        const wb = {Sheets: {'data': ws}, SheetNames: ['data']};
-        const excelBuffer = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});
-        const excelData = new Blob([excelBuffer], {type: fileType});
-        FileSaver.saveAs(excelData, fileName + fileExtension);
+        ]
+        XLSX.utils.sheet_add_aoa(ws, [["Jméno", "Příjmení", "Přítomen", "Omluveno", "Důvod absence"]], {origin: "A1"})
+        const wb = {Sheets: {'data': ws}, SheetNames: ['data']}
+        const excelBuffer = XLSX.write(wb, {bookType: 'xlsx', type: 'array'})
+        const excelData = new Blob([excelBuffer], {type: fileType})
+        FileSaver.saveAs(excelData, fileName + fileExtension)
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         try {
             const validatedAttendance = await Promise.all(attendance.map(async (data) => {
                 try {
                     const validatedData = await attendanceSchema.validate(data)
-                    return validatedData;
+                    return validatedData
                 } catch (error) {
                     setErrorMessage(error.message)
-                    throw error;
+                    throw error
                 }
-            }));
+            }))
 
             await Promise.all(validatedAttendance.map(async (data) => {
                 await updateAttendance({
@@ -77,14 +77,15 @@ export function AttendanceCard({attendance, onClick}) {
                     isPresent: data.isPresent,
                     isExcused: data.isExcused,
                     absencetypeID: data.tAbsenceTypeID,
-                });
-            }));
+                })
+            }))
 
-            setOpen(true);
+            setOpen(true)
+            onClick()
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-    };
+    }
 
     const columns = [
         {id: 'name', label: 'Jméno', minWidth: 'min-content', align: 'left'},
@@ -97,36 +98,36 @@ export function AttendanceCard({attendance, onClick}) {
         if (order === "asc") {
             attendance.sort((a, b) => {
                 if (orderBy === 'name') {
-                    return a.surname.localeCompare(b.surname);
+                    return a.surname.localeCompare(b.surname)
                 } else if (orderBy === 'present') {
-                    return a.isPresent - b.isPresent;
+                    return a.isPresent - b.isPresent
                 } else if (orderBy === 'excused') {
-                    return a.isExcused - b.isExcused;
+                    return a.isExcused - b.isExcused
                 } else if (orderBy === 'absenceType') {
-                    return a.tAbsenceTypeID - b.tAbsenceTypeID;
+                    return a.tAbsenceTypeID - b.tAbsenceTypeID
                 }
-                return 0;
-            });
+                return 0
+            })
         } else {
             attendance.sort((a, b) => {
                 if (orderBy === 'name') {
-                    return b.surname.localeCompare(a.surname);
+                    return b.surname.localeCompare(a.surname)
                 } else if (orderBy === 'present') {
-                    return b.isPresent - a.isPresent;
+                    return b.isPresent - a.isPresent
                 } else if (orderBy === 'excused') {
-                    return b.isExcused - a.isExcused;
+                    return b.isExcused - a.isExcused
                 } else if (orderBy === 'absenceType') {
-                    return b.tAbsenceTypeID - a.tAbsenceTypeID;
+                    return b.tAbsenceTypeID - a.tAbsenceTypeID
                 }
-                return 0;
-            });
+                return 0
+            })
         }
     }
 
     useEffect(() => {
         sortArray()
         toggleUpdate(!update)
-    }, [orderBy, order]);
+    }, [orderBy, order])
 
     return (
         <form className="divide-y px-6" onSubmit={handleSubmit}>
@@ -223,7 +224,6 @@ export function AttendanceCard({attendance, onClick}) {
             </TableContainer>
             <div className="w-full flex justify-center space-x-2 py-4">
                 <button type="submit"
-                        onClick={onClick}
                         className="w-28 h-12 bg-blue-500 rounded-md px-2 py-1.5 text-white text-sm font-semibold shadow-md hover:bg-white hover:text-gray-900 hover:border-gray-900 hover:outline hover:outline-1 hover:outline-gray-900 hover:shadow-inner transition ease-in-out delay-50"
                 >
                     SAVE

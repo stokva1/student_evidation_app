@@ -1,13 +1,6 @@
 import React, {useEffect, useState} from "react";
 import * as Yup from "yup";
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    IconButton,
-    Button,
-} from "@mui/material";
+import {Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Button} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
@@ -34,7 +27,7 @@ const ScheduleActionSchema = Yup.object({
     date: Yup.date().required("Datum je povinný údaj"),
     students: Yup.array().required("Seznam studentů je povinný údaj").test('notEmpty', "Seznam studentů je povinný údaj", (value) => value && value.length > 0),
 
-});
+})
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
     padding: 8,
@@ -67,7 +60,7 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
         height: 16,
         margin: 2,
     },
-}));
+}))
 
 
 export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
@@ -76,8 +69,8 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
     const [types, setTypes] = useState([])
 
     const handleClose = () => {
-        setOpened(false);
-    };
+        setOpened(false)
+    }
 
     useEffect(() => {
         getActionTypesAndSubjects().catch()
@@ -97,14 +90,14 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
 
     const handleFileUpload = (e) => {
         if (e.target.files.length > 0) {
-            const file = e.target.files[0];
-            const fileExtension = file.name.split('.').pop().toLowerCase();
+            const file = e.target.files[0]
+            const fileExtension = file.name.split('.').pop().toLowerCase()
 
             if (fileExtension === "csv") {
-                const reader = new FileReader();
+                const reader = new FileReader()
 
                 reader.onload = function (e) {
-                    const csvData = e.target.result;
+                    const csvData = e.target.result
                     Papa.parse(csvData, {
                         delimiter: ";",
                         encoding: "windows-1250",
@@ -114,25 +107,25 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                                 surname: row.prijmeni,
                                 firstname: row.jmeno,
                                 personalNum: row.osCislo
-                            }));
+                            }))
                             formik.setFieldValue("students", names)
                         },
                         skipEmptyLines: true,
-                    });
-                };
+                    })
+                }
 
                 reader.onerror = function (e) {
-                    console.error("Soubor nemohl být přečten! " + e.target.error);
-                };
+                    console.error("Soubor nemohl být přečten! " + e.target.error)
+                }
 
-                reader.readAsText(e.target.files[0], "windows-1250");
+                reader.readAsText(e.target.files[0], "windows-1250")
             } else {
-                alert("Prosím nahrajte CSV soubor");
+                alert("Prosím nahrajte CSV soubor")
             }
         } else {
-            console.log("Soubor nebyl vybrán");
+            console.log("Soubor nebyl vybrán")
         }
-    };
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -153,7 +146,7 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                 console.error(error)
             }
         },
-    });
+    })
 
     return (
         <>
@@ -222,7 +215,7 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']} size="small">
                                     <DateTimePicker id="date" name="date" onChange={(value) => {
-                                        formik.setFieldValue('date', new Date(value));
+                                        formik.setFieldValue('date', new Date(value))
                                     }}
                                                     className="bg-gray-100"
                                                     value={formik.values.date ? dayjs(formik.values.date) : null}
@@ -250,7 +243,6 @@ export function ScheduleActionCreateDialog({onScheduleActionAdded}) {
                     </DialogActions>
                 </form>
             </Dialog>
-
         </>
-    );
+    )
 }

@@ -10,11 +10,11 @@ const getAttendance = async (scheduleActionID) => {
             where: {
                 scheduleActionID: scheduleActionID
             },
-        });
+        })
         return attendance
     } catch (error) {
         return []
     }
 }
 
-export default getAttendance;
+export default getAttendance

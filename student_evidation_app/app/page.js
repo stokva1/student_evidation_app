@@ -1,7 +1,7 @@
 "use client"
 import LoginForm from "@/components/loginForm";
 import Image from "next/image";
-import loginPick from "../images/login_screen_background.jpg"
+import loginPick from "../images/login_screen_background.jpg";
 import EmailForm from "@/components/emailForm";
 import {useState} from "react";
 
@@ -64,7 +64,7 @@ export default function Login() {
                 )}
             </div>
         </main>
-    );
+    )
 }
 
 

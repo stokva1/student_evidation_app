@@ -1,6 +1,6 @@
 "use server"
 import prisma from "@/lib/prisma";
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 import {addMinutes} from "date-fns";
 
 const text = (email, token, host) => {
@@ -18,19 +18,19 @@ const getProvider = () => {
             user: process.env.EMAIL_SERVER_USER,
             pass: process.env.EMAIL_SERVER_PASSWORD
         }
-    });
+    })
 }
 
 async function createToken(email, host) {
     try {
-        const token = crypto.randomUUID();
+        const token = crypto.randomUUID()
         const expiresAt = addMinutes(new Date(), 30)
 
         await prisma.ttoken.upsert({
             where: {email: email},
             update: {token, expiresAt},
             create: {email, token, expiresAt},
-        });
+        })
 
         const transport = getProvider()
         const result = await transport.sendMail({
