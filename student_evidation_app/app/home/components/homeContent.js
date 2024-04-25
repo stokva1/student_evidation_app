@@ -189,7 +189,7 @@ export default function HomeContent() {
                                                 scaleType: 'band'
                                             }
                                         ]}
-                                        xAxis={[{tickMinStep: 1,}]}
+                                        xAxis={[{tickMinStep: 1}]}
                                         series={[
                                             {
                                                 data: attendanceStats.map(id => (id.presentCount)),
