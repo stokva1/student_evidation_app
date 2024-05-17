@@ -33,7 +33,7 @@
     "TODO_SCOPE": "All Places",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "C:/Users/stokv/IdeaProjects/student_evidation_app/student_evidation_app",
+    "last_opened_file_path": "C:/Users/stokv/IdeaProjects/student_evidation_app",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -158,6 +158,7 @@
       <workItem from="1713094133562" duration="3865000" />
       <workItem from="1713104313513" duration="326000" />
       <workItem from="1713104746194" duration="1093000" />
+      <workItem from="1715904218795" duration="972000" />
     </task>
     <task id="LOCAL-00001" summary="Late inital commit (login form, login page, prisma, started next auth)">
       <created>1704905366160</created>

@@ -1,0 +1,40 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+student_evidation_app/node_modules
+student_evidation_app/.pnp
+student_evidation_app/.pnp.js
+student_evidation_app/.yarn/install-state.gz
+
+# testing
+student_evidation_app/coverage
+
+# next.js
+student_evidation_app/.next/
+student_evidation_app/out/
+
+# production
+student_evidation_app/build
+
+# misc
+student_evidation_app/.DS_Store
+student_evidation_app/*.pem
+
+# debug
+student_evidation_app/npm-debug.log*
+student_evidation_app/yarn-debug.log*
+student_evidation_app/yarn-error.log*
+
+# local env files
+student_evidation_app/.env*.local
+student_evidation_app/.env
+
+# vercel
+student_evidation_app/.vercel
+
+# typescript
+student_evidation_app/*.tsbuildinfo
+student_evidation_app/next-env.d.ts
+
+.idea
+
